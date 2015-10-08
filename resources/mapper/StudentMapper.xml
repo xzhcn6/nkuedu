@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nku.xkxt.mapper.StudentMapper">
+	<resultMap id="Student_ResultMap" type="nku.xkxt.model.Student">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="school" property="school" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="passwd" property="passwd" />
+		<result column="student_num" property="studentNum" />
+	</resultMap>
+
+	<sql id="Student_Column_List">
+		id,
+		name,
+		school,
+		telephone,
+		email,
+		passwd,
+		student_num
+	</sql>
+
+	<select id="getStudentById" resultMap="Student_ResultMap" >
+		select 
+		<include refid="Student_Column_List" />
+		from student
+		<where>
+			0=0
+			<if test="id != null" >
+		    	and  ID = #{id}
+		    </if>
+		</where>
+	</select>
+	
+</mapper>
