@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" style="text/html" href="${pageContext.request.contextPath}/CSS/register.css">
-<script type="text/javascript"  charset="utf-8" src="${pageContext.request.contextPath}/JS/register.js"></script>
+<link rel="stylesheet" style="text/html" href="../static/CSS/register.css">
+<script type="text/javascript"  charset="utf-8" src="../static/JS/register.js"></script>
 <title>信息注册</title>
 </head>
 <body onload="jsmethod()"  style="font-family:微软雅黑;">
 	<div class="main">
 	<div class="header"></div>
-		<form action="RegisterAction" method="post" onsubmit="return checkAll()">
+		<form action="addStudent" method="post" onsubmit="return checkAll()">
 			<div class="content"  style="padding-top:5%;padding-bottom:10%;">
 				<table cellpadding="5" align="center">
 					<tr>
@@ -47,12 +47,11 @@
 					<tr>
 						<td>验&nbsp;&nbsp;&nbsp;证&nbsp;&nbsp;&nbsp;码：</td>
 						<td><input type="text" name="code" id="code"></td>
-						<td><img src="ValidateImage" id="codeAction"  style="cursor:pointer;" alt="看不清，换一张"/></td>
+						<td><img src="/nkuedu/verifyCode/code" id="codeAction"  style="cursor:pointer;" onclick="this.src='/nkuedu/verifyCode/code?k='+Math.random()" alt="看不清，换一张"/></td>
 					</tr>
 					<tr><td><div id='warn'></div></td></tr>
 					<tr>
 					<td></td>
-					<%@ taglib prefix="s" uri="/struts-tags" %>
 					<s:if test="hasFieldErrors()">
 						<s:iterator value="fieldErrors">
 							<td><font color=blue><s:property value="value[0]"/></font></td>

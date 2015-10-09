@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nku.core.common.Constants;
+import nku.core.common.VerifyCodeConstants;
 import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.StudentService;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 @Controller
 @RequestMapping(value = "/account")
@@ -32,9 +32,6 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/register")
 	public String register(Model model) {
-		Properties props = new Properties();
-		String baseURL = props.getProperty("sys.url.baseURL");
-		System.out.println(baseURL);
 		return "register";
 	}
 	/*
@@ -46,11 +43,22 @@ public class AccountController {
         response.setCharacterEncoding("UTF-8");//防止弹出的信息出现乱码
 		PrintWriter out = response.getWriter();
 		
+		String code = request.getParameter("code");
+		String image = (String)request.getSession().getAttribute(VerifyCodeConstants.SessionName);
+
+		if(code==null||image==null||!image.equalsIgnoreCase(code)){
+			out.print("<script>alert('验证码输入有误!')</script>");
+			out.print("<script>window.location.href='http://localhost:8888/nkuedu/account/register'</script>");
+            out.flush();
+            out.close();
+		}
+		
 		String name = request.getParameter("name");
 		String school = request.getParameter("school");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		String password = request.getParameter("password");
+		
 		Student newStu = new Student();
 		newStu.setId(UUIDGenerator.getUUID());
 		newStu.setName(name);

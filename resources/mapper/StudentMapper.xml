@@ -33,4 +33,71 @@
 		</where>
 	</select>
 	
+	<insert id="insertStudent" parameterType="nku.xkxt.model.Student" useGeneratedKeys="true" keyProperty="id">
+		insert into student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					ID,
+			</if>
+			<if test="name != null">
+					name,
+			</if>
+			<if test="school != null">
+					school,
+			</if>
+			<if test="telephone != null">
+					telephone,
+			</if>
+			<if test="email != null">
+					email,
+			</if>
+			<if test="passwd != null">
+					passwd,
+			</if>
+			<if test="studentNum != null">
+					student_num
+			</if>
+		</trim>
+		values <trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					#{id},
+			</if>
+			<if test="name != null">
+					#{name},
+			</if>
+			<if test="school != null">
+					#{school},
+			</if>
+			<if test="telephone != null">
+					#{telephone},
+			</if>
+			<if test="email != null">
+					#{email},
+			</if>
+			<if test="passwd != null">
+					#{passwd},
+			</if>
+			<if test="studentNum != null">
+					#{studentNum}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="getLastStudentNum" resultType="int" >
+		select 
+		max(student_num) FROM student
+	</select>
+	
+	<select id="checkStudentByEmail" resultMap="Student_ResultMap" >
+		select 
+		<include refid="Student_Column_List" />
+		from student
+		<where>
+			0=0
+			<if test="email != null" >
+		    	and  email = #{email}
+		    </if>
+		</where>
+	</select>
+	
 </mapper>
