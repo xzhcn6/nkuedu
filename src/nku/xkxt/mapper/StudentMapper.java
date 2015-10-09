@@ -1,5 +1,7 @@
 package nku.xkxt.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import nku.xkxt.model.Student;
@@ -7,4 +9,10 @@ import nku.xkxt.model.Student;
 public interface StudentMapper {
 	
 	Student getStudentById(@Param("id")String id);
+	
+	int insertStudent(Student student);
+	
+	int getLastStudentNum();
+	
+	List<Student> checkStudentByEmail(@Param("email")String email);
 }

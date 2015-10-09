@@ -20,6 +20,6 @@ public class LoginController {
 	public String login(Model model) {
 		Student student = studentService.getStudentById("1");
 		model.addAttribute("student", student);
-		return "register";
+		return "index";
 	}
 }

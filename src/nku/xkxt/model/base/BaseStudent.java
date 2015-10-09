@@ -18,7 +18,7 @@ public abstract class BaseStudent implements Serializable {
 	
 	private String passwd;
 	
-	private String studentNum;
+	private int studentNum;
 
 	public String getId() {
 		return id;
@@ -68,11 +68,11 @@ public abstract class BaseStudent implements Serializable {
 		this.passwd = passwd;
 	}
 
-	public String getStudentNum() {
+	public int getStudentNum() {
 		return studentNum;
 	}
 
-	public void setStudentNum(String studentNum) {
+	public void setStudentNum(int studentNum) {
 		this.studentNum = studentNum;
 	}
 

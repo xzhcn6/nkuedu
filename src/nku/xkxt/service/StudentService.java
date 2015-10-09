@@ -6,4 +6,8 @@ public interface StudentService {
 	
 	Student getStudentById(String id);
 	
+	int registerStudent(Student student);
+	
+	int getLastStudentNum();
+	
 }

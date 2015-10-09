@@ -1,5 +1,7 @@
 package nku.xkxt.dao.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
@@ -17,5 +19,20 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public Student getStudentById(String id){
 		return studentMapper.getStudentById(id);
+	}
+	
+	@Override
+	public int insertStudent(Student student){
+		return studentMapper.insertStudent(student);
+	}
+	
+	@Override
+	public int getLastStudentNum(){
+		return studentMapper.getLastStudentNum();
+	}
+	
+	@Override
+	public List<Student> checkStudentByEmail(String email){
+		return studentMapper.checkStudentByEmail(email);
 	}
 }
