@@ -20,6 +20,12 @@ public class LoginController {
 	public String login(Model model) {
 		Student student = studentService.getStudentById("1");
 		model.addAttribute("student", student);
+		return "login";
+	}
+	@RequestMapping(value = "/index")
+	public String index(Model model) {
+		Student student = studentService.getStudentById("1");
+		model.addAttribute("student", student);
 		return "index";
 	}
 }
