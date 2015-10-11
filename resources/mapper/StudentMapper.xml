@@ -20,10 +20,19 @@
 		passwd,
 		student_num
 	</sql>
+	
+	<sql id="Student_WitoutPw_Column_List">
+		id,
+		name,
+		school,
+		telephone,
+		email,
+		student_num
+	</sql>
 
 	<select id="getStudentById" resultMap="Student_ResultMap" >
 		select 
-		<include refid="Student_Column_List" />
+		<include refid="Student_WitoutPw_Column_List" />
 		from student
 		<where>
 			0=0
