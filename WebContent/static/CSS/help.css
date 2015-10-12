@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+h1{
+	color:#440062;
+	text-align: center;
+}
+h3{
+	margin-left:50px;
+}
+li{
+	line-height: 40px;
+	font-weight: bold;
+	margin-left:100px;
+}
