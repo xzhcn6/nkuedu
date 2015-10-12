@@ -99,10 +99,21 @@
 	
 	<select id="checkStudentByEmail" resultMap="Student_ResultMap" >
 		select 
-		<include refid="Student_Column_List" />
+		<include refid="Student_WitoutPw_Column_List" />
 		from student
 		<where>
 			0=0
+			<if test="email != null" >
+		    	and  email = #{email}
+		    </if>
+		</where>
+	</select>
+	
+	<select id="getStudentNumByEmail" resultType="string" >
+		select student_num
+		from student
+		<where>
+			is_delete=0
 			<if test="email != null" >
 		    	and  email = #{email}
 		    </if>

@@ -13,7 +13,7 @@
 <div class="main">
 	<div class="header"></div>
 	<center><br><br>
-	<form action="ForgotPassword" method="post" onsubmit="return checkAll()">
+	<form action="findAccount" method="post" onsubmit="return checkAll()">
 	<p align="center"></p>
 	<table>
 		<tr><td><strong>您注册时所使用的邮箱：</strong></td>

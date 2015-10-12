@@ -41,4 +41,9 @@ public class StudentServiceImpl implements StudentService{
 	public int getLastStudentNum(){
 		return studentDAO.getLastStudentNum();
 	}
+	
+	@Override
+	public String getStudentNumByEmail(String email){
+		return studentDAO.getStudentNumByEmail(email);
+	}
 }

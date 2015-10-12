@@ -14,4 +14,5 @@ public interface StudentDAO {
 	
 	List<Student> checkStudentByEmail(String email);
 	
+	String getStudentNumByEmail(String email);
 }

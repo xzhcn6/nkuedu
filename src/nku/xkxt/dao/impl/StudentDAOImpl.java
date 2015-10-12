@@ -35,4 +35,9 @@ public class StudentDAOImpl implements StudentDAO{
 	public List<Student> checkStudentByEmail(String email){
 		return studentMapper.checkStudentByEmail(email);
 	}
+	
+	@Override
+	public String getStudentNumByEmail(String email){
+		return studentMapper.getStudentNumByEmail(email);
+	}
 }

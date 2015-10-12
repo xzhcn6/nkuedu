@@ -10,4 +10,6 @@ public interface StudentService {
 	
 	int getLastStudentNum();
 	
+	String getStudentNumByEmail(String email);
+	
 }

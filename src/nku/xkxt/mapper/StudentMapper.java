@@ -15,4 +15,6 @@ public interface StudentMapper {
 	int getLastStudentNum();
 	
 	List<Student> checkStudentByEmail(@Param("email")String email);
+	
+	String getStudentNumByEmail(@Param("email")String email);
 }

@@ -17,7 +17,7 @@ public class LoginController {
 	private StudentService studentService;
 	
 	@RequestMapping(value = "/home")
-	public String login(Model model) {
+	public String home(Model model) {
 		Student student = studentService.getStudentById("1");
 		model.addAttribute("student", student);
 		return "login";
@@ -28,4 +28,12 @@ public class LoginController {
 		model.addAttribute("student", student);
 		return "index";
 	}
+	
+	@RequestMapping(value = "/login")
+	public String login(Model model) {
+		Student student = studentService.getStudentById("1");
+		model.addAttribute("student", student);
+		return "index";
+	}
+	
 }

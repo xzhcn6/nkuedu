@@ -100,5 +100,45 @@ public class AccountController {
 		int newStuNum = lasNum + 1;
 		return newStuNum;
 	}
-	
+	/*
+	 * 忘记账号:跳转页面
+	 */
+	@RequestMapping(value = "/forgotAccount")
+	public String forgotAccount(Model model) {	
+		return "forgotAccount";
+	}
+	/*
+	 * 根据邮箱找回账号
+	 */
+	@RequestMapping(value = "/findAccount")
+	public String findAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");//防止弹出的信息出现乱码
+		PrintWriter out = response.getWriter();
+		
+		String code = request.getParameter("code");
+		String image = (String)request.getSession().getAttribute(VerifyCodeConstants.SessionName);
+
+		if(code==null||image==null||!image.equalsIgnoreCase(code)){
+			out.print("<script>alert('验证码输入有误!')</script>");
+			out.print("<script>window.location.href='http://localhost:8888/nkuedu/account/forgotAccount'</script>");
+            out.flush();
+            out.close();
+		}
+		
+		String email = request.getParameter("email");
+		
+		String account = studentService.getStudentNumByEmail(email);
+		if(account != null){
+			out.print("<script>alert('邮箱验证成功！您的学号为"+account+"');window.location.href='http://localhost:8888/nkuedu/account/forgotAccount'</script>");
+			out.flush();
+            out.close();
+		} else {
+			out.print("<script>alert('失败！！请填写您注册时所用的邮箱！！');location.href='http://localhost:8888/nkuedu/account/forgotAccount'</script>");
+			out.flush();
+            out.close();
+		}
+		
+		return "forgotAccount";
+	}
 }
