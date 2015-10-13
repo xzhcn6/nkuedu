@@ -9,6 +9,7 @@
 		<result column="email" property="email" />
 		<result column="passwd" property="passwd" />
 		<result column="student_num" property="studentNum" />
+		<result column="is_delete" property="isDelete" />
 	</resultMap>
 
 	<sql id="Student_Column_List">
@@ -18,7 +19,8 @@
 		telephone,
 		email,
 		passwd,
-		student_num
+		student_num,
+		is_delete
 	</sql>
 	
 	<sql id="Student_WitoutPw_Column_List">
@@ -27,7 +29,8 @@
 		school,
 		telephone,
 		email,
-		student_num
+		student_num,
+		is_delete
 	</sql>
 
 	<select id="getStudentById" resultMap="Student_ResultMap" >
@@ -35,7 +38,7 @@
 		<include refid="Student_WitoutPw_Column_List" />
 		from student
 		<where>
-			0=0
+			is_delete=0
 			<if test="id != null" >
 		    	and  ID = #{id}
 		    </if>
@@ -64,7 +67,10 @@
 					passwd,
 			</if>
 			<if test="studentNum != null">
-					student_num
+					student_num,
+			</if>
+			<if test="isDelete != null">
+					is_delete
 			</if>
 		</trim>
 		values <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -102,7 +108,7 @@
 		<include refid="Student_WitoutPw_Column_List" />
 		from student
 		<where>
-			0=0
+			is_delete=0
 			<if test="email != null" >
 		    	and  email = #{email}
 		    </if>
@@ -118,6 +124,19 @@
 		    	and  email = #{email}
 		    </if>
 		</where>
+	</select>
+	
+	<select id="getStudentByNum" resultMap="Student_ResultMap" >
+		select 
+		<include refid="Student_Column_List" />
+		from student
+		<where>
+			is_delete=0
+			<if test="studentNum != null" >
+		    	and  student_num = #{studentNum}
+		    </if>
+		</where>
+		limit 1
 	</select>
 	
 </mapper>
