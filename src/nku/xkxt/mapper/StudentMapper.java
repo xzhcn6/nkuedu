@@ -17,4 +17,6 @@ public interface StudentMapper {
 	List<Student> checkStudentByEmail(@Param("email")String email);
 	
 	String getStudentNumByEmail(@Param("email")String email);
+	
+	Student getStudentByNum(@Param("studentNum")int studentNum); 
 }

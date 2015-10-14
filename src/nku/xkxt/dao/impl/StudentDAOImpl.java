@@ -40,4 +40,9 @@ public class StudentDAOImpl implements StudentDAO{
 	public String getStudentNumByEmail(String email){
 		return studentMapper.getStudentNumByEmail(email);
 	}
+	
+	@Override
+	public Student getStudentByNum(int studentNum){
+		return studentMapper.getStudentByNum(studentNum);
+	}
 }

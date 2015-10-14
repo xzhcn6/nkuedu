@@ -46,4 +46,17 @@ public class StudentServiceImpl implements StudentService{
 	public String getStudentNumByEmail(String email){
 		return studentDAO.getStudentNumByEmail(email);
 	}
+	
+	public int studentCheckLogin(int studentNum, String password){
+		Student student = studentDAO.getStudentByNum(studentNum);
+		if (student == null){
+			return Constants.NO_SUCH_USER;
+		} else {
+			if (!password.equals(student.getPasswd())){
+				return Constants.WRONG_PWD;
+			} else {
+				return Constants.SUCCESS_LOGIN;
+			}
+		}
+	}
 }
