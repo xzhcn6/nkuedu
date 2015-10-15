@@ -7,6 +7,6 @@
 <title>高中生夏季学期选课系统</title>
 </head>
 <body>
-<jsp:forward page="/login/home"></jsp:forward>
+<jsp:forward page="<%=request.getContextPath()%>/client/home"></jsp:forward>
 </body>
 </html>

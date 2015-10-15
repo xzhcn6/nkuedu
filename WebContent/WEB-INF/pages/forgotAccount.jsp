@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" style="text/html" href="../static/CSS/forgotPassword.css">
-<script type="text/javascript" charset="utf-8" src="../static/JS/forgotPassword.js"></script>
+<link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/forgotPassword.css">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/forgotPassword.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>找回账户</title>
 </head>

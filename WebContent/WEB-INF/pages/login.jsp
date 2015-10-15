@@ -4,38 +4,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" style="text/html" href="./static/CSS/login.css">
-<script type="text/javascript"  charset="utf-8" src="./static/JS/register.js"></script>
+<link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/login.css">
+<script type="text/javascript"  charset="utf-8" src="<%=request.getContextPath()%>/static/JS/register.js"></script>
 <title>南开大学夏季学期高中生选课系统</title>
 </head>
 <body>
 <div class="main">
 	<div class="head"></div>
 	<div style="height: 1px; clear: both;"></div>
-	<form action="LoginAction" method="post">
+	<form action="login" method="post">
 		<div class="content">
 		<div style="height: 1px; clear: both;"></div>
 			<ul>
 				<li>学号</li>
-				<li><input type="text" name="studentnum" id="studentnum"><a href="forgotPassword.jsp" target="_blank">？找回学号</a></li>		
+				<li><input type="text" name="studentnum" id="studentnum"><a href="<%=request.getContextPath() %>/account/forgotAccount" target="_blank">？找回学号</a></li>		
 				<li>密码</li>
 				<li><input type="password" name="password" id="name"></li>
 				<li>验证码</li>
 				<li><table><tr><td>
 				<input type="text" name="code" id="code"></td><td>
-				<img src="verifyCode/code" id="codeAction"  style="cursor:pointer;" onclick="this.src='/nkuedu/verifyCode/code?k='+Math.random()" alt="看不清，换一张"/>  
+				<img src="<%=request.getContextPath()%>/verifyCode/code" id="codeAction"  style="cursor:pointer;" onclick="this.src='<%=request.getContextPath()%>/verifyCode/code?k='+Math.random()" alt="看不清，换一张"/>  
 				</td></tr></table>
 				</li>
-				<s:if test="hasFieldErrors()">
-					<s:iterator value="fieldErrors">
-						<li><font color=blue><s:property value="value[0]"/></font></li>
-					</s:iterator>
-				</s:if>
-				<li><input type="submit" value="登录" onclick="return checkAll()">&nbsp;&nbsp;没有帐号？马上<a href="account/register">注册</a></li>
+<!-- 				<s:if test="hasFieldErrors()"> -->
+<!-- 					<s:iterator value="fieldErrors"> -->
+<!-- 						<li><font color=blue><s:property value="value[0]"/></font></li> -->
+<!-- 					</s:iterator> -->
+<!-- 				</s:if> -->
+				<li><input type="submit" value="登录" onclick="return checkAll()">&nbsp;&nbsp;没有帐号？马上<a href="<%=request.getContextPath()%>/account/register">注册</a></li>
 			</ul>
 		</div>
 	</form>
-	
 	<div class="center">
 		<div class="lcenter"></div>
 	</div>
