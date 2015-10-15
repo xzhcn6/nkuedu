@@ -20,7 +20,7 @@
 		<td><input type="text" name="email" id="email" onblur="checkEmail()"></td></tr>
 		<tr><td>请输入验证码：</td>
 		<td><input type="text" name="code" id="code"></td>
-		<td><img src="/nkuedu/verifyCode/code" id="codeAction"  style="cursor:pointer;" onclick="this.src='/nkuedu/verifyCode/code?k='+Math.random()" alt="看不清，换一张"/></td></tr>
+		<td><img src="<%=request.getContextPath()%>/verifyCode/code" id="codeAction"  style="cursor:pointer;" onclick="this.src='<%=request.getContextPath()%>/verifyCode/code?k='+Math.random()" alt="看不清，换一张"/></td></tr>
 <%-- 		<tr><td><%@ taglib prefix="s" uri="/struts-tags" %> --%>
 <%-- 					<s:if test="hasFieldErrors()"> --%>
 <%-- 						<s:iterator value="fieldErrors"> --%>
