@@ -1,40 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@page import="nku.core.common.Constants"%>                
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/login.css">
-<script type="text/javascript"  charset="utf-8" src="<%=request.getContextPath()%>/static/JS/register.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript"  charset="utf-8" src="<%=request.getContextPath()%>/static/JS/login.js"></script>
 <title>南开大学夏季学期高中生选课系统</title>
 </head>
+<script type="text/javascript">     
+	$(function(){
+		$('#commit').click(function(){
+             commit();
+        });
+     }); 
+	function commit(){
+		if (!checkAll()) {
+			return;
+		}
+		var param = {};
+		param.studentnum = $('#studentnum').val();
+		param.password = $('#password').val();
+		param.code = $('#code').val();
+        $.ajax({
+            type:"POST",
+            data:param,
+            url:"<%=request.getContextPath()%>/client/login",
+			success : function(data) {
+				if (data.error != null){
+					$("#error_info").html(data.error);
+				}
+				if (data.msg != null){
+					location.href = "<%=request.getContextPath()%>/student/main";
+				}
+			}
+		});
+	}
+</script>
 <body>
 <div class="main">
 	<div class="head"></div>
 	<div style="height: 1px; clear: both;"></div>
-	<form action="login" method="post">
+<!-- 	<form action="login" method="post"> -->
 		<div class="content">
 		<div style="height: 1px; clear: both;"></div>
 			<ul>
 				<li>学号</li>
 				<li><input type="text" name="studentnum" id="studentnum"><a href="<%=request.getContextPath() %>/account/forgotAccount" target="_blank">？找回学号</a></li>		
 				<li>密码</li>
-				<li><input type="password" name="password" id="name"></li>
+				<li><input type="password" name="password" id="password"></li>
 				<li>验证码</li>
 				<li><table><tr><td>
 				<input type="text" name="code" id="code"></td><td>
 				<img src="<%=request.getContextPath()%>/verifyCode/code" id="codeAction"  style="cursor:pointer;" onclick="this.src='<%=request.getContextPath()%>/verifyCode/code?k='+Math.random()" alt="看不清，换一张"/>  
 				</td></tr></table>
 				</li>
-<!-- 				<s:if test="hasFieldErrors()"> -->
-<!-- 					<s:iterator value="fieldErrors"> -->
-<!-- 						<li><font color=blue><s:property value="value[0]"/></font></li> -->
-<!-- 					</s:iterator> -->
-<!-- 				</s:if> -->
-				<li><input type="submit" value="登录" onclick="return checkAll()">&nbsp;&nbsp;没有帐号？马上<a href="<%=request.getContextPath()%>/account/register">注册</a></li>
+				<li><font color=blue><div id="error_info"></font></li>
+				<li><input type="submit" value="登录" id="commit">&nbsp;&nbsp;没有帐号？马上<a href="<%=request.getContextPath()%>/account/register">注册</a></li>
 			</ul>
 		</div>
-	</form>
+<!-- 	</form> -->
 	<div class="center">
 		<div class="lcenter"></div>
 	</div>

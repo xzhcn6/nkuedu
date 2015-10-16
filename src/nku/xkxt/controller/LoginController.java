@@ -1,19 +1,20 @@
 package nku.xkxt.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import nku.core.common.Constants;
 import nku.core.common.VerifyCodeConstants;
-import nku.xkxt.model.Student;
 import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/client")
@@ -24,48 +25,55 @@ public class LoginController {
 	
 	@RequestMapping(value = "/home")
 	public String home(Model model) {
-		Student student = studentService.getStudentById("1");
-		model.addAttribute("student", student);
 		return "login";
 	}
 	@RequestMapping(value = "/index")
 	public String index(Model model) {
-		Student student = studentService.getStudentById("1");
-		model.addAttribute("student", student);
 		return "index";
 	}
 	
 	@RequestMapping(value = "/login")
-	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");//防止弹出的信息出现乱码
-		PrintWriter out = response.getWriter();
-		
+	@ResponseBody
+	public Map<String,Object> login(HttpServletRequest request){	
 		String code = request.getParameter("code");
 		String image = (String)request.getSession().getAttribute(VerifyCodeConstants.SessionName);
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
 
 		if(code==null||image==null||!image.equalsIgnoreCase(code)){
-			out.print("<script>alert('验证码输入有误!')</script>");
-			out.print("<script>window.location.href='http://localhost:8888/nkuedu/client/home'</script>");
-            out.flush();
-            out.close();
-//            return "index";
-		} else {
-
+			msg = "验证码输入有误!";
+			map.put("error", msg);
+            return map;
+		} 
 		String studentnum = request.getParameter("studentnum");
 		String password = request.getParameter("password");
 		if(studentnum==null||studentnum.trim().length()==0){
-//			this.addFieldError("studentnum", "请填写账号");
-			//this.addActionError("请填写账号");
+			msg = "请填写账号";
+			map.put("error", msg);
+            return map;
 		}else if(password==null||password.trim().length()==0){
-//			this.addFieldError(password, "请输入密码");
-			//this.addActionError("请输入密码");
+			msg = "请输入密码";
+			map.put("error", msg);
+            return map;
 		} else {
-		int result =studentService.studentCheckLogin(Integer.parseInt(studentnum), password); 
-		System.out.println(result);
+			int result =studentService.studentCheckLogin(Integer.parseInt(studentnum), password); 
+			if (result == Constants.NO_SUCH_USER){
+				msg = "不存在此账户！";
+				map.put("error", msg);
+			} else if(result == Constants.WRONG_PWD){
+				msg = "密码错误！";
+				map.put("error", msg);
+			} else if(result == Constants.SUCCESS_LOGIN){
+				HttpSession session = request.getSession();
+				session.setAttribute(Constants.CURRENT_USER_SESSION, studentnum);
+				msg = "登陆成功！";
+				map.put("msg", msg);
+			} else {
+				msg = "登陆错误！";
+				map.put("error", msg);
+			}
 		}
-//		return "index";
-		}
+		return map;
 	}
 	
 }

@@ -1,15 +1,12 @@
 package nku.xkxt.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import nku.core.common.Constants;
 import nku.core.common.VerifyCodeConstants;
 import nku.core.utils.UUIDGenerator;
