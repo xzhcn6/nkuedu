@@ -8,9 +8,6 @@ import nku.core.common.Constants;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;  
 import org.springframework.web.servlet.ModelAndView;  
-
-
-  
   
 public class AccessStatisticsIntceptor implements HandlerInterceptor {  
 	 private static Logger logger = Logger.getLogger(AccessStatisticsIntceptor.class);  
@@ -43,7 +40,7 @@ public class AccessStatisticsIntceptor implements HandlerInterceptor {
 //        if(!AuthorityController.isAuthorized(uri, request.getSession())) {
         if(str==null){  
             //校验失败
-        	response.sendRedirect("/client/home");
+        	response.sendRedirect(request.getContextPath()+"/client/home");
             return false; 
         }  
         return true;  

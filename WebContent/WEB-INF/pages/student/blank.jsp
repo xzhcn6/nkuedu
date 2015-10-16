@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>高中生夏季学期选课系统</title>
+<title>Insert title here</title>
 </head>
 <body>
-<jsp:forward page="<%=request.getContextPath()%>/client/home"></jsp:forward>
+
 </body>
 </html>
