@@ -3,6 +3,8 @@ package nku.xkxt.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -15,14 +17,16 @@ import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.StudentService;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 @RequestMapping(value = "/account")
-public class AccountController {
+public class AccountController{
 	
 	@Resource
 	private StudentService studentService;
@@ -111,34 +115,31 @@ public class AccountController {
 	 * 根据邮箱找回账号
 	 */
 	@RequestMapping(value = "/findAccount")
-	public String findAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");//防止弹出的信息出现乱码
-		PrintWriter out = response.getWriter();
+	@ResponseBody
+	public Map<String,Object> findAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String code = request.getParameter("code");
 		String image = (String)request.getSession().getAttribute(VerifyCodeConstants.SessionName);
-
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		
 		if(code==null||image==null||!image.equalsIgnoreCase(code)){
-			out.print("<script>alert('验证码输入有误!')</script>");
-			out.print("<script>window.location.href='http://localhost:8888/nkuedu/account/forgotAccount'</script>");
-            out.flush();
-            out.close();
+			msg = "验证码输入有误!";
+			map.put("error", msg);
+            return map;
 		}
 		
 		String email = request.getParameter("email");
 		
 		String account = studentService.getStudentNumByEmail(email);
 		if(account != null){
-			out.print("<script>alert('邮箱验证成功！您的学号为"+account+"');window.location.href='http://localhost:8888/nkuedu/account/forgotAccount'</script>");
-			out.flush();
-            out.close();
+			msg = "邮箱验证成功！您的学号为"+account+"。";
+			map.put("msg", msg);
 		} else {
-			out.print("<script>alert('失败！！请填写您注册时所用的邮箱！！');location.href='http://localhost:8888/nkuedu/account/forgotAccount'</script>");
-			out.flush();
-            out.close();
+			msg = "失败！！请填写您注册时所用的邮箱！！";
+			map.put("error", msg);
 		}
 		
-		return "forgotAccount";
+		return map;
 	}
 }
