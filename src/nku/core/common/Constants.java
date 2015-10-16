@@ -31,5 +31,8 @@ public class Constants {
 	 */
 	public static final int INSERT_FAILURE = 6;
 	
-	
+	/*
+	 * 当前用户
+	 */
+	public static final String CURRENT_USER_SESSION = "currentUser";
 }
