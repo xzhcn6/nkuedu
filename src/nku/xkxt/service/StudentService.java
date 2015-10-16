@@ -12,6 +12,8 @@ public interface StudentService {
 	
 	String getStudentNumByEmail(String email);
 	
+	Student getStudentByNum(int studentNum);
+	
 	int studentCheckLogin(int studentNum, String password); 
 	
 }

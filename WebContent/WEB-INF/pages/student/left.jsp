@@ -23,10 +23,10 @@
 <!-- </table> -->
 		<ul>
 			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/client/logout" target="_top">退出登录</a></font></li>
-			<li><font color="#FFFFFF"><a href="ShowPersonalInfo" target="mainFrame" onclick="parent.topMenu.location.href='blank.jsp'">个人信息</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/student/personalInfo" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/client/blank'">个人信息</a></font></li>
 			<li><font color="#FFFFFF"><a href="SelectClass" target="topMenu" onclick="parent.mainFrame.location.href='SelectCourse'">学生选课</a></font></li>
-			<li><a href="ShowEvaluate" target="mainFrame" onclick="parent.topMenu.location.href='blank.jsp'">学生评教</a></li>
-			<li><a href="ScoreQuery.action" target="mainFrame" onclick="parent.topMenu.location.href='blank.jsp'">成绩查询</a></li>
+			<li><a href="ShowEvaluate" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/client/blank'">学生评教</a></li>
+			<li><a href="ScoreQuery.action" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/client/blank'">成绩查询</a></li>
 			<hr  style="border:1px dashed black; height:1px"/>
 			<li><font color="#FFFFFF"><a href="xksc.action?page=1" target="_blank">选课手册</a></font></li>
 			<li><font color="#FFFFFF"><a href="http://jwc.nankai.edu.cn/" target="_blank" >教务处</a></font></li>

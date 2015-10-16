@@ -13,6 +13,7 @@
 	<context:component-scan base-package="nku.xkxt.controller,nku.core.controller" />
 	<mvc:annotation-driven/>
     <mvc:resources mapping="/static/**/" location="/static/"/>
+
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"
 		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
@@ -48,5 +49,11 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />  
     </bean> 
-
+    <!-- 拦截器 -->    
+    <mvc:interceptors>    
+    	<mvc:interceptor>    
+        	<mvc:mapping path="/student/**" />
+            <bean class="nku.core.interceptor.AccessStatisticsIntceptor" />    
+       </mvc:interceptor>    
+    </mvc:interceptors>    	
 </beans>

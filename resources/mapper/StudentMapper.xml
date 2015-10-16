@@ -93,7 +93,10 @@
 					#{passwd},
 			</if>
 			<if test="studentNum != null">
-					#{studentNum}
+					#{studentNum},
+			</if>
+			<if test="isDelete != null">
+					#{isDelete}
 			</if>
 		</trim>
 	</insert>

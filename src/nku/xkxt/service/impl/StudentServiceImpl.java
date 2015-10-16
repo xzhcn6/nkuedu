@@ -47,6 +47,12 @@ public class StudentServiceImpl implements StudentService{
 		return studentDAO.getStudentNumByEmail(email);
 	}
 	
+	@Override
+	public Student getStudentByNum(int studentNum){
+		return studentDAO.getStudentByNum(studentNum);
+	}
+	
+	@Override
 	public int studentCheckLogin(int studentNum, String password){
 		Student student = studentDAO.getStudentByNum(studentNum);
 		if (student == null){
