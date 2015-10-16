@@ -5,13 +5,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/register.css">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
 <script type="text/javascript"  charset="utf-8" src="<%=request.getContextPath()%>/static/JS/register.js"></script>
 <title>信息注册</title>
 </head>
+<script type="text/javascript">     
+	$(function(){
+		$('#commit').click(function(){
+             commit();
+        });
+     }); 
+	function commit(){
+		if (!checkAll()) {
+			return;
+		}
+		var param = {};
+		param.name = $('#name').val();
+		param.school = $('#email').val();
+		param.email = $('#email').val();
+		param.phone = $('#phone').val();
+		param.password = $('#password').val();
+		param.code = $('#code').val();
+        $.ajax({
+            type:"POST",
+            data:param,
+            url:"<%=request.getContextPath()%>/account/addStudent",
+			success : function(data) {
+				if (data.error != null){
+					alert(data.error);
+					document.location.reload();
+				}
+				if (data.msg != null){
+					alert(data.msg);
+					location.href = "<%=request.getContextPath()%>/client/home";
+				}
+			}
+		});
+	}
+</script>
 <body onload="jsmethod()"  style="font-family:微软雅黑;">
 	<div class="main">
 	<div class="header"></div>
-		<form action="addStudent" method="post" onsubmit="return checkAll()">
+<!-- 		<form action="addStudent" method="post" onsubmit="return checkAll()"> -->
 			<div class="content"  style="padding-top:5%;padding-bottom:10%;">
 				<table cellpadding="5" align="center">
 					<tr>
@@ -50,22 +85,14 @@
 						<td><img src="<%=request.getContextPath()%>/verifyCode/code" id="codeAction"  style="cursor:pointer;" onclick="this.src='<%=request.getContextPath()%>/verifyCode/code?k='+Math.random()" alt="看不清，换一张"/></td>
 					</tr>
 					<tr><td><div id='warn'></div></td></tr>
-<!-- 					<tr> -->
-<!-- 					<td></td> -->
-<!-- 					<s:if test="hasFieldErrors()"> -->
-<!-- 						<s:iterator value="fieldErrors"> -->
-<!-- 							<td><font color=blue><s:property value="value[0]"/></font></td> -->
-<!-- 						</s:iterator> -->
-<!-- 					</s:if> -->
-<!-- 					</tr> -->
 					<tr>
 					<td></td>
-					<td align="right"><input type="submit" value="注册" ><input type="button" value="重置" onclick="return reset1()"></td>
+					<td align="right"><input type="submit" id="commit" value="注册" ><input type="button" value="重置" onclick="return reset1()"></td>
 					</tr>
 				</table>
 				
 			</div>	
-		</form>
+<!-- 		</form> -->
 	</div>
 	<div class="footer">南开大学 <span>教务处</span> <br>地址：天津市南开区卫津路94号<span>&nbsp;&nbsp;邮政编码：300071</span>　</div>
 </body>

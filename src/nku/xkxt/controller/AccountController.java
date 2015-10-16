@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,19 +40,17 @@ public class AccountController{
 	 * 添加学生
 	 */
 	@RequestMapping(value = "/addStudent")
-	public void addStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");//防止弹出的信息出现乱码
-		PrintWriter out = response.getWriter();
-		
+	@ResponseBody
+	public Map<String,Object> addStudent(HttpServletRequest request) throws IOException {
 		String code = request.getParameter("code");
 		String image = (String)request.getSession().getAttribute(VerifyCodeConstants.SessionName);
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
 
 		if(code==null||image==null||!image.equalsIgnoreCase(code)){
-			out.print("<script>alert('验证码输入有误!')</script>");
-			out.print("<script>window.location.href='http://localhost:8888/nkuedu/account/register'</script>");
-            out.flush();
-            out.close();
+			msg = "验证码输入有误!";
+			map.put("error", msg);
+            return map;
 		}
 		
 		String name = request.getParameter("name");
@@ -75,25 +71,24 @@ public class AccountController{
 		
 		int result = studentService.registerStudent(newStu);
 		if(result == Constants.SUCCESS_REGISTER){
-			out.print("<script>alert('注册成功！您的学号为"+((Integer)newStu.getStudentNum()).toString()+"，请牢记您的学号，它是您登录的帐号。现在进入您的个人界面')</script>");
-			out.print("<script>window.location.href='http://localhost:8888/nkuedu/account/register'</script>");
-            out.flush();
-            out.close();
+            msg = "注册成功！您的学号为"+((Integer)newStu.getStudentNum()).toString()+"，请牢记您的学号，它是您登录的帐号。";
+            map.put("msg",msg);
 		} else {
-			if(result == Constants.EMAIL_USED)
-				out.print("<script>alert('注册失败！您所使用的邮箱已被使用！')</script>");
-			else if(result == Constants.INSERT_FAILURE)
-				out.print("<script>alert('注册失败！请重新注册')</script>");
-			out.print("<script>window.location.href='http://localhost:8888/nkuedu/account/register'</script>");
-            out.flush();
-            out.close();
+			if(result == Constants.EMAIL_USED){
+				msg = "注册失败！您所使用的邮箱已被使用！";
+			}
+			else if(result == Constants.INSERT_FAILURE){
+				msg = "注册失败！请重新注册！";
+			}
+		    map.put("error",msg);
 		}
+		return map;
 	}
 	
-	/** 
+	/*
 	 * 生成一个学号 
 	 * @return int  
-	*/
+	 */
 	public int getStudentNum(){
 		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
 		int year = c.get(Calendar.YEAR); 
@@ -116,8 +111,7 @@ public class AccountController{
 	 */
 	@RequestMapping(value = "/findAccount")
 	@ResponseBody
-	public Map<String,Object> findAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+	public Map<String,Object> findAccount(HttpServletRequest request) throws IOException {
 		String code = request.getParameter("code");
 		String image = (String)request.getSession().getAttribute(VerifyCodeConstants.SessionName);
 		String msg = "";
@@ -139,7 +133,6 @@ public class AccountController{
 			msg = "失败！！请填写您注册时所用的邮箱！！";
 			map.put("error", msg);
 		}
-		
 		return map;
 	}
 }
