@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+body{
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-repeat: repeat;
+	background-color:#e5e2e2;
+	width:100px;
+}
+.left{
+	margin-top:81px;
+	width:110px;
+	height:100%;
+	positon:relative;
+	float:left;
+}
+
+li{
+	list-style: none;
+	line-height:35px;
+}

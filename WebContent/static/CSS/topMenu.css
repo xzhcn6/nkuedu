@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+a:link,a:visited {
+	color: #0000FF;
+	text-decoration:none; 
+}		/* 未访问的链接 */
+
+a:hover {
+	color: #FF00FF;
+	text-decoration:underline; 
+}	/* 鼠标移动到链接上 */

@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+table{
+
+	padding:20px;
+	border-style:solid;
+	text-align:center;
+}
+table tr{
+	line-height: 35px;
+}
+table td{
+	width:85px;
+}

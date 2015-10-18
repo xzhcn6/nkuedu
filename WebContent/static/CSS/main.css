@@ -1,0 +1,69 @@
+@CHARSET "UTF-8";
+body{
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-image: url(../images/login/login_09.gif);
+	background-repeat: repeat;
+}
+
+.head{
+	background-image: url(../images/main/head.gif);
+	background-repeat: no-repeat;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	width: 1024px;
+	height: 108px;
+}
+
+.left{
+	margin-top:0px;
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	width:140px;
+	height:150%;
+	float:left;
+ 	background-image: url(../images/main/main_09.gif); 
+	background-repeat: repeat;	
+}
+
+.main{
+	margin-top:3px;
+	margin-right:3px;
+	margin-bottom:3px;
+	margin-left:3px;
+	left:30px;
+	width:auto;
+	height:100%;
+	position: relative;
+	float:left;
+/*	background-image: url(../images/main/bg.jpg);*/
+}
+
+.SessionBox{
+	width:1000px;
+	height:100%;
+	frameborder:"0";
+	marginheight:"0";
+	marginwidth:"0";
+}
+
+.list_img{
+	margin-right:5px; 
+	width:3px; 
+	margin-left:5px;
+}
+
+li{
+	list-style: none;
+	line-height:35px;
+}
+
+ul{
+	list-style: none;
+	line-height:5px;
+}
