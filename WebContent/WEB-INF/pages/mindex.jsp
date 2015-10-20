@@ -5,34 +5,59 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/manage/login.css">
-<script type="text/javascript"  charset="utf-8" src="<%=request.getContextPath()%>/static/JS/register.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript"  charset="utf-8" src="<%=request.getContextPath()%>/static/JS/mlogin.js"></script>
 <title>管理登陆</title>
 </head>
+<script type="text/javascript">     
+	$(function(){
+		$('#commit').click(function(){
+             commit();
+        });
+     }); 
+	function commit(){
+		if (!checkAll()) {
+			return;
+		}
+		var param = {};
+		param.adminName = $('#adminName').val();
+		param.password = $('#password').val();
+		param.code = $('#code').val();
+        $.ajax({
+            type:"POST",
+            data:param,
+            url:"<%=request.getContextPath()%>/client/adminlogin",
+			success : function(data) {
+				if (data.error != null){
+					$("#error_info").html(data.error);
+				}
+				if (data.msg != null){
+					location.href = "<%=request.getContextPath()%>/admin/main";
+				}
+			}
+		});
+	}
+</script>
 <body>
 <div class="main">
 	<div class="head"></div>
 	<div style="height: 1px; clear: both;"></div>
-	<form action="AdminLoginAction" method="post">
+<!-- 	<form action="AdminLoginAction" method="post"> -->
 		<div class="content">
 		<div style="height: 1px; clear: both;"></div>
 			<ul>
 				<li>用户名</li>
-				<li><input type="text" name="AdminName" id="AdminName"></li>		
+				<li><input type="text" name="adminName" id="adminName"></li>		
 				<li>密码</li>
-				<li><input type="password" name="password" id="name"></li>
+				<li><input type="password" name="password" id="password"></li>
 				<li>验证码</li>
 				<li><input type="text" name="code" id="code"><img src="<%=request.getContextPath()%>/verifyCode/code" id="codeAction" onclick="this.src='<%=request.getContextPath()%>/verifyCode/code?k='+Math.random()" style="cursor:pointer;" alt="看不清，换一张"/>  
 				</li>
-<%-- 				<%@ taglib prefix="s" uri="/struts-tags" %> --%>
-<%-- 				<s:if test="hasFieldErrors()"> --%>
-<%-- 					<s:iterator value="fieldErrors"> --%>
-<%-- 						<li><font color=blue><s:property value="value[0]"/></font></li> --%>
-<%-- 					</s:iterator> --%>
-<%-- 				</s:if> --%>
-				<li><input type="submit" value="登录" onclick="return checkAll()"></li>
+				<li><font color=blue><div id="error_info"></font></li>
+				<li><input type="submit" value="登录" id="commit"></li>
 			</ul>
 		</div>
-	</form>
+<!-- 	</form> -->
 	
 	<div class="center">
 		<div class="lcenter"></div>

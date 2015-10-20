@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import nku.core.common.Constants;
 import nku.core.common.VerifyCodeConstants;
+import nku.xkxt.service.AdminService;
 import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class ClientController {
 	
 	@Resource
 	private StudentService studentService;
+	
+	@Resource
+	private AdminService adminService;
 	
 	@RequestMapping(value = "/home")
 	public String home(Model model) {
@@ -86,5 +90,61 @@ public class ClientController {
 	@RequestMapping(value = "/blank")
 	public String blank(Model model) {
 		return "student/blank";
+	}
+	
+	
+	@RequestMapping(value = "/adminhome")
+	public String adminHome(Model model) {
+		return "mindex";
+	}
+	
+	@RequestMapping(value = "/adminlogin")
+	@ResponseBody
+	public Map<String,Object> adminlogin(HttpServletRequest request){	
+		String code = request.getParameter("code");
+		String image = (String)request.getSession().getAttribute(VerifyCodeConstants.SessionName);
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+
+		if(code==null||image==null||!image.equalsIgnoreCase(code)){
+			msg = "验证码输入有误!";
+			map.put("error", msg);
+            return map;
+		} 
+		String adminName = request.getParameter("adminName");
+		String password = request.getParameter("password");
+		if(adminName==null||adminName.trim().length()==0){
+			msg = "请填写账号";
+			map.put("error", msg);
+            return map;
+		}else if(password==null||password.trim().length()==0){
+			msg = "请输入密码";
+			map.put("error", msg);
+            return map;
+		} else {
+			int result =adminService.adminCheckLogin(adminName, password); 
+			if (result == Constants.NO_SUCH_USER){
+				msg = "不存在此账户！";
+				map.put("error", msg);
+			} else if(result == Constants.WRONG_PWD){
+				msg = "密码错误！";
+				map.put("error", msg);
+			} else if(result == Constants.SUCCESS_LOGIN){
+				HttpSession session = request.getSession();
+				session.setAttribute(Constants.CURRENT_ADMIN_SESSION, adminName);
+				msg = "登陆成功！";
+				map.put("msg", msg);
+			} else {
+				msg = "登陆错误！";
+				map.put("error", msg);
+			}
+		}
+		return map;
+	}
+	@RequestMapping(value = "/adminlogout")
+	public String adminlogout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute(Constants.CURRENT_ADMIN_SESSION);
+		return "redirect:/client/adminhome";
 	}
 }

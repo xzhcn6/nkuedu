@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nku.xkxt.mapper.AdminMapper">
+	<resultMap id="Admin_ResultMap" type="nku.xkxt.model.Admin">
+		<id column="id" property="id" />
+		<result column="login_name" property="loginName" />
+		<result column="passwd" property="password" />
+		<result column="system_open" property="systemOpen" />
+	</resultMap>
+
+	<sql id="Admin_Column_List">
+		id,
+		login_name,
+		passwd,
+		system_open
+	</sql>
+	
+	<sql id="Admin_WitoutPw_Column_List">
+		id,
+		login_name,
+		system_open
+	</sql>
+	
+	<select id="getAdminByLoginName" resultMap="Admin_ResultMap" >
+		select 
+		<include refid="Admin_Column_List" />
+		from admin
+		<where>
+			0=0
+			<if test="loginName != null" >
+		    	and  login_name = #{loginName}
+		    </if>
+		</where>
+		limit 1
+	</select>
+	
+</mapper>

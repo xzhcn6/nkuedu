@@ -35,4 +35,9 @@ public class Constants {
 	 * 当前用户
 	 */
 	public static final String CURRENT_USER_SESSION = "currentUser";
+	
+	/*
+	 * 当前管理员用户
+	 */
+	public static final String CURRENT_ADMIN_SESSION = "currentAdmin";
 }
