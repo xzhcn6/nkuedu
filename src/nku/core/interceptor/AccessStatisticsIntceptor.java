@@ -33,16 +33,29 @@ public class AccessStatisticsIntceptor implements HandlerInterceptor {
             Object obj) throws Exception {  
     	logger.info("==============执行顺序: 1、preHandle================");
     	String str = (String) request.getSession().getAttribute(Constants.CURRENT_USER_SESSION);  
-        System.out.println("str=========>"+str);  
+    	String strAdmin = (String) request.getSession().getAttribute(Constants.CURRENT_ADMIN_SESSION);  
         
-        String uri = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") +1);  
+        String uritemp = request.getRequestURI().substring(0, request.getRequestURI().lastIndexOf("/"));
+        String uri = uritemp.substring(uritemp.lastIndexOf("/")+1);
         System.out.println("uri=========>"+uri);
 //        if(!AuthorityController.isAuthorized(uri, request.getSession())) {
-        if(str==null){  
-            //校验失败
+        if (uri.equals("student")){
+        	if(str==null){  
+                //校验失败
+            	response.sendRedirect(request.getContextPath()+"/client/home");
+                return false; 
+            }
+        } else if (uri.equals("admin")) {
+        	if(strAdmin==null){  
+                //校验失败
+            	response.sendRedirect(request.getContextPath()+"/client/adminhome");
+                return false; 
+            } 
+        } else {
         	response.sendRedirect(request.getContextPath()+"/client/home");
-            return false; 
-        }  
+        	return false;
+        } 
+         
         return true;  
     }
 }

@@ -54,6 +54,10 @@
     	<mvc:interceptor>    
         	<mvc:mapping path="/student/**" />
             <bean class="nku.core.interceptor.AccessStatisticsIntceptor" />    
+       </mvc:interceptor> 
+       <mvc:interceptor>    
+        	<mvc:mapping path="/admin/**" />
+            <bean class="nku.core.interceptor.AccessStatisticsIntceptor" />    
        </mvc:interceptor>    
     </mvc:interceptors>    	
 </beans>
