@@ -21,7 +21,7 @@
 		}
 		var param = {};
 		param.name = $('#name').val();
-		param.school = $('#email').val();
+		param.school = $('#school').val();
 		param.email = $('#email').val();
 		param.phone = $('#phone').val();
 		param.password = $('#password').val();
