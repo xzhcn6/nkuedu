@@ -45,4 +45,9 @@ public class StudentDAOImpl implements StudentDAO{
 	public Student getStudentByNum(int studentNum){
 		return studentMapper.getStudentByNum(studentNum);
 	}
+	
+	@Override
+	public List<Student> getAllStudentByPage(){
+		return studentMapper.getAllStudentByPage();
+	}
 }

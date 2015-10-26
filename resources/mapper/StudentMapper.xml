@@ -142,4 +142,13 @@
 		limit 1
 	</select>
 	
+	<select id="getAllStudentByPage" resultMap="Student_ResultMap" >
+		select 
+		<include refid="Student_Column_List" />
+		from student
+		<where>
+			is_delete=0
+		</where>
+	</select>
+	
 </mapper>

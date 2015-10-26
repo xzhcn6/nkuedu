@@ -16,5 +16,7 @@ public interface StudentDAO {
 	
 	String getStudentNumByEmail(String email);
 	
-	Student getStudentByNum(int studentNum); 
+	Student getStudentByNum(int studentNum);
+	
+	List<Student> getAllStudentByPage();
 }

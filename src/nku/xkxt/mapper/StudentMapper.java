@@ -19,4 +19,6 @@ public interface StudentMapper {
 	String getStudentNumByEmail(@Param("email")String email);
 	
 	Student getStudentByNum(@Param("studentNum")int studentNum); 
+	
+	List<Student> getAllStudentByPage();
 }
