@@ -38,7 +38,11 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public List<Student> getAllStudentByPage(){
-		List<Student> stuList =  studentDAO.getAllStudentByPage();
-		return stuList;
+		return studentDAO.getAllStudentByPage();
+	}
+	
+	@Override
+	public int deleteStudentById(String stuId){
+		return studentDAO.deleteStudentById(stuId);
 	}
 }

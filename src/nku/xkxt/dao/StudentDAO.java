@@ -19,4 +19,6 @@ public interface StudentDAO {
 	Student getStudentByNum(int studentNum);
 	
 	List<Student> getAllStudentByPage();
+	
+	int deleteStudentById(String stuId);
 }

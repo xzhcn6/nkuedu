@@ -34,17 +34,17 @@
 	function getPages(page){
 		var div="";
 		if (page.prePage == 0){
-			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.firstPage+")'>< 前页</a>";
+			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.firstPage+")' style='color:#999999;padding-right:10px;'>< 前页</a>";
 		} else {
-			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.firstPage+")'>< 前页</a>";
+			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.firstPage+")' style='padding-right:10px;'>< 前页</a>";
 		}
 		
 		if(page.pages<10){
         	for (var i=1; i<=page.pages; i++){
-        		if(page.pageNo==(i+"")){
-			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='active'>"+i+"</a>";
+        		if(page.pageNum==i){
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='active' style='color:#999999;padding-right:10px;'>"+i+"</a>";
 			 	}else{
-			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='not-active'>"+i+"</a>";
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='not-active' style='padding-right:10px;'>"+i+"</a>";
 			 	}
         	}
         } else {
@@ -60,22 +60,38 @@
                 startpage = page.pages - 9;
             }    
             for(var i=startpage; i<=endpage; i++){
-            	if(page.pageNum==(i+"")){
-			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='active'>"+i+"</a>";
+            	if(page.pageNum==i){
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='active' style='padding-right:10px;'>"+i+"</a>";
 			 	}else{
-			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='not-active'>"+i+"</a>";
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='not-active' style='color:#999999;padding-right:10px;'>"+i+"</a>";
 			 	}
             }
             if (endpage < page.pages){
-            	div+="<a href='javascript://' onclick='getStudentList("+page.nextPage+");' >...</a>";
+            	div+="<a href='javascript://' onclick='getStudentList("+page.nextPage+");' style='padding-right:10px;'>...</a>";
             }
         }
 		if (page.nextPage == 0){
-			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.lastPage+")'>后页 ></a>";
+			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.lastPage+")' style='color:#999999;padding-right:10px;'>后页 ></a>";
 		} else {
-			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.lastPage+")'>后页 ></a>";
+			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.lastPage+")' style='padding-right:10px;'>后页 ></a>";
 		}
 		$("#pages").html(div);
+	}
+	
+	function deleteStudent(stuId){
+		if (!confirm('确定删除？')) {
+			return;
+		} else {
+			var param = {};
+			param.id = stuId;
+			$.ajax({
+		           type:"POST",
+		           data:param,
+		           url:"<%=request.getContextPath()%>/admin/deleteStudent",
+				success : function(data) {
+				}
+			});
+		}
 	}
 </script>
 <script id="id_table_stulist" type="text/html">    
@@ -88,9 +104,9 @@
 		<td>{{value.telephone}}</td>
 		<td>{{value.email}}</td>
 	    <td>{{value.passwd}}</td>
-	    <td><a href="<%=request.getContextPath()%>/admin/updateStudent">修改</a>
-	    	<a href="<%=request.getContextPath()%>/admin/deleteStudent" onclick="return confirm('确定删除？')">删除</a>
-	    	<a href="<%=request.getContextPath()%>/admin/queryCourse">查询课程</a>
+	    <td><a href="<%=request.getContextPath()%>/admin/updateStudent?id={{value.id}}">修改</a>
+	    	<a href="" onclick="deleteStudent('{{value.id}}')">删除</a>
+	    	<a href="<%=request.getContextPath()%>/admin/queryCourse?id={{value.id}}">查询课程</a>
 	</td>
 	{{/each}}
 </script> 

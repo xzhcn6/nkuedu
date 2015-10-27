@@ -50,4 +50,9 @@ public class StudentDAOImpl implements StudentDAO{
 	public List<Student> getAllStudentByPage(){
 		return studentMapper.getAllStudentByPage();
 	}
+	
+	@Override
+	public int deleteStudentById(String stuId){
+		return studentMapper.deleteStudentById(stuId);
+	}
 }

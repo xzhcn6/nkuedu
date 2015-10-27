@@ -35,7 +35,7 @@
 
 	<select id="getStudentById" resultMap="Student_ResultMap" >
 		select 
-		<include refid="Student_WitoutPw_Column_List" />
+		<include refid="Student_Column_List" />
 		from student
 		<where>
 			is_delete=0
@@ -152,4 +152,11 @@
 		order by student_num
 	</select>
 	
+	<update id="deleteStudentById">
+		update student
+			<set>
+				is_delete = 1
+			</set>
+		where id = #{stuId}
+	</update>
 </mapper>

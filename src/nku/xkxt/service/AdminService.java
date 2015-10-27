@@ -11,4 +11,6 @@ public interface AdminService {
 	
 	List<Student> getAllStudentByPage();
 	
+	int deleteStudentById(String stuId);
+	
 }
