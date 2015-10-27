@@ -65,4 +65,9 @@ public class StudentServiceImpl implements StudentService{
 			}
 		}
 	}
+	
+	@Override
+	public int updateStudentByExample(Student student){
+		return studentDAO.updateStudentByExample(student);
+	}
 }

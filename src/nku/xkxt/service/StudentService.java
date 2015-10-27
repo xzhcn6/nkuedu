@@ -16,4 +16,6 @@ public interface StudentService {
 	
 	int studentCheckLogin(int studentNum, String password); 
 	
+	int updateStudentByExample(Student student);
+	
 }

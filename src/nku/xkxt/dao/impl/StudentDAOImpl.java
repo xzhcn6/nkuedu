@@ -55,4 +55,9 @@ public class StudentDAOImpl implements StudentDAO{
 	public int deleteStudentById(String stuId){
 		return studentMapper.deleteStudentById(stuId);
 	}
+	
+	@Override
+	public int updateStudentByExample(Student student){
+		return studentMapper.updateStudentByExample(student);
+	}
 }

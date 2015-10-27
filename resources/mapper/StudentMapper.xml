@@ -159,4 +159,23 @@
 			</set>
 		where id = #{stuId}
 	</update>
+	
+	<update id="updateStudentByExample" parameterType="nku.xkxt.model.Student">
+		update student
+			<set>
+				<if test="name != null">
+					name = #{name},
+				</if>
+				<if test="school != null">
+					school = #{school},
+				</if>
+				<if test="telephone != null">
+					telephone = #{telephone},
+				</if>
+				<if test="passwd != null">
+					passwd = #{passwd},
+				</if>
+			</set>
+		where id = #{id}
+	</update>
 </mapper>

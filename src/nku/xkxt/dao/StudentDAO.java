@@ -21,4 +21,6 @@ public interface StudentDAO {
 	List<Student> getAllStudentByPage();
 	
 	int deleteStudentById(String stuId);
+	
+	int updateStudentByExample(Student student);
 }

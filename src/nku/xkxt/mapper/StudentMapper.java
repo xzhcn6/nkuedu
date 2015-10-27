@@ -23,4 +23,6 @@ public interface StudentMapper {
 	List<Student> getAllStudentByPage();
 	
 	int deleteStudentById(@Param("stuId")String stuId);
+	
+	int updateStudentByExample(Student student);
 }
