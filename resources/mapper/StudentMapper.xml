@@ -149,6 +149,7 @@
 		<where>
 			is_delete=0
 		</where>
+		order by student_num
 	</select>
 	
 </mapper>
