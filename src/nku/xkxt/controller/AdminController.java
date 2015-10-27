@@ -39,8 +39,8 @@ public class AdminController {
 	@ResponseBody
 	public Map<String,Object> getStudentList(HttpServletRequest request){
 		Map<String,Object> map = new HashMap<String,Object>();
-		
-		PageHelper.startPage(1, 10);
+		String pageNum = request.getParameter("pageNo");
+		PageHelper.startPage(Integer.parseInt(pageNum), 10);
 		List<Student> stuList= adminService.getAllStudentByPage();
 		PageInfo<Student> page = new PageInfo<Student>(stuList);
 		map.put("stuList", page);

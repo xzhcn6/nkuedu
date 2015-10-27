@@ -4,10 +4,96 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/manage/showstudent.css">
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/template.js"></script>
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">   
+	$(function(){
+		getStudentList(1);
+     }); 
+	function getStudentList(pageNo){
+		var param = {};
+		param.pageNo = pageNo;
+        $.ajax({
+            type:"POST",
+            data:param,
+            url:"<%=request.getContextPath()%>/admin/getStudentList",
+			success : function(data) {
+				if(data.stuList.list.length != 0){
+					$("#id_table_elist").html(template('id_table_stulist', {data:data}));
+				} else {
+					$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
+				}
+				getPages(data.stuList);
+			}
+		});
+	}
+	// 分页	 
+	function getPages(page){
+		var div="";
+		if (page.prePage == 0){
+			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.firstPage+")'>< 前页</a>";
+		} else {
+			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.firstPage+")'>< 前页</a>";
+		}
+		
+		if(page.pages<10){
+        	for (var i=1; i<=page.pages; i++){
+        		if(page.pageNo==(i+"")){
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='active'>"+i+"</a>";
+			 	}else{
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='not-active'>"+i+"</a>";
+			 	}
+        	}
+        } else {
+        	var startpage = page.pageNum - 4;
+            var endpage = page.pageNum + 5;
+            
+            if(startpage<1){
+                startpage = 1;
+                endpage = 9;
+            }
+            if(endpage>page.pages){
+                endpage = page.pages;
+                startpage = page.pages - 9;
+            }    
+            for(var i=startpage; i<=endpage; i++){
+            	if(page.pageNum==(i+"")){
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='active'>"+i+"</a>";
+			 	}else{
+			 		div+= "<a href='javascript://' onclick='getStudentList("+i+")' class='not-active'>"+i+"</a>";
+			 	}
+            }
+            if (endpage < page.pages){
+            	div+="<a href='javascript://' onclick='getStudentList("+page.nextPage+");' >...</a>";
+            }
+        }
+		if (page.nextPage == 0){
+			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.lastPage+")'>后页 ></a>";
+		} else {
+			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.lastPage+")'>后页 ></a>";
+		}
+		$("#pages").html(div);
+	}
+</script>
+<script id="id_table_stulist" type="text/html">    
+	{{each data.stuList.list as value i}}
+	<tr>
+		<td>{{i+1}}</td>
+	    <td>{{value.studentNum}}</td>
+		<td>{{value.name}}</td>
+		<td>{{value.school}}</td>
+		<td>{{value.telephone}}</td>
+		<td>{{value.email}}</td>
+	    <td>{{value.passwd}}</td>
+	    <td><a href="<%=request.getContextPath()%>/admin/updateStudent">修改</a>
+	    	<a href="<%=request.getContextPath()%>/admin/deleteStudent" onclick="return confirm('确定删除？')">删除</a>
+	    	<a href="<%=request.getContextPath()%>/admin/queryCourse">查询课程</a>
+	</td>
+	{{/each}}
+</script> 
 <body style="FONT-SIZE: 11pt; COLOR: black;	FONT-FAMILY: Arial, Geneva, Helvetica, sans-serif;">
 <p align="center"><strong><font size="5">学生管理</font></strong></p>
 
@@ -16,7 +102,7 @@
 		<td colspan="13"><strong>学生信息</strong></td>
 	</tr>
 	<tr>
-		<td>&nbsp;</td>
+		<td>序号</td>
 		<td>学号</td>
 		<td>姓名</td>
 		<td>学校</td>
@@ -26,59 +112,13 @@
 	  	<td>操作</td>
 	  	
 	</tr>
-	
-	<s:iterator value="list">
-	
-    <tr>
-		<td></td>
-	    <td><s:property value="studentNumber"/></td>
-		<td><s:property value="name"/></td>
-		<td><s:property value="school"/></td>
-		<td><s:property value="telephone"/></td>
-		<td><s:property value="email"/></td>
-	    <td><s:property value="loginKey"/></td>
-	    <td><a href="updateStudent.jsp?id=<s:property value='id'/>&name=<s:property value='name'/>&school=<s:property value="school"/>&telephone=<s:property value="telephone"/>&email=<s:property value="email"/>&loginKey=<s:property value="loginKey"/>&studentNumber=<s:property value="studentNumber"/>">修改</a>
-	    	<a href="deleteStudent.action?id=<s:property value='id'/>" onclick="return confirm('确定删除？')">删除</a>
-	    	<a href="queryCourse.action?id=<s:property value='id' />&name=<s:property value="name"/>">查询课程</a>
-	    </td>
-	</s:iterator>
+	<tbody id="id_table_elist"> </tbody>
 	</table><br>
-	
-	
 <div style="padding-left:15%;">
-    <s:if test="#request.pageNow==1">
+	<!-- 分页 -->
+	<div class="page" id="pages"></div>
+	<!-- 分页 -->
 
-<font color="#cccccc" >上一页  第一页</font>
-
-</s:if>
-
-<s:else>
-
-<a href="showStudent.action?pageNow=<s:property value="1"/>">第一页</a>&nbsp;
-
-<a href="showStudent.action?pageNow=${pageNow-1 }">上一页</a>
-
-</s:else>
-&nbsp
-<s:iterator begin="1" end="(#request.total+#request.pagesize-1)/#request.pagesize" step="1" status="i">
-	<s:if test="%{#i.index+1==#request.pageNow}"><strong><s:property value="%{#i.index+1}"/></strong></s:if>
-	<s:else><a href="showStudent.action?pageNow=<s:property value="%{#i.index+1}"/>"><s:property value="%{#i.index+1}"/></a></s:else>
-	&nbsp
-</s:iterator>
-
-<s:if test="(#request.total+#request.pagesize-1)/#request.pagesize==#request.pageNow">
-
-<font color="#cccccc" >下一页  最后一页</font>
-
-</s:if>
-
-<s:else>
-
-<a href="showStudent.action?pageNow=${pageNow+1 }">下一页</a>&nbsp;
-
-<a href="showStudent.action?pageNow=<s:property value="%{(#request.total+#request.pagesize-1)/#request.pagesize}"/>">最后一页</a>
-
-</s:else>
 <br/><br/><a href="pstudent?type=3">打印学生信息核对单</a>
     <h3>帮助提示</h3>
 	<ol>

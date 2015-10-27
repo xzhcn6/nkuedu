@@ -11,11 +11,11 @@
 	<div class="left">
 		<ul>
 			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/client/adminlogout" target="_top">退出登录</a></font></li>
-			<li><font color="#FFFFFF"><a href="show.action?page=1" target="mainFrame">课程管理</a></font></li>
-			<li><font color="#FFFFFF"><a href="showStudent.action" target="mainFrame">学生管理</a></font></li>
-			<li><font color="#FFFFFF"><a href="showAllSelectedCourse.action?page=1" target="mainFrame">选课管理</a></font></li>
-			<li><font color="#FFFFFF"><a href="showScore.action?page=1" target="mainFrame">成绩管理</a></font></li>
-			<li><font color="#FFFFFF"><a href="getEvaluatedCourse.action?page=1" target="mainFrame">评教管理</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showStudent" target="mainFrame">课程管理</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showStudent" target="mainFrame">学生管理</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showStudent" target="mainFrame">选课管理</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showStudent" target="mainFrame">成绩管理</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showStudent" target="mainFrame">评教管理</a></font></li>
 		</ul>
 	</div>
 </body>
