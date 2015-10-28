@@ -36,7 +36,7 @@
 		if (page.prePage == 0){
 			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.firstPage+")' style='color:#999999;padding-right:10px;'>< 前页</a>";
 		} else {
-			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.firstPage+")' style='padding-right:10px;'>< 前页</a>";
+			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.prePage+")' style='padding-right:10px;'>< 前页</a>";
 		}
 		
 		if(page.pages<10){
@@ -73,7 +73,7 @@
 		if (page.nextPage == 0){
 			div += "<a href='javascript://' class='not-active' onclick='getStudentList("+page.lastPage+")' style='color:#999999;padding-right:10px;'>后页 ></a>";
 		} else {
-			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.lastPage+")' style='padding-right:10px;'>后页 ></a>";
+			div += "<a href='javascript://' class='active' onclick='getStudentList("+page.nextPage+")' style='padding-right:10px;'>后页 ></a>";
 		}
 		$("#pages").html(div);
 	}
