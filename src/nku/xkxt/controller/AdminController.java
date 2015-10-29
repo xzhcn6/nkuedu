@@ -105,6 +105,12 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping(value = "/showClass")
+	public String showClass(Model model) {
+		return "teacher/showClass";
+	}
+	
+	
 	@RequestMapping(value = "/top")
 	public String top(Model model) {
 		return "teacher/top";
