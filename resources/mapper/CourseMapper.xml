@@ -3,35 +3,170 @@
 <mapper namespace="nku.xkxt.mapper.CourseMapper">
 	<resultMap id="Course_ResultMap" type="nku.xkxt.model.Course">
 		<id column="id" property="id" />
-		<result column="login_name" property="loginName" />
-		<result column="passwd" property="password" />
-		<result column="system_open" property="systemOpen" />
+		<result column="course_num" property="courseNum" />
+		<result column="name" property="name" />
+		<result column="max_student" property="maxStudent" />
+		<result column="professor" property="professor" />
+		<result column="classroom" property="classroom" />
+		<result column="request" property="request" />
+		<result column="introduction" property="introduction" />
+		<result column="type" property="type" />
+		<result column="credit" property="credit" />
+		<result column="is_open" property="isOpen" />
+		<result column="is_delete" property="isDelete" />
 	</resultMap>
 
 	<sql id="Course_Column_List">
 		id,
-		login_name,
-		passwd,
-		system_open
+		course_num,
+		name,
+		max_student,
+		professor,
+		classroom,
+		request,
+		introduction,
+		type,
+		credit,
+		is_open,
+		is_delete
 	</sql>
 	
-	<sql id="Course_WitoutPw_Column_List">
-		id,
-		login_name,
-		system_open
-	</sql>
+	<insert id="insertCourse" parameterType="nku.xkxt.model.Course" useGeneratedKeys="true" keyProperty="id">
+		insert into course
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					ID,
+			</if>
+			<if test="courseNum != null">
+					course_num,
+			</if>
+			<if test="name != null">
+					name,
+			</if>
+			<if test="maxStudent != null">
+					max_student,
+			</if>
+			<if test="professor != null">
+					professor,
+			</if>
+			<if test="classroom != null">
+					classroom,
+			</if>
+			<if test="request != null">
+					request,
+			</if>
+			<if test="introduction != null">
+					introduction,
+			</if>
+			<if test="type != null">
+					type,
+			</if>
+			<if test="credit != null">
+					credit,
+			</if>
+			<if test="isOpen != null">
+					is_open,
+			</if>
+			<if test="isDelete != null">
+					is_delete
+			</if>
+		</trim>
+		values <trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					#{id},
+			</if>
+			<if test="courseNum != null">
+					#{courseNum},
+			</if>
+			<if test="name != null">
+					#{name},
+			</if>
+			<if test="maxStudent != null">
+					#{maxStudent},
+			</if>
+			<if test="professor != null">
+					#{professor},
+			</if>
+			<if test="classroom != null">
+					#{classroom},
+			</if>
+			<if test="request != null">
+					#{request},
+			</if>
+			<if test="introduction != null">
+					#{introduction},
+			</if>
+			<if test="type != null">
+					#{type}
+			</if>
+			<if test="credit != null">
+					#{credit},
+			</if>
+			<if test="isOpen != null">
+					#{isOpen},
+			</if>
+			<if test="isDelete != null">
+					#{isDelete}
+			</if>
+		</trim>
+	</insert>
 	
-	<select id="getCourseByLoginName" resultMap="Course_ResultMap" >
+	<select id="getAllCourseByPage" resultMap="Course_ResultMap" >
 		select 
 		<include refid="Course_Column_List" />
 		from Course
 		<where>
-			0=0
-			<if test="loginName != null" >
-		    	and  login_name = #{loginName}
-		    </if>
+			is_delete=0
 		</where>
-		limit 1
+		order by course_num
 	</select>
+	
+	<update id="deletecourseById">
+		update course
+			<set>
+				is_delete = 1
+			</set>
+		where id = #{courseId}
+	</update>
+	
+	<update id="updateCourseByExample" parameterType="nku.xkxt.model.Course">
+		update course
+			<set>
+				<if test="courseNum != null">
+						course_num = #{courseNum},
+				</if>
+				<if test="name != null">
+						name = #{name},
+				</if>
+				<if test="maxStudent != null">
+						max_student = #{maxStudent},
+				</if>
+				<if test="professor != null">
+						professor = #{professor},
+				</if>
+				<if test="classroom != null">
+						classroom = #{classroom},
+				</if>
+				<if test="request != null">
+						request = #{request},
+				</if>
+				<if test="introduction != null">
+						introduction = #{introduction},
+				</if>
+				<if test="type != null">
+						type = #{type}
+				</if>
+				<if test="credit != null">
+						credit = #{credit},
+				</if>
+				<if test="isOpen != null">
+						is_opent = #{isOpen},
+				</if>
+				<if test="name != null">
+					name = #{name},
+				</if>
+			</set>
+		where id = #{id}
+	</update>
 	
 </mapper>
