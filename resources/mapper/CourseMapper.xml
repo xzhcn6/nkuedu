@@ -97,7 +97,7 @@
 					#{introduction},
 			</if>
 			<if test="type != null">
-					#{type}
+					#{type},
 			</if>
 			<if test="credit != null">
 					#{credit},

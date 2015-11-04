@@ -38,7 +38,7 @@
 				}
 				if (data.msg != null){
 					alert(data.msg);
-					location.href = "<%=request.getContextPath()%>/client/home";
+					location.href = "<%=request.getContextPath()%>/admin/showCourse";
 				}
 			}
 		});

@@ -1,5 +1,6 @@
 package nku.xkxt.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +9,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import nku.core.common.VerifyCodeConstants;
+import nku.core.utils.UUIDGenerator;
+import nku.xkxt.model.Course;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
+import nku.xkxt.service.CourseService;
 import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -28,6 +32,8 @@ public class AdminController {
 	private AdminService adminService;
 	@Resource
 	private StudentService studentService;
+	@Resource
+	private CourseService courseService;
 	
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
@@ -105,11 +111,64 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value = "/showClass")
-	public String showClass(Model model) {
-		return "teacher/showClass";
+	@RequestMapping(value = "/showCourse")
+	public String showCourse(Model model) {
+		return "teacher/showCourse";
+	}
+	@RequestMapping(value = "/addCourse")
+	public String addCourse(Model model) {
+		return "teacher/addCourse";
 	}
 	
+	/*
+	 * 添加学生
+	 */
+	@RequestMapping(value = "/insertCourse")
+	@ResponseBody
+	public Map<String,Object> insertCourse(HttpServletRequest request) throws IOException{
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		String msg = "";
+		
+		String courseNum = request.getParameter("courseNum");
+		String name = request.getParameter("name");
+		String maxStudent = request.getParameter("maxStudent");
+		String professor = request.getParameter("professor");
+		String classroom = request.getParameter("classroom");
+		
+		String reques = request.getParameter("request");
+		String introduction = request.getParameter("introduction");
+		String type = request.getParameter("type");
+		String credit = request.getParameter("credit");
+		String isOpen = request.getParameter("isOpen");
+		
+		Course course = new Course();
+		course.setId(UUIDGenerator.getUUID());
+		course.setCourseNum(courseNum);
+		course.setName(name);
+		course.setMaxStudent(Integer.parseInt(maxStudent));
+		course.setProfessor(professor);
+		course.setClassroom(classroom);
+		course.setRequest(reques);
+		course.setIntroduction(introduction);
+		course.setType(type);
+		course.setCredit(Float.parseFloat(credit));
+		if ("on".equals(isOpen)){
+			course.setIsOpen(1);
+		} else {
+			course.setIsOpen(0);
+		}
+		course.setIsDelete(0);
+		
+		if (courseService.insertCourse(course)>0){
+			msg = "添加课程成功!";
+			map.put("msg", msg);
+            return map;
+		} else {
+			msg = "添加课程失败，请重新检查信息!";
+			map.put("error", msg);
+            return map;
+		}
+	}
 	
 	@RequestMapping(value = "/top")
 	public String top(Model model) {
