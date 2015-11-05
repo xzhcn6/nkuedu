@@ -26,7 +26,7 @@
 				} else {
 					$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
 				}
-				getPages(data.stuList);
+				getPages(data.courseList);
 			}
 		});
 	}
