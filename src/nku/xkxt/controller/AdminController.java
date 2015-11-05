@@ -59,11 +59,9 @@ public class AdminController {
 	
 	@RequestMapping(value = "/deleteStudent")
 	@ResponseBody
-	public Map<String,Object> deleteStudent(HttpServletRequest request){
-		Map<String,Object> map = new HashMap<String,Object>();
+	public void deleteStudent(HttpServletRequest request){
 		String stuId = request.getParameter("id");
 		adminService.deleteStudentById(stuId);
-		return map;
 	}
 	
 	@RequestMapping(value = "/updateStudent")
@@ -121,7 +119,7 @@ public class AdminController {
 	}
 	
 	/*
-	 * 添加学生
+	 * 添加课程
 	 */
 	@RequestMapping(value = "/insertCourse")
 	@ResponseBody
@@ -180,6 +178,13 @@ public class AdminController {
 		PageInfo<Course> page = new PageInfo<Course>(courseList);
 		map.put("courseList", page);
 		return map;
+	}
+	
+	@RequestMapping(value = "/deleteCourse")
+	@ResponseBody
+	public void deleteCourse(HttpServletRequest request){
+		String courseId = request.getParameter("id");
+		courseService.deleteCourseById(courseId);
 	}
 	
 	@RequestMapping(value = "/top")

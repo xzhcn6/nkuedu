@@ -89,6 +89,7 @@
 		           data:param,
 		           url:"<%=request.getContextPath()%>/admin/deleteStudent",
 				success : function(data) {
+					document.location.reload();
 				}
 			});
 		}

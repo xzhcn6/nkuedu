@@ -129,7 +129,7 @@
 		order by select_id
 	</select>
 	
-	<update id="deletecourseById">
+	<update id="deleteCourseById">
 		update course
 			<set>
 				is_delete = 1

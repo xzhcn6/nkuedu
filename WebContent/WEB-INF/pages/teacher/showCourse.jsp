@@ -78,17 +78,18 @@
 		$("#pages").html(div);
 	}
 	
-	function deleteStudent(stuId){
+	function deleteCourse(courseId){
 		if (!confirm('确定删除？')) {
 			return;
 		} else {
 			var param = {};
-			param.id = stuId;
+			param.id = courseId;
 			$.ajax({
 		           type:"POST",
 		           data:param,
 		           url:"<%=request.getContextPath()%>/admin/deleteCourse",
 				success : function(data) {
+					alert('删除成功！');
 				}
 			});
 		}
@@ -104,13 +105,13 @@
 		<td>{{value.professor}}</td>
 		<td>{{value.classroom}}</td>
 	    <td>{{value.request}}</td>
-		<td>查看</td>
+		<td><a href="">查看</a></td>
 		<td>{{value.type}}</td>
 		<td>{{value.isOpen}}</td>
 		<td>{{value.credit}}</td>
-	    <td><a href="<%=request.getContextPath()%>/admin/updateStudent?id={{value.id}}" class="operate">查看/修改时间</a>
-	    	<a href="" onclick="deleteStudent('{{value.id}}')" class="operate">修改</a>
-	    	<a href="<%=request.getContextPath()%>/admin/queryCourse?id={{value.id}}" class="operate">删除</a>
+	    <td><a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">查看/修改时间</a>
+	    	<a href="" onclick="deleteStudent('{{value.id}}')">修改</a>
+	    	<a href="" onclick="deleteCourse('{{value.id}}')">删除</a>
 		</td>
 	{{/each}}
 </script> 
