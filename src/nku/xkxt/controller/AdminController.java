@@ -170,6 +170,18 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping(value = "/getCourseList")
+	@ResponseBody
+	public Map<String,Object> getCourseList(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		String pageNum = request.getParameter("pageNo");
+		PageHelper.startPage(Integer.parseInt(pageNum), 10);
+		List<Course> courseList= courseService.getAllCourseByPage();
+		PageInfo<Course> page = new PageInfo<Course>(courseList);
+		map.put("courseList", page);
+		return map;
+	}
+	
 	@RequestMapping(value = "/top")
 	public String top(Model model) {
 		return "teacher/top";

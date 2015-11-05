@@ -122,11 +122,11 @@
 	<select id="getAllCourseByPage" resultMap="Course_ResultMap" >
 		select 
 		<include refid="Course_Column_List" />
-		from Course
+		from course
 		<where>
 			is_delete=0
 		</where>
-		order by course_num
+		order by select_id
 	</select>
 	
 	<update id="deletecourseById">

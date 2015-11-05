@@ -1,0 +1,21 @@
+
+a:link { 
+font-size: 16px; 
+color: #0000FF; 
+text-decoration: none; 
+} 
+a:visited { 
+font-size: 16px; 
+color: #0000FF; 
+text-decoration: none; 
+} 
+a:hover { 
+font-size: 16px; 
+color: #FF0000; 
+text-decoration: underline; 
+} 
+.operate {
+	font-size: 12px; 
+	color: #FF0000; 
+	text-decoration: underline; 
+}

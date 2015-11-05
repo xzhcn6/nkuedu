@@ -110,10 +110,10 @@
 	</td>
 	{{/each}}
 </script> 
-<body style="FONT-SIZE: 11pt; COLOR: black;	FONT-FAMILY: Arial, Geneva, Helvetica, sans-serif;">
+<body>
 <p align="center"><strong><font size="5">学生管理</font></strong></p>
 
-<table width=70% align="center">
+<table width=80% align="center">
 	<tr>
 		<td colspan="13"><strong>学生信息</strong></td>
 	</tr>
@@ -130,7 +130,7 @@
 	</tr>
 	<tbody id="id_table_elist"> </tbody>
 	</table><br>
-<div style="padding-left:15%;">
+<div style="padding-left:10%;">
 	<!-- 分页 -->
 	<div class="page" id="pages"></div>
 	<!-- 分页 -->
