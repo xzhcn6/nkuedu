@@ -8,6 +8,8 @@ public abstract class BaseCourse implements Serializable {
 	
 	private String id;
 	
+	private Integer selectId;
+	
 	private String courseNum;
 	
 	private String name;
@@ -124,6 +126,14 @@ public abstract class BaseCourse implements Serializable {
 
 	public void setIsDelete(Integer isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public Integer getSelectId() {
+		return selectId;
+	}
+
+	public void setSelectId(Integer selectId) {
+		this.selectId = selectId;
 	}
 	
 }
