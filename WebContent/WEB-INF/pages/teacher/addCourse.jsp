@@ -11,6 +11,15 @@
 		$('#commit').click(function(){
 	    	commit();
 	    });
+		$('#isOpen').click(function(){
+	    	if($('#isOpen').attr("checked")){
+	    		$('#isOpen').attr("value","off");
+	    		$('#isOpen').removeAttr("checked");
+	    	} else {
+	    		$('#isOpen').attr("value","on");
+	    		$('#isOpen').attr("checked","checked");
+	    	}
+	    });
 	}); 
 	function commit(){
 		if (!checkCourse()) {
@@ -59,7 +68,7 @@
 	 	<tr><td>课程简介：</td><td><textarea rows="5" cols="40" id="introduction" name="introduction"></textarea></td></tr>
 	 	<tr><td>课程类型：</td><td><input type="text" id="type" name="type"></td></tr>
 	 	<tr><td>学分：</td><td><input type="text" id="credit" name="credit"></td></tr>
-	 	<tr><td>是否开课：</td><td><input type="checkbox" id="isOpen" name="isOpen" checked="checked"></td></tr>
+	 	<tr><td>是否开课：</td><td><input type="checkbox" id="isOpen" name="isOpen" checked="checked" ></td></tr>
 	 </table>
 	<table align="right" width="50%"><tr><td>
  	<input type="submit" id="commit" value="确定添加">
