@@ -135,6 +135,7 @@ public class AdminController {
 		
 		String reques = request.getParameter("request");
 		String introduction = request.getParameter("introduction");
+		introduction = introduction.replace("\n","@");
 		String type = request.getParameter("type");
 		String credit = request.getParameter("credit");
 		String isOpen = request.getParameter("isOpen");
@@ -211,6 +212,7 @@ public class AdminController {
 		
 		String reques = request.getParameter("request");
 		String introduction = request.getParameter("introduction");
+		introduction = introduction.replace("\n","@");
 		String type = request.getParameter("type");
 		String credit = request.getParameter("credit");
 		String isOpen = request.getParameter("isOpen");
@@ -242,7 +244,17 @@ public class AdminController {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/showCourseIntro")
+	public String showCourseIntro(Model model,HttpServletRequest request) {
+		String name = request.getParameter("name");
+		String introduction = request.getParameter("introduction");
+		introduction = introduction.replace("@","\n");
+		Course course = new Course();
+		course.setName(name);
+		course.setIntroduction(introduction);
+		model.addAttribute("course", course);
+		return "teacher/showCourseIntro";
+	}
 	
 	
 	@RequestMapping(value = "/top")

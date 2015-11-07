@@ -69,7 +69,7 @@ function commit(){
 	<tr><td>教师名称：</td><td><input type="text" id="professor" name="professor" value="${course.professor}"></td></tr>
 	<tr><td>上课地点：</td><td><input type="text" id="classroom" name="classroom" value="${course.classroom}"></td></tr>
 	<tr><td>选课要求：</td><td><input type="text" id="request" name="request" value="${course.request}"></td></tr>
-	<tr><td>课程简介：</td><td><textarea rows="5" cols="40" id="introduction" name="introduction" value="${course.introduction}"></textarea></td></tr>
+	<tr><td>课程简介：</td><td><textarea rows="5" cols="40" id="introduction" name="introduction" >${course.introduction}</textarea></td></tr>
 	<tr><td>课程类型：</td><td><input type="text" id="type" name="type" value="${course.type}"></td></tr>
 	<tr><td>学分：</td><td><input type="text" id="credit" name="credit" value="${course.credit}"></td></tr>
 	<tr><td>是否开课：</td><td><input type="checkbox" id="isOpen" name="isOpen"></td></tr>
