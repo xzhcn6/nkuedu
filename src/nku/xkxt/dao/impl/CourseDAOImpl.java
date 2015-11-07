@@ -3,6 +3,7 @@ package nku.xkxt.dao.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 
 import nku.xkxt.dao.CourseDAO;
@@ -14,6 +15,11 @@ public class CourseDAOImpl implements CourseDAO{
 	
 	@Resource
 	private CourseMapper courseMapper;
+	
+	@Override
+	public Course getCourseById(String id){
+		return courseMapper.getCourseById(id);
+	}
 	
 	@Override
 	public int insertCourse(Course course) {

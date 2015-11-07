@@ -187,6 +187,64 @@ public class AdminController {
 		courseService.deleteCourseById(courseId);
 	}
 	
+	@RequestMapping(value = "/updateCourse")
+	public String updateCourse(Model model,HttpServletRequest request) {
+		String courseId = request.getParameter("id");
+		Course course = courseService.getCourseById(courseId);
+		model.addAttribute("course", course);
+		return "teacher/updateCourse";
+	}
+	
+	@RequestMapping(value = "/updateCourseInfo")
+	@ResponseBody
+	public Map<String,Object> updateCourseInfo(HttpServletRequest request){		
+
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		
+		String courseId = request.getParameter("courseId");
+		String courseNum = request.getParameter("courseNum");
+		String name = request.getParameter("name");
+		String maxStudent = request.getParameter("maxStudent");
+		String professor = request.getParameter("professor");
+		String classroom = request.getParameter("classroom");
+		
+		String reques = request.getParameter("request");
+		String introduction = request.getParameter("introduction");
+		String type = request.getParameter("type");
+		String credit = request.getParameter("credit");
+		String isOpen = request.getParameter("isOpen");
+		
+		Course course = new Course();
+		course.setId(courseId);
+		course.setCourseNum(courseNum);
+		course.setName(name);
+		course.setMaxStudent(Integer.parseInt(maxStudent));
+		course.setProfessor(professor);
+		course.setClassroom(classroom);
+		course.setRequest(reques);
+		course.setIntroduction(introduction);
+		course.setType(type);
+		course.setCredit(Float.parseFloat(credit));
+		if ("on".equals(isOpen)){
+			course.setIsOpen(1);
+		} else {
+			course.setIsOpen(0);
+		}
+		if(courseService.updateCourseByExample(course)>0){
+			msg = "修改成功!";
+			map.put("msg", msg);
+            return map;
+		} else {
+			msg = "修改失败!";
+			map.put("error", msg);
+            return map;
+		}
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/top")
 	public String top(Model model) {
 		return "teacher/top";

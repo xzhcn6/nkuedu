@@ -6,6 +6,8 @@ import nku.xkxt.model.Course;
 
 public interface CourseDAO {
 	
+	Course getCourseById(String id);
+	
 	int insertCourse(Course course); 
 	
 	List<Course> getAllCourseByPage();

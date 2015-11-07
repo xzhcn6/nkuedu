@@ -110,7 +110,7 @@
 		<td>{{value.isOpen}}</td>
 		<td>{{value.credit}}</td>
 	    <td><a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">查看/修改时间</a>
-	    	<a href="" onclick="deleteStudent('{{value.id}}')">修改</a>
+	    	<a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">修改</a>
 	    	<a href="" onclick="deleteCourse('{{value.id}}')">删除</a>
 		</td>
 	{{/each}}

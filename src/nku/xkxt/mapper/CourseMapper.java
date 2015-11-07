@@ -8,6 +8,8 @@ import nku.xkxt.model.Course;
 
 public interface CourseMapper {
 	
+	Course getCourseById(@Param("id")String id);
+	
 	int insertCourse(Course course); 
 	
 	List<Course> getAllCourseByPage();

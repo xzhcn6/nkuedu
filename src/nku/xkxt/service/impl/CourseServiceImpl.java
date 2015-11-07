@@ -4,6 +4,7 @@ package nku.xkxt.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import nku.xkxt.dao.CourseDAO;
@@ -15,6 +16,11 @@ public class CourseServiceImpl implements CourseService{
 	
 	@Resource
 	private CourseDAO courseDAO;
+	
+	@Override
+	public Course getCourseById(String id){
+		return courseDAO.getCourseById(id);
+	}
 	
 	@Override
 	public int insertCourse(Course course){

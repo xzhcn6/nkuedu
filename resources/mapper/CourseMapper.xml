@@ -33,6 +33,18 @@
 		is_delete
 	</sql>
 	
+	<select id="getCourseById" resultMap="Course_ResultMap" >
+		select 
+		<include refid="Course_Column_List" />
+		from course
+		<where>
+			is_delete=0
+			<if test="id != null" >
+		    	and  ID = #{id}
+		    </if>
+		</where>
+	</select>
+	
 	<insert id="insertCourse" parameterType="nku.xkxt.model.Course" useGeneratedKeys="true" keyProperty="id">
 		insert into course
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -162,13 +174,13 @@
 						introduction = #{introduction},
 				</if>
 				<if test="type != null">
-						type = #{type}
+						type = #{type},
 				</if>
 				<if test="credit != null">
 						credit = #{credit},
 				</if>
 				<if test="isOpen != null">
-						is_opent = #{isOpen},
+						is_open = #{isOpen},
 				</if>
 				<if test="name != null">
 					name = #{name},

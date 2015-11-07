@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/student/check.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/teacher/check.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#commit').click(function(){
