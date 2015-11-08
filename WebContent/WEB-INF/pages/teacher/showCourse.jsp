@@ -95,6 +95,17 @@
 		}
 	}
 </script>
+<script type="text/javascript">  
+	/** 判断是否开课 */
+	template.helper('isOpen', function (isOpen) {
+		if (isOpen == 1){
+			return "是";
+		} else {
+			return "否";
+		}
+		
+	});
+</script>
 <script id="id_table_courselist" type="text/html">    
 	{{each data.courseList.list as value i}}
 	<tr>
@@ -107,7 +118,7 @@
 	    <td>{{value.request}}</td>
 		<td><a href="<%=request.getContextPath()%>/admin/showCourseIntro?name={{value.name}}&introduction={{value.introduction}}">查看</a></td>
 		<td>{{value.type}}</td>
-		<td>{{value.isOpen}}</td>
+		<td><a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">{{isOpen value.isOpen}}</a></td>
 		<td>{{value.credit}}</td>
 	    <td><a href="<%=request.getContextPath()%>/admin/showInCourse?id={{value.introduction}}">查看/修改时间</a>
 	    	<a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">修改</a>
