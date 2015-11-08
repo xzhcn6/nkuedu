@@ -157,12 +157,17 @@ public class AdminController {
 			course.setIsOpen(0);
 		}
 		course.setIsDelete(0);
-		
-		if (courseService.insertCourse(course)>0){
-			msg = "添加课程成功!";
-			map.put("msg", msg);
-            return map;
-		} else {
+		try {
+			if (courseService.insertCourse(course)>0){
+				msg = "添加课程成功!";
+				map.put("msg", msg);
+	            return map;
+			} else {
+				msg = "添加课程失败，请重新检查信息!";
+				map.put("error", msg);
+	            return map;
+			}
+		} catch (Exception e){
 			msg = "添加课程失败，请重新检查信息!";
 			map.put("error", msg);
             return map;
@@ -256,6 +261,27 @@ public class AdminController {
 		return "teacher/showCourseIntro";
 	}
 	
+	@RequestMapping(value = "/showTime")
+	public String showTime(Model model,HttpServletRequest request) {
+		String selectId = request.getParameter("selectId");
+		String name = request.getParameter("name");
+		Course course = new Course();
+		course.setSelectId(Integer.parseInt(selectId));
+		course.setName(name);
+		model.addAttribute("course", course);
+		return "teacher/showTime";
+	}
+	
+	@RequestMapping(value = "/addTime")
+	public String addTime(Model model,HttpServletRequest request) {
+		String selectId = request.getParameter("selectId");
+		String name = request.getParameter("name");
+		Course course = new Course();
+		course.setSelectId(Integer.parseInt(selectId));
+		course.setName(name);
+		model.addAttribute("course", course);
+		return "teacher/addTime";
+	}
 	
 	@RequestMapping(value = "/top")
 	public String top(Model model) {
