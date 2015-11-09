@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import nku.core.common.VerifyCodeConstants;
 import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Course;
+import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
 import nku.xkxt.service.CourseService;
+import nku.xkxt.service.CourseTimeService;
 import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,8 @@ public class AdminController {
 	private StudentService studentService;
 	@Resource
 	private CourseService courseService;
+	@Resource
+	private CourseTimeService courseTimeService;
 	
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
@@ -263,9 +267,11 @@ public class AdminController {
 	
 	@RequestMapping(value = "/showTime")
 	public String showTime(Model model,HttpServletRequest request) {
+		String id = request.getParameter("id");
 		String selectId = request.getParameter("selectId");
 		String name = request.getParameter("name");
 		Course course = new Course();
+		course.setId(id);
 		course.setSelectId(Integer.parseInt(selectId));
 		course.setName(name);
 		model.addAttribute("course", course);
@@ -274,14 +280,65 @@ public class AdminController {
 	
 	@RequestMapping(value = "/addTime")
 	public String addTime(Model model,HttpServletRequest request) {
+		String id = request.getParameter("id");
 		String selectId = request.getParameter("selectId");
 		String name = request.getParameter("name");
 		Course course = new Course();
+		course.setId(id);
 		course.setSelectId(Integer.parseInt(selectId));
 		course.setName(name);
 		model.addAttribute("course", course);
 		return "teacher/addTime";
 	}
+	
+	/*
+	 * 添加课程
+	 */
+	@RequestMapping(value = "/addTimeToCourse")
+	@ResponseBody
+	public Map<String,Object> addTimeToCourse(HttpServletRequest request) throws IOException{
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		String msg = "";
+		
+		String courseId = request.getParameter("courseId");
+		String courseDay = request.getParameter("courseDay");
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		
+		Integer sTime = Integer.parseInt(startTime);
+		Integer eTime = Integer.parseInt(endTime);
+		
+		if (sTime>=eTime){
+			msg = "添加时间失败，课程开始时间必须小于结束时间!";
+			map.put("error", msg);
+            return map;
+		}
+		
+		CourseTime courseTime= new CourseTime();
+		
+		courseTime.setId(UUIDGenerator.getUUID());
+		courseTime.setCourseId(courseId);
+		courseTime.setCourseDay(Integer.parseInt(courseDay));
+		courseTime.setStartTime(sTime);
+		courseTime.setEndTime(eTime);
+			
+//		try {
+			if (courseTimeService.insertCourseTime(courseTime)>0){
+				msg = "添加时间成功!";
+				map.put("msg", msg);
+	            return map;
+			} else {
+				msg = "添加时间失败，请重新检查信息!";
+				map.put("error", msg);
+	            return map;
+			}
+//		} catch (Exception e){
+//			msg = "添加时间失败，请重新检查信息!";
+//			map.put("error", msg);
+//            return map;
+//		}
+	}
+	
 	
 	@RequestMapping(value = "/top")
 	public String top(Model model) {

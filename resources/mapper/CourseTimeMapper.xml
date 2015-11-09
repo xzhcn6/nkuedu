@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nku.xkxt.mapper.CourseTimeMapper">
+	<resultMap id="CourseTime_ResultMap" type="nku.xkxt.model.CourseTime">
+		<id column="id" property="id" />
+		<result column="course_id" property="courseId" />
+		<result column="course_day" property="courseDay" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+	</resultMap>
+
+	<sql id="CourseTime_Column_List">
+		id,
+		course_id,
+		course_day,
+		start_time,
+		end_time
+	</sql>
+	
+	<select id="getCourseTimeByCourseId" resultMap="CourseTime_ResultMap" >
+		select 
+		<include refid="CourseTime_Column_List" />
+		from course_time
+		<where>
+			<if test="courseId != null" >
+		    	course_id = #{courseId}
+		    </if>
+		</where>
+	</select>
+	
+	<insert id="insertCourseTime" parameterType="nku.xkxt.model.CourseTime" useGeneratedKeys="true" keyProperty="id">
+		insert into course_time
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					ID,
+			</if>
+			<if test="courseId != null">
+					course_id,
+			</if>
+			<if test="courseDay != null">
+					course_day,
+			</if>
+			<if test="startTime != null">
+					start_time,
+			</if>
+			<if test="endTime != null">
+					end_time
+			</if>
+		</trim>
+		values <trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					#{id},
+			</if>
+			<if test="courseId != null">
+					#{courseId},
+			</if>
+			<if test="courseDay != null">
+					#{courseDay},
+			</if>
+			<if test="startTime != null">
+					#{startTime},
+			</if>
+			<if test="endTime != null">
+					#{endTime},
+			</if>
+		</trim>
+	</insert>
+	
+	<delete id="deleteCourseTimeById">
+		delete from course_time
+		where id = #{id}
+	</delete>
+	
+	<update id="updateCourseTimeByExample" parameterType="nku.xkxt.model.CourseTime">
+		update course_time
+			<set>
+				<if test="courseId != null">
+						course_id = #{courseId},
+				</if>
+				<if test="courseDay != null">
+						course_day = #{courseDay},
+				</if>
+				<if test="startTime != null">
+						start_time = #{startTime},
+				</if>
+				<if test="endTime != null">
+						edn_time = #{endTime},
+				</if>
+			</set>
+		where id = #{id}
+	</update>
+	
+</mapper>
