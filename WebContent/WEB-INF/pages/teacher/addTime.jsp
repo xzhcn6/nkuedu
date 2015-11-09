@@ -17,6 +17,7 @@
 			return;
 		}
 		var param = {};
+		param.courseId = '${course.id}';
 		param.courseDay = $('#courseDay').val();
 		param.startTime = $('#startTime').val();
 		param.endTime = $('#endTime').val();

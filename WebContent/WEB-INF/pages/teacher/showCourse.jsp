@@ -120,7 +120,7 @@
 		<td>{{value.type}}</td>
 		<td><a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">{{isOpen value.isOpen}}</a></td>
 		<td>{{value.credit}}</td>
-	    <td><a href="<%=request.getContextPath()%>/admin/showTime?selectId={{value.selectId}}&name={{value.name}}">查看/修改时间</a>
+	    <td><a href="<%=request.getContextPath()%>/admin/showTime?id={{value.id}}&selectId={{value.selectId}}&name={{value.name}}">查看/修改时间</a>
 	    	<a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">修改</a>
 	    	<a href="" onclick="deleteCourse('{{value.id}}')">删除</a>
 		</td>

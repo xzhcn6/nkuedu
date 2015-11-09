@@ -43,7 +43,7 @@
 			<td>&nbsp</td>
 			<td>&nbsp</td>
 			<td>&nbsp</td>
-			<td><a href="<%=request.getContextPath()%>/admin/addTime?selectId=${course.selectId}&name=${course.name}">
+			<td><a href="<%=request.getContextPath()%>/admin/addTime?id=${course.id}&selectId=${course.selectId}&name=${course.name}">
 			添加时间</a></td>
 	    </tr>
 	</table>
