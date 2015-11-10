@@ -349,6 +349,20 @@ public class AdminController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/deleteCourseTime")
+	@ResponseBody
+	public void deleteCourseTime(HttpServletRequest request){
+		String courseTimeId = request.getParameter("id");
+		courseTimeService.deleteCourseTimeById(courseTimeId);
+	}
+	
+	@RequestMapping(value = "/updateCourseTime")
+	public String updateCourseTime(Model model,HttpServletRequest request) {
+		String courseId = request.getParameter("id");
+		Course course = courseService.getCourseById(courseId);
+		model.addAttribute("course", course);
+		return "teacher/updateCourseTime";
+	}
 	
 	@RequestMapping(value = "/top")
 	public String top(Model model) {

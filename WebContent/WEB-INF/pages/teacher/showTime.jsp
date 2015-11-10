@@ -34,7 +34,7 @@
 			return;
 		} else {
 			var param = {};
-			param.id = courseId;
+			param.id = courseTimeId;
 			$.ajax({
 		           type:"POST",
 		           data:param,
@@ -53,7 +53,7 @@
 	    <td>{{value.startTime}}</td>
 		<td>{{value.endTime}}</td>
 	    <td><a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">修改</a>
-	    	<a href="" onclick="deleteCourse('{{value.id}}')">删除</a>
+	    	<a href="" onclick="deleteCourseTime('{{value.id}}')">删除</a>
 		</td>
 	{{/each}}
 </script> 
