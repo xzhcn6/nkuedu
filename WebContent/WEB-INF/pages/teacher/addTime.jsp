@@ -33,7 +33,7 @@
 				}
 				if (data.msg != null){
 					alert(data.msg);
-					location.href = "<%=request.getContextPath()%>/admin/showTime?selectId=${course.selectId}&name=${course.name}";
+					location.href = "<%=request.getContextPath()%>/admin/showTime?id=${course.id}&selectId=${course.selectId}&=${course.name}";
 				}
 			}
 		});

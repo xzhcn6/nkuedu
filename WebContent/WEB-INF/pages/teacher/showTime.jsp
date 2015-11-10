@@ -9,6 +9,54 @@
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/template.js"></script>
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">   
+	$(function(){
+		getCourseTimeList('${course.id}');
+     }); 
+	function getCourseTimeList(courseId){
+		var param = {};
+		param.courseId = courseId;
+        $.ajax({
+            type:"POST",
+            data:param,
+            url:"<%=request.getContextPath()%>/admin/getCourseTimeList",
+			success : function(data) {
+				if(data.courseTimeList.length != 0){
+					$("#id_table_elist").html(template('id_table_coursetimelist', {data:data}));
+				} else {
+					$("#id_table_elist").html("<tr><td colspan='4'><center>暂无数据</center></td></tr>");
+				}
+			}
+		});
+	}
+	function deleteCourseTime(courseTimeId){
+		if (!confirm('确定删除？')) {
+			return;
+		} else {
+			var param = {};
+			param.id = courseId;
+			$.ajax({
+		           type:"POST",
+		           data:param,
+		           url:"<%=request.getContextPath()%>/admin/deleteCourseTime",
+				success : function(data) {
+					alert('删除成功！');
+				}
+			});
+		}
+	}
+</script>
+<script id="id_table_coursetimelist" type="text/html">    
+	{{each data.courseTimeList as value i}}
+	<tr>
+		<td>{{value.courseDay}}</td>
+	    <td>{{value.startTime}}</td>
+		<td>{{value.endTime}}</td>
+	    <td><a href="<%=request.getContextPath()%>/admin/updateCourse?id={{value.id}}">修改</a>
+	    	<a href="" onclick="deleteCourse('{{value.id}}')">删除</a>
+		</td>
+	{{/each}}
+</script> 
 <body style="FONT-SIZE: 11pt; COLOR: black;	FONT-FAMILY: Arial, Geneva, Helvetica, sans-serif;">
 <p align="center"><strong><font size="5">编辑课程时间</font></strong></p>
 	<table width=60% height=50% align="center" >
@@ -24,28 +72,21 @@
 		<td>操作</td>
 	</tr>
 	
-	<s:iterator value="list">
-    <tr>
-	    <td>&nbsp&nbsp&nbsp&nbsp<s:property value="courseDay"/></td>
-	    <td>&nbsp&nbsp<s:property value="startTime"/></td>
-	    <td>&nbsp&nbsp<s:property value="endTime"/></td>
-	    <td><a href="updateTime.jsp?id=<s:property value='id'/>&courseID=<s:property value='course.id'/>&courseDay=<s:property value='courseDay'/>&startTime=<s:property value='startTime'/>&endTime=<s:property value='endTime'/>&isback=<s:property value='#request.isback'/>">修改</a>
-	    	<a href="deleteTime.action?id=<s:property value='id'/>&courseID=<s:property value='course.id'/>&isback=<s:property value='#request.isback'/>" onclick="return confirm('确定删除？')">删除</a>
-		</td>
-		<td><s:hidden value="id"></s:hidden></td>
-		<td><s:hidden value="course.id"></s:hidden></td>
+	<tr>
+		<td>&nbsp</td>
 	</tr>
-	</s:iterator>
-		<tr>
-			<td>&nbsp</td>
-		</tr>
-		<tr>
-			<td>&nbsp</td>
-			<td>&nbsp</td>
-			<td>&nbsp</td>
-			<td><a href="<%=request.getContextPath()%>/admin/addTime?id=${course.id}&selectId=${course.selectId}&name=${course.name}">
+	<tbody id="id_table_elist"> </tbody>
+	<tr>
+		<td>&nbsp</td>
+	</tr>
+	<tr>
+		<td>&nbsp</td>
+		<td>&nbsp</td>
+		<td>&nbsp</td>
+		<td><a href="<%=request.getContextPath()%>/admin/addTime?id=${course.id}&selectId=${course.selectId}&name=${course.name}">
 			添加时间</a></td>
-	    </tr>
+	</tr>
+	
 	</table>
 	<div style="padding-left:20%;padding-right:20%;"><br>
 	<h3>注意：</h3>

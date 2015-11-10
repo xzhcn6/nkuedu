@@ -292,7 +292,7 @@ public class AdminController {
 	}
 	
 	/*
-	 * 添加课程
+	 * 添加课程时间
 	 */
 	@RequestMapping(value = "/addTimeToCourse")
 	@ResponseBody
@@ -322,7 +322,7 @@ public class AdminController {
 		courseTime.setStartTime(sTime);
 		courseTime.setEndTime(eTime);
 			
-//		try {
+		try {
 			if (courseTimeService.insertCourseTime(courseTime)>0){
 				msg = "添加时间成功!";
 				map.put("msg", msg);
@@ -332,11 +332,21 @@ public class AdminController {
 				map.put("error", msg);
 	            return map;
 			}
-//		} catch (Exception e){
-//			msg = "添加时间失败，请重新检查信息!";
-//			map.put("error", msg);
-//            return map;
-//		}
+		} catch (Exception e){
+			msg = "添加时间失败，请重新检查信息!";
+			map.put("error", msg);
+            return map;
+		}
+	}
+	
+	@RequestMapping(value = "/getCourseTimeList")
+	@ResponseBody
+	public Map<String,Object> getCourseTimeList(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		String courseId = request.getParameter("courseId");
+		List<CourseTime> courseTimeList= courseTimeService.getCourseTimeByCourseId(courseId);
+		map.put("courseTimeList", courseTimeList);
+		return map;
 	}
 	
 	

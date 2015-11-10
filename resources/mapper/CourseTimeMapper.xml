@@ -26,6 +26,7 @@
 		    	course_id = #{courseId}
 		    </if>
 		</where>
+		order by course_day
 	</select>
 	
 	<insert id="insertCourseTime" parameterType="nku.xkxt.model.CourseTime" useGeneratedKeys="true" keyProperty="id">
