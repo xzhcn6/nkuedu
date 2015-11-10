@@ -33,7 +33,7 @@
 				}
 				if (data.msg != null){
 					alert(data.msg);
-					location.href = "<%=request.getContextPath()%>/admin/showTime?id=${course.id}&selectId=${course.selectId}&=${course.name}";
+					location.href = "<%=request.getContextPath()%>/admin/showCourseTime?id=${course.id}&selectId=${course.selectId}&=${course.name}";
 				}
 			}
 		});
@@ -63,12 +63,12 @@
 		<tr>
 			<td>结束时间：</td><td><input type="text" id="endTime" name="endTime"></td>
 		</tr>
-		<tr>
-			<td colspan="2" align="right">
-			<input type="button" value="添加" id="commit">
-			<input type="button" value="取消" onclick="javascript:history.go(-1);"/>
-			</td>
-		</tr>
+	</table>
+	<table align="right" width="50%">
+	<tr><td>
+		<input type="button" value="添加" id="commit">
+		<input type="button" value="取消" onclick="javascript:history.go(-1);"/>
+	</td></tr>
 	</table>
 </body>
 </html>

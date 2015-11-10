@@ -17,6 +17,17 @@
 		end_time
 	</sql>
 	
+	<select id="getCourseTimeById" resultMap="CourseTime_ResultMap" >
+		select 
+		<include refid="CourseTime_Column_List" />
+		from course_time
+		<where>
+			<if test="id != null" >
+		    	ID = #{id}
+		    </if>
+		</where>
+	</select>
+	
 	<select id="getCourseTimeByCourseId" resultMap="CourseTime_ResultMap" >
 		select 
 		<include refid="CourseTime_Column_List" />
@@ -75,9 +86,6 @@
 	<update id="updateCourseTimeByExample" parameterType="nku.xkxt.model.CourseTime">
 		update course_time
 			<set>
-				<if test="courseId != null">
-						course_id = #{courseId},
-				</if>
 				<if test="courseDay != null">
 						course_day = #{courseDay},
 				</if>
@@ -85,7 +93,7 @@
 						start_time = #{startTime},
 				</if>
 				<if test="endTime != null">
-						edn_time = #{endTime},
+						end_time = #{endTime},
 				</if>
 			</set>
 		where id = #{id}
