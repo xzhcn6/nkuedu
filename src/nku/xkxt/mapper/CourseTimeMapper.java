@@ -8,6 +8,8 @@ import nku.xkxt.model.CourseTime;
 
 public interface CourseTimeMapper {
 	
+	CourseTime getCourseTimeById(@Param("id")String id);
+	
 	List<CourseTime> getCourseTimeByCourseId(@Param("courseId")String courseId);
 	
 	int insertCourseTime(CourseTime courseTime); 

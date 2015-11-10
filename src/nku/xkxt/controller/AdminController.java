@@ -265,8 +265,8 @@ public class AdminController {
 		return "teacher/showCourseIntro";
 	}
 	
-	@RequestMapping(value = "/showTime")
-	public String showTime(Model model,HttpServletRequest request) {
+	@RequestMapping(value = "/showCourseTime")
+	public String showCourseTime(Model model,HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String selectId = request.getParameter("selectId");
 		String name = request.getParameter("name");
@@ -275,11 +275,11 @@ public class AdminController {
 		course.setSelectId(Integer.parseInt(selectId));
 		course.setName(name);
 		model.addAttribute("course", course);
-		return "teacher/showTime";
+		return "teacher/showCourseTime";
 	}
 	
-	@RequestMapping(value = "/addTime")
-	public String addTime(Model model,HttpServletRequest request) {
+	@RequestMapping(value = "/addCourseTime")
+	public String addCourseTime(Model model,HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String selectId = request.getParameter("selectId");
 		String name = request.getParameter("name");
@@ -288,7 +288,7 @@ public class AdminController {
 		course.setSelectId(Integer.parseInt(selectId));
 		course.setName(name);
 		model.addAttribute("course", course);
-		return "teacher/addTime";
+		return "teacher/addCourseTime";
 	}
 	
 	/*
@@ -305,8 +305,21 @@ public class AdminController {
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
 		
+		Integer cDay = Integer.parseInt(courseDay);
 		Integer sTime = Integer.parseInt(startTime);
 		Integer eTime = Integer.parseInt(endTime);
+		
+		if(cDay>7||cDay<1){
+			msg = "添加时间失败，课程时间为1-7间的整数!";
+			map.put("error", msg);
+            return map;
+		}
+		
+		if(sTime>12||sTime<1||eTime>12||eTime<1){
+			msg = "添加时间失败，课程开始时间和结束时间为1-12间的整数!";
+			map.put("error", msg);
+            return map;
+		}
 		
 		if (sTime>=eTime){
 			msg = "添加时间失败，课程开始时间必须小于结束时间!";
@@ -318,7 +331,7 @@ public class AdminController {
 		
 		courseTime.setId(UUIDGenerator.getUUID());
 		courseTime.setCourseId(courseId);
-		courseTime.setCourseDay(Integer.parseInt(courseDay));
+		courseTime.setCourseDay(cDay);
 		courseTime.setStartTime(sTime);
 		courseTime.setEndTime(eTime);
 			
@@ -358,10 +371,70 @@ public class AdminController {
 	
 	@RequestMapping(value = "/updateCourseTime")
 	public String updateCourseTime(Model model,HttpServletRequest request) {
-		String courseId = request.getParameter("id");
+		String courseTimeId = request.getParameter("id");
+		String courseId = request.getParameter("courseId");
+		CourseTime courseTime = courseTimeService.getCourseTimeById(courseTimeId);
 		Course course = courseService.getCourseById(courseId);
+		model.addAttribute("courseTime", courseTime);
 		model.addAttribute("course", course);
 		return "teacher/updateCourseTime";
+	}
+	
+	@RequestMapping(value = "/updateCourseTimeInfo")
+	@ResponseBody
+	public Map<String,Object> updateCourseTimeInfo(HttpServletRequest request){		
+
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		
+		String id = request.getParameter("id");
+		String courseDay = request.getParameter("courseDay");
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		
+		Integer cDay = Integer.parseInt(courseDay);
+		Integer sTime = Integer.parseInt(startTime);
+		Integer eTime = Integer.parseInt(endTime);
+		
+		if(cDay>7||cDay<1){
+			msg = "修改时间失败，课程时间为1-7间的整数!";
+			map.put("error", msg);
+            return map;
+		}
+		
+		if(sTime>12||sTime<1||eTime>12||eTime<1){
+			msg = "修改时间失败，课程开始时间和结束时间为1-12间的整数!";
+			map.put("error", msg);
+            return map;
+		}
+		
+		if (sTime>=eTime){
+			msg = "修改时间失败，课程开始时间必须小于结束时间!";
+			map.put("error", msg);
+            return map;
+		}
+		
+		CourseTime courseTime= new CourseTime();
+		courseTime.setId(id);
+		courseTime.setCourseDay(cDay);
+		courseTime.setStartTime(sTime);
+		courseTime.setEndTime(eTime);
+			
+		try {
+			if (courseTimeService.updateCourseTimeByExample(courseTime)>0){
+				msg = "修改时间成功!";
+				map.put("msg", msg);
+	            return map;
+			} else {
+				msg = "修改时间失败，请重新检查信息!";
+				map.put("error", msg);
+	            return map;
+			}
+		} catch (Exception e){
+			msg = "修改时间失败，请重新检查信息!";
+			map.put("error", msg);
+            return map;
+		}
 	}
 	
 	@RequestMapping(value = "/top")

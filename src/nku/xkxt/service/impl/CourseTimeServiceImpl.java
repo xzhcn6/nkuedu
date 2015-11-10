@@ -18,6 +18,11 @@ public class CourseTimeServiceImpl implements CourseTimeService{
 	private CourseTimeDAO courseTimeDAO;
 	
 	@Override
+	public CourseTime getCourseTimeById(String id){
+		return courseTimeDAO.getCourseTimeById(id);
+	}
+	
+	@Override
 	public List<CourseTime> getCourseTimeByCourseId(String courseId){
 		return courseTimeDAO.getCourseTimeByCourseId(courseId);
 	}

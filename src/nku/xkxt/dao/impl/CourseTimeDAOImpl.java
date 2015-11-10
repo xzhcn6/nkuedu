@@ -17,6 +17,11 @@ public class CourseTimeDAOImpl implements CourseTimeDAO{
 	private CourseTimeMapper courseTimeMapper;
 	
 	@Override
+	public CourseTime getCourseTimeById(String id){
+		return courseTimeMapper.getCourseTimeById(id);
+	}
+	
+	@Override
 	public List<CourseTime> getCourseTimeByCourseId(String courseId){
 		return courseTimeMapper.getCourseTimeByCourseId(courseId);
 	}
