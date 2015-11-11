@@ -240,6 +240,7 @@ public class AdminController {
 		if ("on".equals(isOpen)){
 			course.setIsOpen(1);
 		} else {
+			courseTimeService.deleteCourseTimeByCourseId(courseId);
 			course.setIsOpen(0);
 		}
 		if(courseService.updateCourseByExample(course)>0){
@@ -326,6 +327,9 @@ public class AdminController {
 			map.put("error", msg);
             return map;
 		}
+		
+		Course course = courseService.getCourseById(courseId);
+//		List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByClassroom(course.getClassroom());
 		
 		CourseTime courseTime= new CourseTime();
 		

@@ -12,6 +12,8 @@ public interface CourseTimeService {
 	
 	int insertCourseTime(CourseTime courseTime); 
 	
+	int deleteCourseTimeByCourseId(String courseId);
+	
 	int deleteCourseTimeById(String id);
 	
 	int updateCourseTimeByExample(CourseTime courseTime);

@@ -32,6 +32,11 @@ public class CourseTimeDAOImpl implements CourseTimeDAO{
 	}
 	
 	@Override
+	public int deleteCourseTimeByCourseId(String courseId){
+		return courseTimeMapper.deleteCourseTimeByCourseId(courseId);
+	}
+	
+	@Override
 	public int deleteCourseTimeById(String id){
 		return courseTimeMapper.deleteCourseTimeById(id);
 	}

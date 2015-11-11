@@ -14,6 +14,8 @@ public interface CourseTimeMapper {
 	
 	int insertCourseTime(CourseTime courseTime); 
 	
+	int deleteCourseTimeByCourseId(@Param("courseId")String courseId);
+	
 	int deleteCourseTimeById(@Param("id")String id);
 	
 	int updateCourseTimeByExample(CourseTime courseTime);

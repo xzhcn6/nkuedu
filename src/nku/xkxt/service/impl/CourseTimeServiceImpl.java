@@ -33,6 +33,11 @@ public class CourseTimeServiceImpl implements CourseTimeService{
 	}
 	
 	@Override
+	public int deleteCourseTimeByCourseId(String courseId){
+		return courseTimeDAO.deleteCourseTimeByCourseId(courseId);
+	}
+	
+	@Override
 	public int deleteCourseTimeById(String id){
 		return courseTimeDAO.deleteCourseTimeById(id);
 	}

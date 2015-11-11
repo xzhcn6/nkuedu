@@ -78,6 +78,11 @@
 		</trim>
 	</insert>
 	
+	<delete id="deleteCourseTimeByCourseId">
+		delete from course_time
+		where course_id = #{courseId}
+	</delete>
+	
 	<delete id="deleteCourseTimeById">
 		delete from course_time
 		where id = #{id}
