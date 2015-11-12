@@ -80,18 +80,17 @@
 </script>
 <script type="text/javascript">  
 	/** 判断是否开课 */
-	template.helper('isOpen', function (isOpen) {
-		if (isOpen == 1){
-			return "是";
+	template.helper('tabcolor', function (i) {
+		if(i%2==1){
+			return '#cccccc';
 		} else {
-			return "否";
+			return;
 		}
-		
 	});
 </script>
 <script id="id_table_courselist" type="text/html">    
 	{{each data.courseList.list as value i}}
-	<tr>
+	<tr bgcolor='{{tabcolor i}}'>
 		<td>{{value.selectId}}</td>
 		<td>{{value.name}}</td>
 		<td><a href="<%=request.getContextPath()%>/student/showCourseIntro?name={{value.name}}&introduction={{value.introduction}}">查看</a></td>
@@ -105,6 +104,7 @@
 		<td>{{value.maxStudent}}</td>
 		<td>{{value.type}}</td>
 		<td>{{value.credit}}</td>
+	</tr>
 	{{/each}}
 </script> 
 <body  style="font-family:微软雅黑;">

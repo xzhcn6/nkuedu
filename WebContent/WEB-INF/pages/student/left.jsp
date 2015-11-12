@@ -28,7 +28,7 @@
 			<li><a href="ShowEvaluate" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/client/blank'">学生评教</a></li>
 			<li><a href="ScoreQuery.action" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/client/blank'">成绩查询</a></li>
 			<hr  style="border:1px dashed black; height:1px"/>
-			<li><font color="#FFFFFF"><a href="xksc.action?page=1" target="_blank">选课手册</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/student/xksc" target="_blank">选课手册</a></font></li>
 			<li><font color="#FFFFFF"><a href="http://jwc.nankai.edu.cn/" target="_blank" >教务处</a></font></li>
 			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/student/help" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/client/blank'">使用帮助</a></font></li>	
 		</ul>
