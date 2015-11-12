@@ -329,7 +329,18 @@ public class AdminController {
 		}
 		
 		Course course = courseService.getCourseById(courseId);
-//		List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByClassroom(course.getClassroom());
+		List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByClassroom(course.getClassroom());
+		
+		for (int i=0; i<courseTimeList.size();i++){
+			CourseTime ct = courseTimeList.get(i);
+			if(cDay.equals(ct.getCourseDay())){
+				if ((sTime>=ct.getStartTime()&&sTime<=ct.getEndTime())||(eTime>=ct.getStartTime()&&eTime<=ct.getEndTime())){
+					msg = "添加时间失败，此教师当前时间段已经安排其他课程!";
+					map.put("error", msg);
+		            return map;
+				}
+			}
+		}
 		
 		CourseTime courseTime= new CourseTime();
 		

@@ -10,6 +10,8 @@ public interface CourseTimeService {
 	
 	List<CourseTime> getCourseTimeByCourseId(String courseId);
 	
+	List<CourseTime> getCourseTimeByClassroom(String classroom);
+	
 	int insertCourseTime(CourseTime courseTime); 
 	
 	int deleteCourseTimeByCourseId(String courseId);

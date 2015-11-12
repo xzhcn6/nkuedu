@@ -40,6 +40,16 @@
 		order by course_day
 	</select>
 	
+	<select id="getCourseTimeByClassroom" resultMap="CourseTime_ResultMap" >
+		select ct.* 
+		from course_time ct left join course on course_id=course.id 
+		<where>
+			<if test="classroom != null" >
+		    	classroom = #{classroom}
+		    </if>
+		</where>
+	</select>
+	
 	<insert id="insertCourseTime" parameterType="nku.xkxt.model.CourseTime" useGeneratedKeys="true" keyProperty="id">
 		insert into course_time
 		<trim prefix="(" suffix=")" suffixOverrides=",">

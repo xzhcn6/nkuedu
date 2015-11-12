@@ -28,6 +28,11 @@ public class CourseTimeServiceImpl implements CourseTimeService{
 	}
 	
 	@Override
+	public List<CourseTime> getCourseTimeByClassroom(String classroom){
+		return courseTimeDAO.getCourseTimeByClassroom(classroom);
+	}
+	
+	@Override
 	public int insertCourseTime(CourseTime courseTime){
 		return courseTimeDAO.insertCourseTime(courseTime);
 	}

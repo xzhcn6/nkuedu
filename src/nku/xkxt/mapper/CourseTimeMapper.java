@@ -12,6 +12,8 @@ public interface CourseTimeMapper {
 	
 	List<CourseTime> getCourseTimeByCourseId(@Param("courseId")String courseId);
 	
+	List<CourseTime> getCourseTimeByClassroom(@Param("classroom")String classroom);
+	
 	int insertCourseTime(CourseTime courseTime); 
 	
 	int deleteCourseTimeByCourseId(@Param("courseId")String courseId);
