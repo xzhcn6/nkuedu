@@ -32,6 +32,11 @@ public class CourseDAOImpl implements CourseDAO{
 	}
 	
 	@Override
+	public List<Course> getAllOpenCourseByPage(){
+		return courseMapper.getAllOpenCourseByPage();
+	}
+	
+	@Override
 	public int deleteCourseById(String courseId){
 		return courseMapper.deleteCourseById(courseId);
 	}

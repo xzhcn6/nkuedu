@@ -14,6 +14,8 @@ public interface CourseMapper {
 	
 	List<Course> getAllCourseByPage();
 	
+	List<Course> getAllOpenCourseByPage();
+	
 	int deleteCourseById(@Param("courseId")String courseId);
 	
 	int updateCourseByExample(Course course);

@@ -1,5 +1,6 @@
 package nku.xkxt.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import nku.core.common.Constants;
 import nku.xkxt.model.Course;
+import nku.xkxt.model.CourseTime;
+import nku.xkxt.model.CourseWithTime;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.CourseService;
+import nku.xkxt.service.CourseTimeService;
 import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -30,6 +34,8 @@ public class StudentController {
 	private StudentService studentService;
 	@Resource
 	private CourseService courseService;
+	@Resource
+	private CourseTimeService courseTimeService;
 	
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
@@ -69,9 +75,26 @@ public class StudentController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		String pageNum = request.getParameter("pageNo");
 		PageHelper.startPage(Integer.parseInt(pageNum), 10);
-		List<Course> courseList= courseService.getAllCourseByPage();
+		List<Course> courseList = courseService.getAllOpenCourseByPage();
 		PageInfo<Course> page = new PageInfo<Course>(courseList);
-		map.put("courseList", page);
+		List<CourseWithTime> courseWTList = new ArrayList<CourseWithTime>();
+		for (Course course : courseList) {
+			CourseWithTime cwt = new CourseWithTime();
+			List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByCourseId(course.getId());
+			cwt.setCourseTime(courseTimeList);
+			cwt.setSelectId(course.getSelectId());
+			cwt.setName(course.getName());
+			cwt.setMaxStudent(course.getMaxStudent());
+			cwt.setProfessor(course.getProfessor());
+			cwt.setClassroom(course.getClassroom());
+			cwt.setRequest(course.getRequest());
+			cwt.setIntroduction(course.getIntroduction());
+			cwt.setType(course.getType());
+			cwt.setCredit(course.getCredit());
+			courseWTList.add(cwt);
+		}
+		map.put("page", page);
+		map.put("courseList", courseWTList);
 		return map;
 	}
 	

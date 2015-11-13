@@ -12,6 +12,8 @@ public interface CourseDAO {
 	
 	List<Course> getAllCourseByPage();
 	
+	List<Course> getAllOpenCourseByPage();
+	
 	int deleteCourseById(String courseId);
 	
 	int updateCourseByExample(Course course);

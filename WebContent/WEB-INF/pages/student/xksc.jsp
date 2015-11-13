@@ -20,12 +20,12 @@
             data:param,
             url:"<%=request.getContextPath()%>/student/getCourseList",
 			success : function(data) {
-				if(data.courseList.list.length != 0){
+				if(data.courseList.length != 0){
 					$("#id_table_elist").html(template('id_table_courselist', {data:data}));
 				} else {
 					$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
 				}
-				getPages(data.courseList);
+				getPages(data.page);
 			}
 		});
 	}
@@ -89,7 +89,7 @@
 	});
 </script>
 <script id="id_table_courselist" type="text/html">    
-	{{each data.courseList.list as value i}}
+	{{each data.courseList as value i}}
 	<tr bgcolor='{{tabcolor i}}'>
 		<td>{{value.selectId}}</td>
 		<td>{{value.name}}</td>

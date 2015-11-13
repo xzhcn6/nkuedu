@@ -141,6 +141,16 @@
 		order by select_id
 	</select>
 	
+	<select id="getAllOpenCourseByPage" resultMap="Course_ResultMap" >
+		select 
+		<include refid="Course_Column_List" />
+		from course
+		<where>
+			is_delete=0 and is_open=1
+		</where>
+		order by select_id
+	</select>
+	
 	<update id="deleteCourseById">
 		update course
 			<set>
