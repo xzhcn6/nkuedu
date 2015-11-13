@@ -10,6 +10,9 @@
 </head>
 <script type="text/javascript">   
 	$(function(){
+		var d = new Date();
+	    var nowYear = d.getFullYear();
+	    $("#title").html("南开大学"+nowYear+"年度夏季学期高中生选课手册"); 
 		getCourseList(1);
      }); 
 	function getCourseList(pageNo){
@@ -127,7 +130,7 @@
 <body  style="font-family:微软雅黑;">
 <table  width=85% height=50% align="center" >
     <tr align="center" ><td colspan="13">
-    <strong><h3>南开大学<fmt:formatDate value="<%=new java.util.Date()%>" pattern="yyyy" />年度夏季学期高中生选课手册 </h3></strong>
+    <strong><h3 id="title"></h3></strong>
     </td>
     </tr>
 	<tr bgcolor=#eeeeee>
