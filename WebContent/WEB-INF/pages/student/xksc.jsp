@@ -87,24 +87,41 @@
 			return;
 		}
 	});
+	template.helper('tableTime', function (value,j) {
+		if(j==0){
+			return value;
+		} else {
+			return ;
+		}
+	});
+	template.helper('showIntro', function (j) {
+		if(j==0){
+			return ;
+		} else {
+			return "none";
+		}
+	});
 </script>
-<script id="id_table_courselist" type="text/html">    
+<script id="id_table_courselist" type="text/html">
 	{{each data.courseList as value i}}
+	{{each value.courseTime as valueT j}}
 	<tr bgcolor='{{tabcolor i}}'>
-		<td>{{value.selectId}}</td>
-		<td>{{value.name}}</td>
-		<td><a href="<%=request.getContextPath()%>/student/showCourseIntro?name={{value.name}}&introduction={{value.introduction}}">查看</a></td>
-		<td>{{value.request}}</td>
-		<td>{{value.maxStudent}}</td>
-		<td>{{value.maxStudent}}</td>
-		<td>{{value.professor}}</td>
-		<td>{{value.classroom}}</td>
-	    <td>{{value.maxStudent}}</td>
-		<td>{{value.maxStudent}}</td>
-		<td>{{value.maxStudent}}</td>
-		<td>{{value.type}}</td>
-		<td>{{value.credit}}</td>
+		<td>{{tableTime value.selectId j}}</td>
+		<td>{{tableTime value.name j}}</td>
+		<td><a href="<%=request.getContextPath()%>/student/showCourseIntro?name={{value.name}}&introduction={{value.introduction}}" style="display:{{showIntro j}}":>查看</a></td>
+		<td>{{tableTime value.request j}}</td>
+		<td>{{tableTime value.maxStudent j}}</td>
+		<td>{{tableTime value.maxStudent j}}</td>
+		<td>{{tableTime value.professor j}}</td>
+		<td>{{tableTime value.classroom j}}</td>
+	    <td>{{valueT.courseDay}}</td>
+		<td>{{valueT.startTime}}</td>
+		<td>{{valueT.endTime}}</td>
+		<td>{{tableTime value.type j}}</td>
+		<td>{{tableTime value.credit j}}</td>
 	</tr>
+	{{/each}}
+	
 	{{/each}}
 </script> 
 <body  style="font-family:微软雅黑;">

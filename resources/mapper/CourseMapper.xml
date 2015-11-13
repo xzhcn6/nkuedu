@@ -146,7 +146,7 @@
 		<include refid="Course_Column_List" />
 		from course
 		<where>
-			is_delete=0 and is_open=1
+			is_delete=0 and is_open=1 and id in (SELECT distinct course_id FROM nkuedu.course_time )
 		</where>
 		order by select_id
 	</select>
