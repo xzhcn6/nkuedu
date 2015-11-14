@@ -461,4 +461,9 @@ public class AdminController {
 	public String left(Model model) {
 		return "teacher/left";
 	}
+	
+	@RequestMapping(value = "/showSelection")
+	public String showSelection(Model model) {
+		return "teacher/showSelection";
+	}
 }
