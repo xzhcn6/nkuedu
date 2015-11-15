@@ -471,9 +471,24 @@ public class AdminController {
 	
 	@RequestMapping(value = "/changeSystemStatus")
 	@ResponseBody
-	public void changeSystemStatus(HttpServletRequest request){
-		String courseTimeId = request.getParameter("id");
-		courseTimeService.deleteCourseTimeById(courseTimeId);
+	public Map<String,Object> changeSystemStatus(HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		
+		String status = request.getParameter("status");
+		if (status!=null&&!"".equals(status)){
+			if(adminService.changeSystemStatus(Integer.parseInt(status))>0){
+				msg = "修改选课系统状态成功!";
+				map.put("msg", msg);
+			} else {
+				msg = "修改选课系统状态失败!";
+				map.put("error", msg);
+			}
+		} else {
+			msg = "修改选课系统状态失败，请检查!";
+			map.put("error", msg);
+		}
+		return map;
 	}
 	
 }

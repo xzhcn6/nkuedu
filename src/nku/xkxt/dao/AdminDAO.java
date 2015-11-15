@@ -9,4 +9,5 @@ public interface AdminDAO {
 	
 	Integer getSystemStatus(); 
 	
+	Integer changeSystemStatus(int status);
 }

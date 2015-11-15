@@ -14,4 +14,6 @@ public interface AdminService {
 	int deleteStudentById(String stuId);
 	
 	Integer getSystemStatus();
+	
+	Integer changeSystemStatus(int status);
 }

@@ -50,4 +50,9 @@ public class AdminServiceImpl implements AdminService{
 	public Integer getSystemStatus(){
 		return adminDAO.getSystemStatus();
 	}
+	
+	@Override
+	public Integer changeSystemStatus(int status){
+		return adminDAO.changeSystemStatus(status);
+	}
 }

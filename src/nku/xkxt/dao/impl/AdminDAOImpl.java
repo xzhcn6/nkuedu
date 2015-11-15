@@ -22,4 +22,9 @@ public class AdminDAOImpl implements AdminDAO{
 	public Integer getSystemStatus(){
 		return adminMapper.getSystemStatus();
 	}
+	
+	@Override
+	public Integer changeSystemStatus(int status){
+		return adminMapper.changeSystemStatus(status);
+	}
 }

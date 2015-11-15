@@ -16,11 +16,28 @@ $(function(){
 		$('#statNo').attr("checked","true");
 		$('#statYes').removeAttr("checked");
 	}
-	$('#commit').click(function(){
-         commit();
+	$('#commitStatus').click(function(){
+		commitStatus();
     });
-	function commit(){
-		
+	
+	function commitStatus(){
+		var param = {};
+		param.status = $("input[name='state']:checked").val();
+		$.ajax({
+	        type:"POST",
+	        data:param,
+	        url:"<%=request.getContextPath()%>/admin/changeSystemStatus",
+			success : function(data) {
+				if (data.error != null){
+					alert(data.error);
+					document.location.reload();
+				}
+				if (data.msg != null){
+					alert(data.msg);
+					document.location.reload();
+				}
+			}
+		});
 	}
 }); 
 </script>
@@ -29,12 +46,10 @@ $(function(){
 <p align="center"><strong><font size="5">选课管理</font></strong></p>
 <div style="padding-left:10%;">
 	<div style="float: left;">
-	<form action="ChangeState">
 		选课系统是否开放给学生选课：
 		<input type="radio" name="state" value="1" id="statYes">是
 		<input type="radio" name="state" value="0" id="statNo">否
-		<input type="submit" value="提交" id="commit">
-	</form>
+		<input type="submit" value="提交" id="commitStatus">
 	</div>
 	
 	<div style="float: left; padding-left: 80px;">

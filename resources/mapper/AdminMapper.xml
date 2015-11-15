@@ -40,4 +40,13 @@
 		limit 1
 	</select>
 	
+	<update id="changeSystemStatus">
+		update admin	
+			<set>
+				<if test="status != null">
+						system_open = #{status}
+				</if>
+			</set>
+	</update>
+	
 </mapper>
