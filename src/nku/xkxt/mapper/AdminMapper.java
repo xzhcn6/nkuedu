@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface AdminMapper {
 	Admin getAdminByLoginName(@Param("loginName")String loginName); 
+	Integer getSystemStatus(); 
 }

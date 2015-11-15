@@ -7,5 +7,6 @@ public interface AdminDAO {
 	
 	Admin getAdminByLoginName(String loginName); 
 	
+	Integer getSystemStatus(); 
 	
 }

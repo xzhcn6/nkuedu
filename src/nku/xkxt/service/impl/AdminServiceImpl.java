@@ -45,4 +45,9 @@ public class AdminServiceImpl implements AdminService{
 	public int deleteStudentById(String stuId){
 		return studentDAO.deleteStudentById(stuId);
 	}
+	
+	@Override
+	public Integer getSystemStatus(){
+		return adminDAO.getSystemStatus();
+	}
 }

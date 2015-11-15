@@ -34,4 +34,10 @@
 		limit 1
 	</select>
 	
+	<select id="getSystemStatus" resultType="int" >
+		select system_open
+		from admin
+		limit 1
+	</select>
+	
 </mapper>

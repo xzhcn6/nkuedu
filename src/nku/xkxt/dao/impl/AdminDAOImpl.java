@@ -17,4 +17,9 @@ public class AdminDAOImpl implements AdminDAO{
 	public Admin getAdminByLoginName(String loginName){
 		return adminMapper.getAdminByLoginName(loginName);
 	}
+	
+	@Override
+	public Integer getSystemStatus(){
+		return adminMapper.getSystemStatus();
+	}
 }

@@ -4,7 +4,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/teacher/check.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	if('${sysStatus}'==1){
+		$('#statYes').attr("checked","true");
+		$('#statNo').removeAttr("checked");
+	} else {
+		$('#statNo').attr("checked","true");
+		$('#statYes').removeAttr("checked");
+	}
+	$('#commit').click(function(){
+         commit();
+    });
+	function commit(){
+		
+	}
+}); 
+</script>
 </head>
 <body style="FONT-SIZE: 11pt; COLOR: black;	FONT-FAMILY: Arial, Geneva, Helvetica, sans-serif;">
 <p align="center"><strong><font size="5">选课管理</font></strong></p>
@@ -12,15 +31,9 @@
 	<div style="float: left;">
 	<form action="ChangeState">
 		选课系统是否开放给学生选课：
-		<s:if test="%{state==1}">
-			<input type="radio" name="state" value="1" checked="true">是
-			<input type="radio" name="state" value="0">否
-		</s:if>
-		<s:if test="%{state==0}">
-			<input type="radio" name="state" value="1">是
-			<input type="radio" name="state" value="0" checked="true">否
-		</s:if>
-		<input type="submit" value="提交">
+		<input type="radio" name="state" value="1" id="statYes">是
+		<input type="radio" name="state" value="0" id="statNo">否
+		<input type="submit" value="提交" id="commit">
 	</form>
 	</div>
 	

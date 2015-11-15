@@ -464,6 +464,16 @@ public class AdminController {
 	
 	@RequestMapping(value = "/showSelection")
 	public String showSelection(Model model) {
+		Integer systemStatus = adminService.getSystemStatus();
+		model.addAttribute("sysStatus", systemStatus);
 		return "teacher/showSelection";
 	}
+	
+	@RequestMapping(value = "/changeSystemStatus")
+	@ResponseBody
+	public void changeSystemStatus(HttpServletRequest request){
+		String courseTimeId = request.getParameter("id");
+		courseTimeService.deleteCourseTimeById(courseTimeId);
+	}
+	
 }
