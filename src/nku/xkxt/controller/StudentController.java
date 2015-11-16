@@ -59,6 +59,11 @@ public class StudentController {
 		return "student/top";
 	}
 	
+	@RequestMapping(value = "/topMenu")
+	public String topMenu(Model model) {
+		return "student/topMenu";
+	}
+	
 	@RequestMapping(value = "/left")
 	public String left(Model model) {
 		return "student/left";
