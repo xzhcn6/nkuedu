@@ -87,11 +87,6 @@ public class ClientController {
 		return "redirect:/client/home";
 	}
 	
-	@RequestMapping(value = "/blank")
-	public String blank(Model model) {
-		return "student/blank";
-	}
-	
 	
 	@RequestMapping(value = "/adminhome")
 	public String adminHome(Model model) {

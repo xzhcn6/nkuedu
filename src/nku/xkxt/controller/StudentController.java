@@ -115,9 +115,23 @@ public class StudentController {
 		return "student/showCourseIntro";
 	}
 	
+	@RequestMapping(value = "/selectClass")
+	public String selectClass(Model model) {
+		return "student/selectClass";
+	}
+	@RequestMapping(value = "/selectedClass")
+	public String selectedClass(Model model) {
+		return "student/selectedClass";
+	}
+	
 	@RequestMapping(value = "/help")
 	public String home(Model model) {
 		return "student/help";
+	}
+	
+	@RequestMapping(value = "/blank")
+	public String blank(Model model) {
+		return "student/blank";
 	}
 	
 }
