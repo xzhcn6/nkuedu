@@ -45,6 +45,18 @@
 		</where>
 	</select>
 	
+	<select id="getCourseBySelectId" resultMap="Course_ResultMap" >
+		select 
+		<include refid="Course_Column_List" />
+		from course
+		<where>
+			is_delete=0 and is_open=1 and id in (SELECT distinct course_id FROM nkuedu.course_time )
+			<if test="selectId != null" >
+		    	and  select_id = #{selectId}
+		    </if>
+		</where>
+	</select>
+	
 	<insert id="insertCourse" parameterType="nku.xkxt.model.Course" useGeneratedKeys="true" keyProperty="id">
 		insert into course
 		<trim prefix="(" suffix=")" suffixOverrides=",">

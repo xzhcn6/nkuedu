@@ -9,6 +9,8 @@ public interface CourseService {
 	
 	Course getCourseById(String id);
 	
+	Course getCourseBySelectId(String selectId);
+	
 	int insertCourse(Course course); 
 	
 	List<Course> getAllCourseByPage();

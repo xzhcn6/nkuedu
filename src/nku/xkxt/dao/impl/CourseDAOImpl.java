@@ -22,6 +22,11 @@ public class CourseDAOImpl implements CourseDAO{
 	}
 	
 	@Override
+	public Course getCourseBySelectId(String selectId){
+		return courseMapper.getCourseBySelectId(selectId);
+	}
+	
+	@Override
 	public int insertCourse(Course course) {
 		return courseMapper.insertCourse(course);
 	}

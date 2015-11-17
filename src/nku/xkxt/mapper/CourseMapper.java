@@ -10,6 +10,8 @@ public interface CourseMapper {
 	
 	Course getCourseById(@Param("id")String id);
 	
+	Course getCourseBySelectId(@Param("selectId")String selectId);
+	
 	int insertCourse(Course course); 
 	
 	List<Course> getAllCourseByPage();

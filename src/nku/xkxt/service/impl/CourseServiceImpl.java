@@ -29,6 +29,11 @@ public class CourseServiceImpl implements CourseService{
 	}
 	
 	@Override
+	public Course getCourseBySelectId(String selectId){
+		return courseDAO.getCourseBySelectId(selectId);
+	}
+	
+	@Override
 	public int insertCourse(Course course){
 		return courseDAO.insertCourse(course);
 	}

@@ -70,7 +70,6 @@
 		select 
 		<include refid="Selection_Column_List" />
 		from selection
-		order by select_id
 	</select>
 	
 	<delete id="deleteSelectionById">
