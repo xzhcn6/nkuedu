@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import nku.core.common.Constants;
+import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Course;
 import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.CourseWithTime;
+import nku.xkxt.model.Selection;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.CourseService;
 import nku.xkxt.service.CourseTimeService;
+import nku.xkxt.service.SelectionService;
 import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,8 @@ public class StudentController {
 	private CourseService courseService;
 	@Resource
 	private CourseTimeService courseTimeService;
+	@Resource
+	private SelectionService selectionService;
 	
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
@@ -130,14 +135,47 @@ public class StudentController {
 	@RequestMapping(value = "/getSelectedCourse")
 	@ResponseBody
 	public Map<String,Object> getSelectedCourse(HttpServletRequest request){
-		String msg = "";
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		String studentId = request.getParameter("studentId");
 		
-		
+		List<Selection> selectionList = selectionService.getAllSelectionByStuId(studentId);
 		
 		return map;
+	}
+	
+	@RequestMapping(value = "/addSelection")
+	@ResponseBody
+	public Map<String,Object> addSelection(HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String selectId = request.getParameter("selectId");
+		Course course = courseService.getCourseBySelectId(selectId);
+		if (course == null){
+			msg = "不存在此课程，请参照选课系统查看选课序号！";
+			map.put("error", msg);
+			return map;
+		}
+		HttpSession session = request.getSession();
+		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+		Student student = new Student();
+		if (stuNumStr != null&& !"".equals(stuNumStr)){
+			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+		}
+		Selection selection = new Selection();
+		selection.setId(UUIDGenerator.getUUID());
+		selection.setCourseId(course.getId());
+		selection.setStudentId(student.getId());
+		if (selectionService.insertSelection(selection)>0){
+			msg = "选课成功！";
+			map.put("msg", msg);
+			return map;
+		} else {
+			msg = "选课失败，请检查信息！";
+			map.put("error", msg);
+			return map;
+		}
 	}
 	
 	@RequestMapping(value = "/selectedClass")

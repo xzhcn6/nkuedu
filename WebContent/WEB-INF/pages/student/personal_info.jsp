@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/CSS/personal_info.css">
+<link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/personal_info.css">
 <title>个人信息</title>
 </head>
 <body style="font-family:微软雅黑;">

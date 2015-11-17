@@ -35,7 +35,7 @@
 			<li><font color="#FFFFFF"><a
 					href="<%=request.getContextPath()%>/student/help"
 					target="mainFrame"
-					onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/client/blank'">使用帮助</a></font></li>
+					onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/student/blank'">使用帮助</a></font></li>
 		</ul>
 	</div>
 </body>

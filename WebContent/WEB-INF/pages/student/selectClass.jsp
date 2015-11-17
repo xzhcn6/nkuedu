@@ -5,27 +5,92 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/select_class.css">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/template.js"></script>
+<script charset="utf-8" type="text/javascript" src="<%=request.getContextPath()%>/static/JS/student/select.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	getSelectedCourse();
+	$('#addselcommit').click(function(){
+		addselcommit();
+    });
+	$('#delselcommit').click(function(){
+		delselcommit();
+    });
+ }); 
+function addselcommit(){
+	var param = {};
+	param.selectId = $('#selectId').val();
+    $.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/student/addSelection",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				window.location.reload(); 
+			}
+		}
+	});
+}
+function delselcommit(){
+	var param = {};
+	param.selectId = $('#deleteId').val();
+    $.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/admin/updateCourseInfo",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				document.location.reload();
+			}
+		}
+	});
+}
+function getSelectedCourse(){
+	var param = {};
+	param.studentId = '${student.id}';
+	$.ajax({
+		type:"POST",
+	    data:param,
+	    url:"<%=request.getContextPath()%>/student/getSelectedCourse",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				document.location.reload();
+			}
+		}
+	});
+}
+</script>
 </head>
 
 <body style="font-family:微软雅黑;">
 <br><p align="center"><strong>选 课 退 课</strong></p><br>
-<script charset="utf-8" type="text/javascript" src="JS/select.js"></script>
-
-	<form name='form1' method="post" action='DoAddSelection'>
 	<div class="select">
-		请输入选课序号进行选课：<input type="text" name="id" id="id">
-		<input type="submit" value="选课">
+		请输入选课序号进行选课：<input type="text" name="id" id="selectId">
+		<input type="submit" value="选课" id="addselcommit">
 	</div>
-	</form>
-	<form name='form2' method="post" action='DoDelSelection'>
 	<div class="select">
-		请输入选课序号进行退课：<input type="text" name="id" id="id">
-		<input type="submit" value="退课">
+		请输入选课序号进行退课：<input type="text" name="id" id="deleteId">
+		<input type="submit" value="退课" id="delselcommit">
 	</div>
-	</form>
 	<P align="center">姓名：${student.name}
-	<p align="center">学号：${student.studentNumber}
+	<p align="center">学号：${student.studentNum}
 	<table border="1" cellpadding="3" cellspacing="0" style="width: 60%;margin:auto">
 		<tr bgcolor=#cccccc>
 				<td>序号</td>
