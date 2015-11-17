@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nku.xkxt.mapper.SelectionMapper">
+	<resultMap id="Selection_ResultMap" type="nku.xkxt.model.Selection">
+		<id column="id" property="id" />
+		<result column="student_id" property="studentId" />
+		<result column="course_id" property="courseId" />
+		<result column="score" property="score" />
+		<result column="is_over" property="isOver" />
+	</resultMap>
+
+	<sql id="Selection_Column_List">
+		id,
+		student_id,
+		course_id,
+		score,
+		is_over
+	</sql>
+	
+	<select id="getSelectionById" resultMap="Selection_ResultMap" >
+		select 
+		<include refid="Selection_Column_List" />
+		from selection
+		<where>
+			<if test="id != null" >
+		    	ID = #{id}
+		    </if>
+		</where>
+	</select>
+	
+	<insert id="insertSelection" parameterType="nku.xkxt.model.Selection" useGeneratedKeys="true" keyProperty="id">
+		insert into selection
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					ID,
+			</if>
+			<if test="studentId != null">
+					student_id,
+			</if>
+			<if test="courseId != null">
+					course_id,
+			</if>
+			<if test="score != null">
+					score,
+			</if>
+			<if test="isOver != null">
+					is_over
+			</if>
+		</trim>
+		values <trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					#{id},
+			</if>
+			<if test="studentId != null">
+					#{studentId},
+			</if>
+			<if test="courseId != null">
+					#{courseId},
+			</if>
+			<if test="score != null">
+					#{score},
+			</if>
+			<if test="isOver != null">
+					#{isOver}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="getAllSelectionByStuId" resultMap="Selection_ResultMap" >
+		select 
+		<include refid="Selection_Column_List" />
+		from selection
+		order by select_id
+	</select>
+	
+	<delete id="deleteSelectionById">
+		delete from selection
+		where id = #{id}
+	</delete>
+	
+	<update id="updateSelectionByExample" parameterType="nku.xkxt.model.Selection">
+		update selection
+			<set>
+				<if test="studentId != null">
+						student_id = #{studentId},
+				</if>
+				<if test="courseId != null">
+						course_id = #{courseId},
+				</if>
+				<if test="score != null">
+						score = #{score},
+				</if>
+				<if test="isOver != null">
+						is_over = #{isOver}
+				</if>
+			</set>
+		where id = #{id}
+	</update>
+	
+</mapper>

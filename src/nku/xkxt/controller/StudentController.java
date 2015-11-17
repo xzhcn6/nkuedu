@@ -116,9 +116,30 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value = "/selectClass")
-	public String selectClass(Model model) {
+	public String selectClass(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+		Student student = new Student();
+		if (stuNumStr != null&& !"".equals(stuNumStr)){
+			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+		}
+		model.addAttribute("student", student);
 		return "student/selectClass";
 	}
+	
+	@RequestMapping(value = "/getSelectedCourse")
+	@ResponseBody
+	public Map<String,Object> getSelectedCourse(HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String studentId = request.getParameter("studentId");
+		
+		
+		
+		return map;
+	}
+	
 	@RequestMapping(value = "/selectedClass")
 	public String selectedClass(Model model) {
 		return "student/selectedClass";
