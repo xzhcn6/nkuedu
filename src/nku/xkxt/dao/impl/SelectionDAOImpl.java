@@ -22,6 +22,11 @@ public class SelectionDAOImpl implements SelectionDAO{
 	}
 	
 	@Override
+	public List<Selection> getSelectionByExample(Selection selection){
+		return selectionMapper.getSelectionByExample(selection);
+	}
+	
+	@Override
 	public int insertSelection(Selection selection){
 		return selectionMapper.insertSelection(selection);
 	}

@@ -5,7 +5,9 @@ import nku.xkxt.model.Selection;
 
 public interface SelectionService {
 	
-Selection getSelectionById(String id);
+	Selection getSelectionById(String id);
+	
+	List<Selection> getSelectionByExample(Selection selection);
 	
 	int insertSelection(Selection selection); 
 	

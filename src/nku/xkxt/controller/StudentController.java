@@ -164,9 +164,16 @@ public class StudentController {
 			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
 		}
 		Selection selection = new Selection();
-		selection.setId(UUIDGenerator.getUUID());
 		selection.setCourseId(course.getId());
 		selection.setStudentId(student.getId());
+		
+		List<Selection> selectList = selectionService.getSelectionByExample(selection);
+		if (selectList.size() != 0){
+			msg = "选课失败，您已经选过此课程！";
+			map.put("msg", msg);
+			return map;
+		}
+		selection.setId(UUIDGenerator.getUUID());
 		if (selectionService.insertSelection(selection)>0){
 			msg = "选课成功！";
 			map.put("msg", msg);

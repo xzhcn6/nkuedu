@@ -23,6 +23,11 @@ public class SelectionServiceImpl implements SelectionService{
 	}
 	
 	@Override
+	public List<Selection> getSelectionByExample(Selection selection){
+		return selectionDAO.getSelectionByExample(selection);
+	}
+	
+	@Override
 	public int insertSelection(Selection selection){
 		return selectionDAO.insertSelection(selection);
 	}

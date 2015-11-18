@@ -7,6 +7,8 @@ public interface SelectionDAO {
 	
 	Selection getSelectionById(String id);
 	
+	List<Selection> getSelectionByExample(Selection selection);
+	
 	int insertSelection(Selection selection); 
 	
 	List<Selection> getAllSelectionByStuId(String studentId);

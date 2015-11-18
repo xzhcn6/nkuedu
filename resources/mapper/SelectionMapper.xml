@@ -28,6 +28,30 @@
 		</where>
 	</select>
 	
+	<select id="getSelectionByExample" resultMap="Selection_ResultMap" parameterType="nku.xkxt.model.Selection" >
+		select 
+		<include refid="Selection_Column_List" />
+		from selection
+		<where>
+			1=1
+			<if test="id != null" >
+		    	ID = #{id}
+		    </if>
+		    <if test="studentId != null">
+					and student_id = #{studentId}
+			</if>
+			<if test="courseId != null">
+					and course_id = #{courseId}
+			</if>
+			<if test="score != null">
+					and score = #{score}
+			</if>
+			<if test="isOver != null">
+					and is_over = #{isOver}
+			</if>
+		</where>
+	</select>
+	
 	<insert id="insertSelection" parameterType="nku.xkxt.model.Selection" useGeneratedKeys="true" keyProperty="id">
 		insert into selection
 		<trim prefix="(" suffix=")" suffixOverrides=",">
