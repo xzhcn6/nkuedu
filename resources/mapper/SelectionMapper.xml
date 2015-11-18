@@ -94,6 +94,7 @@
 		select 
 		<include refid="Selection_Column_List" />
 		from selection
+		where student_id=#{studentId}
 	</select>
 	
 	<delete id="deleteSelectionById">

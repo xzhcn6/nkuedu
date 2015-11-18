@@ -158,7 +158,7 @@ public class StudentController {
 			return map;
 		}
 		if (course.getMaxStudent() <= selectionService.getCountByCourseId(course.getId())){
-			msg = "课程已满！";
+			msg = "课程已选人数已达上限！";
 			map.put("error", msg);
 			return map;
 		}
@@ -180,14 +180,33 @@ public class StudentController {
 			return map;
 		}
 		
-		for (int i=0;i<selectList.size();i++){
-			Selection sel = selectList.get(i);
+		if (2 <= selectionService.getCountByStudentId(student.getId())){
+			msg = "您的可选课程数已达上限！";
+			map.put("error", msg);
+			return map;
+		}
+		
+		List<Selection> selectedList = selectionService.getAllSelectionByStuId(student.getId());	//当前学生已选的所有课程
+		for (int i = 0; i < selectedList.size(); i++) {
+			Selection sel = selectedList.get(i);
 			Course cou = courseService.getCourseById(sel.getCourseId());
-			if((course.getClassroom()).equals(cou.getClassroom())){
-				List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByCourseId(course.getId());
-				List<CourseTime> couTimeList = courseTimeService.getCourseTimeByCourseId(cou.getId());
-				
+			List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByCourseId(course.getId());
+			List<CourseTime> couTimeList = courseTimeService.getCourseTimeByCourseId(cou.getId());
+			for (int j = 0; j < courseTimeList.size(); j++) {
+				CourseTime courseTime = courseTimeList.get(j);
+				for (int k = 0; k < couTimeList.size(); k++) {
+					CourseTime ct = couTimeList.get(k);
+					if ((courseTime.getCourseDay()).equals(ct.getCourseDay())) {
+						if (((courseTime.getStartTime()) >= ct.getStartTime() && (courseTime.getStartTime()) <= ct.getEndTime())
+								|| ((courseTime.getEndTime()) >= ct.getStartTime() && (courseTime.getEndTime()) <= ct.getEndTime())) {
+							msg = "选课失败，此课程与您所选课程时间冲突!";
+							map.put("error", msg);
+							return map;
+						}
+					}
+				}
 			}
+
 		}
 		
 		selection.setId(UUIDGenerator.getUUID());
