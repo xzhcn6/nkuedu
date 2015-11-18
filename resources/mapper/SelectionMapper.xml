@@ -126,4 +126,10 @@
 		where course_id=#{courseId}
 	</select>
 	
+	<select id="getCountByStudentId" resultType="int" >
+		SELECT count(*) 
+		FROM selection 
+		where student_id=#{studentId}
+	</select>
+	
 </mapper>

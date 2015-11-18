@@ -51,4 +51,9 @@ public class SelectionDAOImpl implements SelectionDAO{
 		return selectionMapper.getCountByCourseId(courseId);
 	}
 	
+	@Override
+	public Integer getCountByStudentId(String studentId){
+		return selectionMapper.getCountByStudentId(studentId);
+	}
+	
 }

@@ -19,4 +19,7 @@ public interface SelectionDAO {
 	int updateSelectionByExample(Selection selection);
 	
 	Integer getCountByCourseId(String courseId);
+	
+	Integer getCountByStudentId(String studentId);
+	
 }

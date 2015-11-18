@@ -21,4 +21,6 @@ public interface SelectionMapper {
 	int updateSelectionByExample(Selection selection);
 	
 	Integer getCountByCourseId(@Param("courseId")String courseId);
+	
+	Integer getCountByStudentId(@Param("studentId")String studentId);
 }

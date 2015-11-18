@@ -179,6 +179,17 @@ public class StudentController {
 			map.put("error", msg);
 			return map;
 		}
+		
+		for (int i=0;i<selectList.size();i++){
+			Selection sel = selectList.get(i);
+			Course cou = courseService.getCourseById(sel.getCourseId());
+			if((course.getClassroom()).equals(cou.getClassroom())){
+				List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByCourseId(course.getId());
+				List<CourseTime> couTimeList = courseTimeService.getCourseTimeByCourseId(cou.getId());
+				
+			}
+		}
+		
 		selection.setId(UUIDGenerator.getUUID());
 		if (selectionService.insertSelection(selection)>0){
 			msg = "选课成功！";

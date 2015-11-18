@@ -20,4 +20,6 @@ public interface SelectionService {
 	
 	Integer getCountByCourseId(String courseId);
 	
+	Integer getCountByStudentId(String studentId);
+	
 }

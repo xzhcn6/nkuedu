@@ -52,4 +52,9 @@ public class SelectionServiceImpl implements SelectionService{
 		return selectionDAO.getCountByCourseId(courseId);
 	}
 	
+	@Override
+	public Integer getCountByStudentId(String studentId){
+		return selectionDAO.getCountByStudentId(studentId);
+	}
+	
 }
