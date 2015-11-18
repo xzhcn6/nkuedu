@@ -1,6 +1,7 @@
 package nku.xkxt.dao;
 
 import java.util.List;
+
 import nku.xkxt.model.Selection;
 
 public interface SelectionDAO {
@@ -17,4 +18,5 @@ public interface SelectionDAO {
 	
 	int updateSelectionByExample(Selection selection);
 	
+	Integer getCountByCourseId(String courseId);
 }

@@ -45,5 +45,10 @@ public class SelectionDAOImpl implements SelectionDAO{
 	public int updateSelectionByExample(Selection selection){
 		return selectionMapper.updateSelectionByExample(selection);
 	}
-
+	
+	@Override
+	public Integer getCountByCourseId(String courseId){
+		return selectionMapper.getCountByCourseId(courseId);
+	}
+	
 }

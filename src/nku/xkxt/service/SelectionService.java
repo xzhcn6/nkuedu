@@ -1,6 +1,7 @@
 package nku.xkxt.service;
 
 import java.util.List;
+
 import nku.xkxt.model.Selection;
 
 public interface SelectionService {
@@ -16,5 +17,7 @@ public interface SelectionService {
 	int deleteSelectionById(String selectionId);
 	
 	int updateSelectionByExample(Selection selection);
+	
+	Integer getCountByCourseId(String courseId);
 	
 }

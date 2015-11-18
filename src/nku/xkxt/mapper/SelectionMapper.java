@@ -19,4 +19,6 @@ public interface SelectionMapper {
 	int deleteSelectionById(@Param("selectionId")String selectionId);
 	
 	int updateSelectionByExample(Selection selection);
+	
+	Integer getCountByCourseId(@Param("courseId")String courseId);
 }

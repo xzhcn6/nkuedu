@@ -157,6 +157,12 @@ public class StudentController {
 			map.put("error", msg);
 			return map;
 		}
+		if (course.getMaxStudent() <= selectionService.getCountByCourseId(course.getId())){
+			msg = "课程已满！";
+			map.put("error", msg);
+			return map;
+		}
+		
 		HttpSession session = request.getSession();
 		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
 		Student student = new Student();
@@ -170,7 +176,7 @@ public class StudentController {
 		List<Selection> selectList = selectionService.getSelectionByExample(selection);
 		if (selectList.size() != 0){
 			msg = "选课失败，您已经选过此课程！";
-			map.put("msg", msg);
+			map.put("error", msg);
 			return map;
 		}
 		selection.setId(UUIDGenerator.getUUID());

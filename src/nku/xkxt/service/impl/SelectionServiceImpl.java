@@ -46,4 +46,10 @@ public class SelectionServiceImpl implements SelectionService{
 	public int updateSelectionByExample(Selection selection){
 		return selectionDAO.updateSelectionByExample(selection);
 	}
+	
+	@Override
+	public Integer getCountByCourseId(String courseId){
+		return selectionDAO.getCountByCourseId(courseId);
+	}
+	
 }
