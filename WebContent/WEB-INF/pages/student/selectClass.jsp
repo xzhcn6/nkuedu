@@ -65,20 +65,28 @@ function getSelectedCourse(){
 	    data:param,
 	    url:"<%=request.getContextPath()%>/student/getSelectedCourse",
 		success : function(data) {
-			if (data.error != null){
-				alert(data.error);
-				document.location.reload();
-			}
-			if (data.msg != null){
-				alert(data.msg);
-				document.location.reload();
+			if(data.courseList.length != 0){
+				$("#id_table_elist").html(template('id_table_courselist', {data:data}));
+			} else {
+				$("#id_table_elist").html('<tr><td colspan="8"><center>您还未选择任何课程</center></td></tr>');
 			}
 		}
 	});
 }
 </script>
+<script id="id_table_courselist" type="text/html">    
+	{{each data.courseList as value i}}
+		<tr>
+			<td>{{i}}</td>
+			<td>{{value.selectId}}</td>
+			<td colspan="3">{{value.name}}</td>
+			<td>{{value.professor}}</td>
+			<td>{{value.type}}</td>
+			<td>{{value.classroom}}</td>
+		</tr>
+	{{/each}}
+</script> 
 </head>
-
 <body style="font-family:微软雅黑;">
 <br><p align="center"><strong>选 课 退 课</strong></p><br>
 	<div class="select">
@@ -100,16 +108,7 @@ function getSelectedCourse(){
 				<td>类型</td>
 				<td>开课地点</td>
 			</tr>
-	<s:iterator value='#request.selection' status="i">
-		<tr>
-			<td><s:property value="#i.index+1"/></td>
-			<td><s:property value="classBelong.id"/></td>
-			<td colspan="3"><s:property value="classBelong.name"/></td>
-			<td><s:property value="classBelong.professor"/></td>
-			<td><s:property value="classBelong.type"/></td>
-			<td><s:property value="classBelong.classroom"/></td>
-		</tr>
-	</s:iterator>
+	<tbody id="id_table_elist"> </tbody>
 	</table>
 	<br>
 	<br>

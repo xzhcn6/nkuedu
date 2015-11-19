@@ -129,6 +129,7 @@ public class StudentController {
 		if (stuNumStr != null&& !"".equals(stuNumStr)){
 			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
 		}
+		
 		model.addAttribute("student", student);
 		return "student/selectClass";
 	}
@@ -141,7 +142,16 @@ public class StudentController {
 		String studentId = request.getParameter("studentId");
 		
 		List<Selection> selectionList = selectionService.getAllSelectionByStuId(studentId);
+		List<Course> courseList = new ArrayList<Course>();
+		for(int i=0;i<selectionList.size();i++){
+			Selection selection = selectionList.get(i);
+			Course co = courseService.getCourseById(selection.getCourseId());
+			if (co!=null){
+				courseList.add(co);
+			}
+		}
 		
+		map.put("courseList", courseList);
 		return map;
 	}
 	
