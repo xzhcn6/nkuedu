@@ -5,7 +5,41 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/personal_info.css">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/template.js"></script>
 <title>个人信息</title>
+<script type="text/javascript">
+$(function(){
+	getSelectedCourse();
+});
+function getSelectedCourse(){
+	var param = {};
+	param.studentId = '${student.id}';
+	$.ajax({
+		type:"POST",
+	    data:param,
+	    url:"<%=request.getContextPath()%>/student/getSelectedCourse",
+		success : function(data) {
+			if(data.courseList.length != 0){
+				$("#id_table_elist").html(template('id_table_courselist', {data:data}));
+			} else {
+				$("#id_table_elist").html('<tr><td colspan="7"><center>未选课</center></td></tr>');
+			}
+		}
+	});
+}
+</script>
+<script id="id_table_courselist" type="text/html">    
+	{{each data.courseList as value i}}
+		<tr>
+			<td>{{value.selectId}}</td>
+			<td colspan="2">{{value.name}}</td>
+			<td>{{value.professor}}</td>
+			<td>{{value.type}}</td>
+			<td>{{value.classroom}}</td>
+		</tr>
+	{{/each}}
+</script> 
 </head>
 <body style="font-family:微软雅黑;">
 <center><a href="test.action?type=1&name=${student.name}">导出听课证</a>（导出格式为.doc文件，请用office word打开，以免出现排版出现问题。打印后请到南开大学教务处进行盖章后听课证方可生效。）</center>
@@ -41,19 +75,9 @@
 				<td>类型</td>
 				<td>开课地点</td>
 			</tr>
-			<s:iterator value='#request.selection'>
-				<tr>
-					<td><s:property value="classBelong.id"/></td>
-					<td colspan="2"><s:property value="classBelong.name"/></td>
-					<td><s:property value="classBelong.professor"/></td>
-					<td><s:property value="classBelong.type"/></td>
-					<td style="font-size:12px;"><s:property value="classBelong.classroom"/></td>
-				</tr>
-			</s:iterator>
-			
+			<tbody id="id_table_elist"> </tbody>
 		</table>
 	</div>
-<!-- <a href="print.action">导出word文档</a> -->
 
 </body>
 </html>

@@ -77,7 +77,7 @@ function getSelectedCourse(){
 <script id="id_table_courselist" type="text/html">    
 	{{each data.courseList as value i}}
 		<tr>
-			<td>{{i}}</td>
+			<td>{{i+1}}</td>
 			<td>{{value.selectId}}</td>
 			<td colspan="3">{{value.name}}</td>
 			<td>{{value.professor}}</td>

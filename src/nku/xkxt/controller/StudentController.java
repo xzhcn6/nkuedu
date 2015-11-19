@@ -56,7 +56,7 @@ public class StudentController {
 			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
 		}
 		model.addAttribute("student", student);
-		return "student/personal_info";
+		return "student/personalInfo";
 	}
 	
 	@RequestMapping(value = "/top")
