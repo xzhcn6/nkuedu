@@ -101,6 +101,7 @@ public class StudentController {
 			cwt.setIntroduction(course.getIntroduction());
 			cwt.setType(course.getType());
 			cwt.setCredit(course.getCredit());
+			cwt.setSelectedCount(selectionService.getCountByCourseId(course.getId()));
 			courseWTList.add(cwt);
 		}
 		map.put("page", page);
@@ -187,7 +188,7 @@ public class StudentController {
 		}
 		
 		List<Selection> selectedList = selectionService.getAllSelectionByStuId(student.getId());	//当前学生已选的所有课程
-		for (int i = 0; i < selectedList.size(); i++) {
+		for (int i = 0; i < selectedList.size(); i++) {	//课程时间冲突判断，需要选出当前学生的所有已选课程的所有开课时间，与当前所选课程的所有开课时间对比
 			Selection sel = selectedList.get(i);
 			Course cou = courseService.getCourseById(sel.getCourseId());
 			List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByCourseId(course.getId());

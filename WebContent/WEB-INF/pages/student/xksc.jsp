@@ -114,7 +114,7 @@
 		<td><a href="<%=request.getContextPath()%>/student/showCourseIntro?name={{value.name}}&introduction={{value.introduction}}" style="display:{{showIntro j}}":>查看</a></td>
 		<td>{{tableTime value.request j}}</td>
 		<td>{{tableTime value.maxStudent j}}</td>
-		<td>{{tableTime value.maxStudent j}}</td>
+		<td>{{tableTime value.selectedCount j}}</td>
 		<td>{{tableTime value.professor j}}</td>
 		<td>{{tableTime value.classroom j}}</td>
 	    <td>{{valueT.courseDay}}</td>
