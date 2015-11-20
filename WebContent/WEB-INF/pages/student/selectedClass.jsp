@@ -67,7 +67,7 @@ function getSelectedCourse(){
 		<tbody id="id_table_elist"> </tbody>	
 		</table>
 <p align="center"><strong>
-<a href="Schedule.action" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/student/blank'">生成课表</a>
+<a href="<%=request.getContextPath()%>/student/schedule" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/student/blank'">生成课表</a>
 </strong></p>
 </body>
 </html>

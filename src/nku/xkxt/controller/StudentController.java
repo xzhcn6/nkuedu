@@ -323,6 +323,19 @@ public class StudentController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/schedule")
+	public String schedule(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+		Student student = new Student();
+		if (stuNumStr != null&& !"".equals(stuNumStr)){
+			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+		}
+		
+		model.addAttribute("student", student);
+		return "student/schedule";
+	}
+	
 	@RequestMapping(value = "/help")
 	public String home(Model model) {
 		return "student/help";
