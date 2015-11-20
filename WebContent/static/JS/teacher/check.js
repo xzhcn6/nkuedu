@@ -41,21 +41,21 @@ function checkTime(){
 	if(document.getElementById("courseDay").value==""){
 		alert("请输入开课周次");
 		return false;
-	}else if(document.getElementById("courseDay").value>7||document.getElementById("courseDay").value<1){
+	}else if(document.getElementById("courseDay").value>7||Number(document.getElementById("courseDay").value)<1){
 		alert("输入的开课周次不合法");
 		return false;
 	}
 	if(document.getElementById("startTime").value==""){
 		alert("请输入开始时间");
 		return false;
-	}else if(document.getElementById("startTime").value>12||document.getElementById("startTime").value<1){
+	}else if(document.getElementById("startTime").value>12||Number(document.getElementById("startTime")).value<1){
 		alert("输入的开始时间不合法");
 		return false;
 	}
 	if(document.getElementById("endTime").value==""){
 		alert("请输入结束时间");
 		return false;
-	}else if(document.getElementById("endTime").value>12||document.getElementById("endTime").value<document.getElementById("startTime").value){
+	}else if(document.getElementById("endTime").value>12||Number(document.getElementById("endTime").value)<Number(document.getElementById("startTime").value)){
 		alert("输入的结束时间不合法");
 		return false;
 	}
