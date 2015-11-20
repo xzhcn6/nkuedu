@@ -32,6 +32,11 @@ public class SelectionDAOImpl implements SelectionDAO{
 	}
 	
 	@Override
+	public int deleteSelectionByExample(Selection selection){
+		return selectionMapper.deleteSelectionByExample(selection);
+	} 
+	
+	@Override
 	public List<Selection> getAllSelectionByStuId(String studentId){
 		return selectionMapper.getAllSelectionByStuId(studentId);
 	}

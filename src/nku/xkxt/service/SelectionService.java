@@ -12,6 +12,8 @@ public interface SelectionService {
 	
 	int insertSelection(Selection selection); 
 	
+	int deleteSelectionByExample(Selection selection); 
+	
 	List<Selection> getAllSelectionByStuId(String studentId);
 	
 	int deleteSelectionById(String selectionId);

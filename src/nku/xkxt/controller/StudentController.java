@@ -218,7 +218,7 @@ public class StudentController {
 				}
 			}
 
-		}
+		}	
 		
 		selection.setId(UUIDGenerator.getUUID());
 		if (selectionService.insertSelection(selection)>0){
@@ -232,6 +232,47 @@ public class StudentController {
 		}
 	}
 	
+	@RequestMapping(value = "/deleteSelection")
+	@ResponseBody
+	public Map<String,Object> deleteSelection(HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String selectId = request.getParameter("selectId");
+		Course course = courseService.getCourseBySelectId(selectId);
+		if (course == null){
+			msg = "不存在此课程，请参照选课系统查看选课序号！";
+			map.put("error", msg);
+			return map;
+		}
+		
+		HttpSession session = request.getSession();
+		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+		Student student = new Student();
+		if (stuNumStr != null&& !"".equals(stuNumStr)){
+			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+		}
+		Selection selection = new Selection();
+		selection.setCourseId(course.getId());
+		selection.setStudentId(student.getId());
+		
+		List<Selection> selectList = selectionService.getSelectionByExample(selection);
+		if (selectList.size() == 0){
+			msg = "退课失败，您没有选过的课程！";
+			map.put("error", msg);
+			return map;
+		} else {
+			if (selectionService.deleteSelectionByExample(selection)>0){
+				msg = "退课成功！";
+				map.put("msg", msg);
+				return map;
+			} else {
+				msg = "退课失败，请检查信息！";
+				map.put("error", msg);
+				return map;
+			}
+		}
+	}
 	@RequestMapping(value = "/selectedClass")
 	public String selectedClass(Model model) {
 		return "student/selectedClass";

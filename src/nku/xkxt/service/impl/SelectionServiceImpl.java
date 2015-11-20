@@ -33,6 +33,11 @@ public class SelectionServiceImpl implements SelectionService{
 	}
 	
 	@Override
+	public int deleteSelectionByExample(Selection selection){
+		return selectionDAO.deleteSelectionByExample(selection);
+	} 
+	
+	@Override
 	public List<Selection> getAllSelectionByStuId(String studentId){
 		return selectionDAO.getAllSelectionByStuId(studentId);
 	}

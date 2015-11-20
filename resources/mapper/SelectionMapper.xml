@@ -90,6 +90,25 @@
 		</trim>
 	</insert>
 	
+	<delete id="deleteSelectionByExample">
+		delete from selection
+		<where>
+			1=1
+		    <if test="studentId != null">
+					and student_id = #{studentId}
+			</if>
+			<if test="courseId != null">
+					and course_id = #{courseId}
+			</if>
+			<if test="score != null">
+					and score = #{score}
+			</if>
+			<if test="isOver != null">
+					and is_over = #{isOver}
+			</if>
+		</where>
+	</delete>
+	
 	<select id="getAllSelectionByStuId" resultMap="Selection_ResultMap" >
 		select 
 		<include refid="Selection_Column_List" />

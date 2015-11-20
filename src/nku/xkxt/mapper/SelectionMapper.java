@@ -14,6 +14,8 @@ public interface SelectionMapper {
 	
 	int insertSelection(Selection selection); 
 	
+	int deleteSelectionByExample(Selection selection); 
+	
 	List<Selection> getAllSelectionByStuId(@Param("studentId")String studentId);
 	
 	int deleteSelectionById(@Param("selectionId")String selectionId);

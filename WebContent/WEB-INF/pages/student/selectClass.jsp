@@ -44,7 +44,7 @@ function delselcommit(){
     $.ajax({
         type:"POST",
         data:param,
-        url:"<%=request.getContextPath()%>/admin/updateCourseInfo",
+        url:"<%=request.getContextPath()%>/student/deleteSelection",
 		success : function(data) {
 			if (data.error != null){
 				alert(data.error);
