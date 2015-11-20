@@ -4,7 +4,47 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/template.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	getSelectedCourse();
+ }); 
+function getSelectedCourse(){
+	var param = {};
+	param.studentId = '${student.id}';
+	$.ajax({
+		type:"POST",
+	    data:param,
+	    url:"<%=request.getContextPath()%>/student/getSelectedCourseWithTime",
+		success : function(data) {
+			if(data.courseList.length != 0){
+				$("#id_table_elist").html(template('id_table_courselist', {data:data}));
+			} else {
+				$("#id_table_elist").html('<tr><td colspan="11"><center>您还未选择任何课程</center></td></tr>');
+			}
+		}
+	});
+}
+</script>
+<script id="id_table_courselist" type="text/html">    
+	{{each data.courseList as value i}}
+	{{each value.courseTime as valueT j}}
+		<tr>
+			<td>{{value.selectId}}</td>
+			<td colspan="3">{{value.name}}</td>
+			<td>{{value.professor}}</td>
+			<td>{{value.type}}</td>
+			<td>{{value.classroom}}</td>
+			<td>{{valueT.courseDay}}</td>
+			<td>{{valueT.startTime}}</td>
+			<td>{{valueT.endTime}}</td>
+			<td><a href="<%=request.getContextPath()%>/student/showCourseIntro?name={{value.name}}&introduction={{value.introduction}}" >查看</a></td>
+		</tr>
+	{{/each}}
+	{{/each}}
+</script> 
 </head>
 <body style="font-family:微软雅黑;">
 <br>
@@ -24,21 +64,7 @@
 				<td>结束节次</td>
 				<td>课程介绍</td>
 			</tr>
-			<s:iterator value='#request.selection'>
-				<tr>
-				<td><s:property value="course.id"/></td>
-				<td colspan="3"><s:property value="course.name"/></td>
-				<td><s:property value="course.professor"/></td>
-				<td><s:property value="course.type"/></td>
-			    <td><s:property value="course.classroom"/></td>
-			    <td><s:property value="courseDay"/></td>
-			    <td><s:property value="startTime"/></td>
-			    <td><s:property value="endTime"/></td>
-			    <td><s:a href='ShowIntroduction2?sel=%{course.id}' target="_blank">查看</s:a></td>
-					
-				</tr>
-			</s:iterator>
-			
+		<tbody id="id_table_elist"> </tbody>	
 		</table>
 <p align="center"><strong>
 <a href="Schedule.action" target="mainFrame" onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/student/blank'">生成课表</a>

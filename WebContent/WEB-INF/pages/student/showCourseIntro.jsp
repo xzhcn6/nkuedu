@@ -8,7 +8,7 @@
 </head>
 <body style="FONT-SIZE: 11pt; COLOR: black;	FONT-FAMILY: Arial, Geneva, Helvetica, sans-serif;">
 <div style="width:60%;padding-left:20%;padding-bottom:40px;">
-<a href="javascript:history.go(-1);">返回选课手册</a><br>
+<a href="javascript:history.go(-1);">返回</a><br>
 <h4 align="center">${course.name}</h4><br>
 课程详情：<br /><br />
 <div>

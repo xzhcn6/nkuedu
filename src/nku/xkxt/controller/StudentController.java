@@ -274,8 +274,53 @@ public class StudentController {
 		}
 	}
 	@RequestMapping(value = "/selectedClass")
-	public String selectedClass(Model model) {
+	public String selectedClass(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+		Student student = new Student();
+		if (stuNumStr != null&& !"".equals(stuNumStr)){
+			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+		}
+		
+		model.addAttribute("student", student);
 		return "student/selectedClass";
+	}
+	
+	@RequestMapping(value = "/getSelectedCourseWithTime")
+	@ResponseBody
+	public Map<String,Object> getSelectedCourseWithTime(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String studentId = request.getParameter("studentId");
+		
+		List<Selection> selectionList = selectionService.getAllSelectionByStuId(studentId);
+		List<Course> courseList = new ArrayList<Course>();
+		for(int i=0;i<selectionList.size();i++){
+			Selection selection = selectionList.get(i);
+			Course co = courseService.getCourseById(selection.getCourseId());
+			if (co!=null){
+				courseList.add(co);
+			}
+		}
+		List<CourseWithTime> courseWTimeList = new ArrayList<CourseWithTime>();
+		for (Course course : courseList) {
+			CourseWithTime cwt = new CourseWithTime();
+			List<CourseTime> courseTimeList = courseTimeService.getCourseTimeByCourseId(course.getId());
+			cwt.setCourseTime(courseTimeList);
+			cwt.setSelectId(course.getSelectId());
+			cwt.setName(course.getName());
+			cwt.setMaxStudent(course.getMaxStudent());
+			cwt.setProfessor(course.getProfessor());
+			cwt.setClassroom(course.getClassroom());
+			cwt.setRequest(course.getRequest());
+			cwt.setIntroduction(course.getIntroduction());
+			cwt.setType(course.getType());
+			cwt.setCredit(course.getCredit());
+			courseWTimeList.add(cwt);
+		}
+		
+		map.put("courseList", courseWTimeList);
+		return map;
 	}
 	
 	@RequestMapping(value = "/help")

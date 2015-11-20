@@ -124,7 +124,6 @@
 		<td>{{tableTime value.credit j}}</td>
 	</tr>
 	{{/each}}
-	
 	{{/each}}
 </script> 
 <body  style="font-family:微软雅黑;">
