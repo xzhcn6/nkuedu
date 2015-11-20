@@ -52,6 +52,13 @@
 		</where>
 	</select>
 	
+	<select id="getSelectionByCourse" resultType="nku.xkxt.model.SelectedCourse">
+		SELECT s.id,s.course_id courseId,s.is_over isOver,c.select_id selectId,c.course_num courseNum,c.name
+		FROM selection s left join course c on course_id=c.id  
+		group by s.course_id
+		order by c.select_id
+	</select>
+	
 	<insert id="insertSelection" parameterType="nku.xkxt.model.Selection" useGeneratedKeys="true" keyProperty="id">
 		insert into selection
 		<trim prefix="(" suffix=")" suffixOverrides=",">

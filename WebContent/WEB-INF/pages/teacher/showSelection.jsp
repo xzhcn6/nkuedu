@@ -5,10 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/template.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/teacher/check.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
+	getSelectionList(1);
 	if('${sysStatus}'==1){
 		$('#statYes').attr("checked","true");
 		$('#statNo').removeAttr("checked");
@@ -40,7 +42,96 @@ $(function(){
 		});
 	}
 }); 
+function getSelectionList(pageNo){
+	var param = {};
+	param.pageNo = pageNo;
+    $.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/admin/getSelectionByCourse",
+		success : function(data) {
+			if(data.selectionList.list.length != 0){
+				$("#id_table_elist").html(template('id_table_selectionlist', {data:data}));
+			} else {
+				$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
+			}
+			getPages(data.selectionList);
+		}
+	});
+}
+// 分页	 
+function getPages(page){
+	var div="";
+	if (page.prePage == 0){
+		div += "<a href='javascript://' class='not-active' onclick='getSelectionList("+page.firstPage+")' style='color:#999999;padding-right:10px;'>< 前页</a>";
+	} else {
+		div += "<a href='javascript://' class='active' onclick='getSelectionList("+page.prePage+")' style='padding-right:10px;'>< 前页</a>";
+	}
+	
+	if(page.pages<10){
+    	for (var i=1; i<=page.pages; i++){
+    		if(page.pageNum==i){
+		 		div+= "<a href='javascript://' onclick='getSelectionList("+i+")' class='active' style='color:#999999;padding-right:10px;'>"+i+"</a>";
+		 	}else{
+		 		div+= "<a href='javascript://' onclick='getSelectionList("+i+")' class='not-active' style='padding-right:10px;'>"+i+"</a>";
+		 	}
+    	}
+    } else {
+    	var startpage = page.pageNum - 4;
+        var endpage = page.pageNum + 5;
+        
+        if(startpage<1){
+            startpage = 1;
+            endpage = 9;
+        }
+        if(endpage>page.pages){
+            endpage = page.pages;
+            startpage = page.pages - 9;
+        }    
+        for(var i=startpage; i<=endpage; i++){
+        	if(page.pageNum==i){
+		 		div+= "<a href='javascript://' onclick='getSelectionList("+i+")' class='active' style='padding-right:10px;'>"+i+"</a>";
+		 	}else{
+		 		div+= "<a href='javascript://' onclick='getSelectionList("+i+")' class='not-active' style='color:#999999;padding-right:10px;'>"+i+"</a>";
+		 	}
+        }
+        if (endpage < page.pages){
+        	div+="<a href='javascript://' onclick='getSelectionList("+page.nextPage+");' style='padding-right:10px;'>...</a>";
+        }
+    }
+	if (page.nextPage == 0){
+		div += "<a href='javascript://' class='not-active' onclick='getSelectionList("+page.lastPage+")' style='color:#999999;padding-right:10px;'>后页 ></a>";
+	} else {
+		div += "<a href='javascript://' class='active' onclick='getSelectionList("+page.nextPage+")' style='padding-right:10px;'>后页 ></a>";
+	}
+	$("#pages").html(div);
+}
 </script>
+<script type="text/javascript">  
+	/** 判断是否结课 */
+	template.helper('isOver', function (isOver) {
+		if (isOver == 1){
+			return "<a href=''>当前状态：已结课；点击改为未结课</a>";
+		} else if (isOver == 0){
+			return "<a href=''>当前状态：未结课；点击改为已结课</a>";
+		} else {
+			return "数据库有误！";
+		}
+		
+	});
+</script>
+<script id="id_table_selectionlist" type="text/html">    
+	{{each data.selectionList.list as value i}}
+	<tr>
+		<td>{{value.selectId}}</td>
+		<td>{{value.name}}</td>
+		<td>{{isOver value.isOver}}</td>
+		<td><a href="">查看选课详情</a></td>
+		<td><a href="">导出选课名单</a></td>
+		<td><a href="">导出空白成绩单</a></td>
+	</tr>
+	{{/each}}
+</script> 
 </head>
 <body style="FONT-SIZE: 11pt; COLOR: black;	FONT-FAMILY: Arial, Geneva, Helvetica, sans-serif;">
 <p align="center"><strong><font size="5">选课管理</font></strong></p>
@@ -75,70 +166,12 @@ $(function(){
 	  	<td>是否结束</td> 
 	  	<td colspan="2">操&nbsp;&nbsp;&nbsp;&nbsp;作</td> 	
 	</tr>
-	
-	<s:iterator value="selectedCourseList" status="i">
-	
-    
-		<s:if test="%{!#i.first&&classBelong.name==selectedCourseList[#i.index-1].classBelong.name}">
-		</s:if>
-		<s:else>
-	<tr>
-		<td align="center"><s:property value="classBelong.id"/></td>
-		<td><s:property value="classBelong.name"/></td>
-		
-		<td>
-		<s:if test="%{isOver>=1}">
-			<s:a href="ChangeIsOver?cid=%{classBelong.id}">当前状态：已结课；点击改为未结课</s:a>
-		</s:if>
-		<s:else>
-			<s:a href="ChangeIsOver?cid=%{classBelong.id}">当前状态：未结课；点击改为已结课</s:a>
-		</s:else>
-		</td>
-		<td><a href="detailSelectedCourse.action?course_id=<s:property value='classBelong.id'/>
-						&courseName=<s:property value='classBelong.name'/>">查看选课详情</a></td>
-		<td><a href="PrintSelectionList?type=1&course_id=<s:property value='classBelong.id'/>
-						&courseName=<s:property value='classBelong.name'/>">导出选课名单</a></td>
-		<td><a href="PrintSelectionList?type=2&course_id=<s:property value='classBelong.id'/>
-						&courseName=<s:property value='classBelong.name'/>">导出空白成绩单</a></td>
-	</tr>
-		</s:else>
-	</s:iterator>
-	
+	<tbody id="id_table_elist"> </tbody>
 	</table><br>
 	<div style="padding-left:10%;">
-    <s:if test="#request.page==1">
-
-<font color="#cccccc" >上一页  第一页</font>
-
-</s:if>
-
-<s:else>
-
-<a href="showAllSelectedCourse.action?page=<s:property value="1"/>">第一页</a>&nbsp;
-
-<a href="showAllSelectedCourse.action?page=${page-1 }">上一页</a>
-
-</s:else>
-&nbsp;
-<s:iterator begin="1" end="(#request.total+10-1)/10" step="1" status="i">
-	<s:if test="%{#i.index+1==#request.page}"><strong><s:property value="%{#i.index+1}"/></strong></s:if>
-	<s:else><a href="showAllSelectedCourse.action?page=<s:property value="%{#i.index+1}"/>"><s:property value="%{#i.index+1}"/></a></s:else>
-	&nbsp;
-</s:iterator>
-
-<s:if test="(#request.total+10-1)/10==#request.page">
-
-<font color="#cccccc" >下一页  最后一页</font>
-
-</s:if>
-
-<s:else>
-
-<a href="showAllSelectedCourse.action?page=${page+1 }">下一页</a>&nbsp;
-
-<a href="showAllSelectedCourse.action?page=<s:property value="%{(#request.total+10-1)/10}"/>">最后一页</a>
-
-</s:else>
+    <!-- 分页 -->
+	<div class="page" id="pages"></div>
+	<!-- 分页 -->
 
 	<h3>帮助提示</h3>
 	<ol>

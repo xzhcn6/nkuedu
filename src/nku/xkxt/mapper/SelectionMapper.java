@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Selection;
 
 public interface SelectionMapper {
@@ -11,6 +12,8 @@ public interface SelectionMapper {
 	Selection getSelectionById(@Param("id")String id);
 	
 	List<Selection> getSelectionByExample(Selection selection);
+	
+	List<SelectedCourse> getSelectionByCourse();
 	
 	int insertSelection(Selection selection); 
 	

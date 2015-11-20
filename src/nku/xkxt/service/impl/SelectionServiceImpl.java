@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import nku.xkxt.dao.SelectionDAO;
+import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Selection;
 import nku.xkxt.service.SelectionService;
 
@@ -25,6 +26,11 @@ public class SelectionServiceImpl implements SelectionService{
 	@Override
 	public List<Selection> getSelectionByExample(Selection selection){
 		return selectionDAO.getSelectionByExample(selection);
+	}
+	
+	@Override
+	public List<SelectedCourse> getSelectionByCourse(){
+		return selectionDAO.getSelectionByCourse();
 	}
 	
 	@Override

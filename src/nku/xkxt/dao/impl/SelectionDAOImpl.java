@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import nku.xkxt.dao.SelectionDAO;
 import nku.xkxt.mapper.SelectionMapper;
+import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Selection;
 
 @Repository
@@ -24,6 +25,11 @@ public class SelectionDAOImpl implements SelectionDAO{
 	@Override
 	public List<Selection> getSelectionByExample(Selection selection){
 		return selectionMapper.getSelectionByExample(selection);
+	}
+	
+	@Override
+	public List<SelectedCourse> getSelectionByCourse(){
+		return selectionMapper.getSelectionByCourse();
 	}
 	
 	@Override

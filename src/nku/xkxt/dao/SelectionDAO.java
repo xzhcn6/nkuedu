@@ -2,6 +2,7 @@ package nku.xkxt.dao;
 
 import java.util.List;
 
+import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Selection;
 
 public interface SelectionDAO {
@@ -9,6 +10,8 @@ public interface SelectionDAO {
 	Selection getSelectionById(String id);
 	
 	List<Selection> getSelectionByExample(Selection selection);
+	
+	List<SelectedCourse> getSelectionByCourse();
 	
 	int insertSelection(Selection selection); 
 	

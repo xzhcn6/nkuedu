@@ -2,6 +2,7 @@ package nku.xkxt.service;
 
 import java.util.List;
 
+import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Selection;
 
 public interface SelectionService {
@@ -9,6 +10,8 @@ public interface SelectionService {
 	Selection getSelectionById(String id);
 	
 	List<Selection> getSelectionByExample(Selection selection);
+	
+	List<SelectedCourse> getSelectionByCourse();
 	
 	int insertSelection(Selection selection); 
 	

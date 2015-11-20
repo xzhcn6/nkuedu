@@ -12,10 +12,12 @@ import nku.core.common.VerifyCodeConstants;
 import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Course;
 import nku.xkxt.model.CourseTime;
+import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
 import nku.xkxt.service.CourseService;
 import nku.xkxt.service.CourseTimeService;
+import nku.xkxt.service.SelectionService;
 import nku.xkxt.service.StudentService;
 
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,8 @@ public class AdminController {
 	private CourseService courseService;
 	@Resource
 	private CourseTimeService courseTimeService;
+	@Resource
+	private SelectionService selectionService;
 	
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
@@ -467,6 +471,20 @@ public class AdminController {
 		Integer systemStatus = adminService.getSystemStatus();
 		model.addAttribute("sysStatus", systemStatus);
 		return "teacher/showSelection";
+	}
+	
+	@RequestMapping(value = "/getSelectionByCourse")
+	@ResponseBody
+	public Map<String,Object> getSelectionByCourse(HttpServletRequest request){
+
+		String pageNum = request.getParameter("pageNo");
+		Map<String,Object> map = new HashMap<String,Object>();
+		PageHelper.startPage(Integer.parseInt(pageNum), 10);
+		List<SelectedCourse> selectionList = selectionService.getSelectionByCourse();
+		PageInfo<SelectedCourse> page = new PageInfo<SelectedCourse>(selectionList);
+		
+		map.put("selectionList", page);
+		return map;
 	}
 	
 	@RequestMapping(value = "/changeSystemStatus")
