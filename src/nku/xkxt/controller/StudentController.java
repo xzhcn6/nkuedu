@@ -16,6 +16,7 @@ import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.CourseWithTime;
 import nku.xkxt.model.Selection;
 import nku.xkxt.model.Student;
+import nku.xkxt.service.AdminService;
 import nku.xkxt.service.CourseService;
 import nku.xkxt.service.CourseTimeService;
 import nku.xkxt.service.SelectionService;
@@ -33,6 +34,8 @@ import com.github.pagehelper.PageInfo;
 @RequestMapping(value = "/student")
 public class StudentController {
 	
+	@Resource
+	private AdminService adminService;
 	@Resource
 	private StudentService studentService;
 	@Resource
@@ -123,15 +126,21 @@ public class StudentController {
 	
 	@RequestMapping(value = "/selectClass")
 	public String selectClass(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
-		Student student = new Student();
-		if (stuNumStr != null&& !"".equals(stuNumStr)){
-			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
-		}
 		
-		model.addAttribute("student", student);
-		return "student/selectClass";
+		Integer systemStatus = adminService.getSystemStatus();
+		if (systemStatus == 0){
+			return "student/systemClosed";
+		} else {
+			HttpSession session = request.getSession();
+			String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+			Student student = new Student();
+			if (stuNumStr != null&& !"".equals(stuNumStr)){
+				student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+			}
+			
+			model.addAttribute("student", student);
+			return "student/selectClass";
+		}
 	}
 	
 	@RequestMapping(value = "/getSelectedCourse")
