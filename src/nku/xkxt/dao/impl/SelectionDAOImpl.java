@@ -67,4 +67,19 @@ public class SelectionDAOImpl implements SelectionDAO{
 		return selectionMapper.getCountByStudentId(studentId);
 	}
 	
+	@Override
+	public int overCourse(int isOver){
+		return selectionMapper.overCourse(isOver);
+	}
+	
+	@Override
+	public int overAllCourse(int isOver){
+		return selectionMapper.overAllCourse(isOver);
+	}
+	
+	@Override
+	public int addScoreByExample(Selection selection){
+		return selectionMapper.addScoreByExample(selection);
+	}
+	
 }

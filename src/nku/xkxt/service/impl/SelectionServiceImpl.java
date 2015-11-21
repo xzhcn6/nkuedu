@@ -68,4 +68,19 @@ public class SelectionServiceImpl implements SelectionService{
 		return selectionDAO.getCountByStudentId(studentId);
 	}
 	
+	@Override
+	public int overCourse(int isOver){
+		return selectionDAO.overCourse(isOver);
+	}
+	
+	@Override
+	public int overAllCourse(int isOver){
+		return selectionDAO.overAllCourse(isOver);
+	}
+	
+	@Override
+	public int addScoreByExample(Selection selection){
+		return selectionDAO.addScoreByExample(selection);
+	}
+	
 }

@@ -28,4 +28,10 @@ public interface SelectionMapper {
 	Integer getCountByCourseId(@Param("courseId")String courseId);
 	
 	Integer getCountByStudentId(@Param("studentId")String studentId);
+	
+	int overCourse(@Param("isOver")int isOver);
+	
+	int overAllCourse(@Param("isOver")int isOver);
+	
+	int addScoreByExample(Selection selection);
 }

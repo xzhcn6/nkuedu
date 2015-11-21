@@ -159,4 +159,41 @@
 		where student_id=#{studentId}
 	</select>
 	
+	<update id="overCourse" parameterType="nku.xkxt.model.Selection">
+		update selection
+			<set>
+				<if test="isOver != null">
+						is_over = #{isOver}
+				</if>
+			</set>
+		where couse_id = #{courseId}
+	</update>
+	
+	<update id="overAllCourse">
+		update selection
+			<set>
+				<if test="isOver != null">
+						is_over = #{isOver}
+				</if>
+			</set>
+	</update>
+	
+	<update id="addScoreByExample">
+		update selection
+		<set>
+			<if test="score != null">
+				score = #{score},
+			</if>
+		</set>
+		<where>
+			1=1
+		    <if test="studentId != null">
+					and student_id = #{studentId}
+			</if>
+			<if test="courseId != null">
+					and course_id = #{courseId}
+			</if>
+		</where>
+	</update>
+	
 </mapper>

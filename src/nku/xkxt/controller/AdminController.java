@@ -509,4 +509,24 @@ public class AdminController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/overCourse")
+	@ResponseBody
+	public Map<String,Object> overCourse(HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/overAllCourse")
+	@ResponseBody
+	public Map<String,Object> overAllCourse(HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		
+		
+		return map;
+	}
+	
 }

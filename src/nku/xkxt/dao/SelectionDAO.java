@@ -27,4 +27,10 @@ public interface SelectionDAO {
 	
 	Integer getCountByStudentId(String studentId);
 	
+	int overCourse(int isOver);
+	
+	int overAllCourse(int isOver);
+	
+	int addScoreByExample(Selection selection);
+	
 }
