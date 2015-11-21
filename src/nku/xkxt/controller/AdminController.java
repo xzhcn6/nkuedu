@@ -13,6 +13,7 @@ import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Course;
 import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.SelectedCourse;
+import nku.xkxt.model.Selection;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
 import nku.xkxt.service.CourseService;
@@ -511,12 +512,18 @@ public class AdminController {
 	
 	@RequestMapping(value = "/overCourse")
 	@ResponseBody
-	public Map<String,Object> overCourse(HttpServletRequest request){
+	public void overCourse(HttpServletRequest request){
 		String msg = "";
 		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
+		String courseId = request.getParameter("courseId");
+		String isOver = request.getParameter("isOver");
+		Selection selection = new Selection();
 		
+		selection.setCourseId(courseId);
+		selection.setIsOver(Integer.parseInt(isOver));
 		
-		return map;
+		selectionService.overCourse(selection);
+		
 	}
 	
 	@RequestMapping(value = "/overAllCourse")

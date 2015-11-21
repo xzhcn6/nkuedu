@@ -29,7 +29,7 @@ public interface SelectionMapper {
 	
 	Integer getCountByStudentId(@Param("studentId")String studentId);
 	
-	int overCourse(@Param("isOver")int isOver);
+	int overCourse(Selection selection);
 	
 	int overAllCourse(@Param("isOver")int isOver);
 	

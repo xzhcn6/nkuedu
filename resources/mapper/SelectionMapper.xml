@@ -166,7 +166,7 @@
 						is_over = #{isOver}
 				</if>
 			</set>
-		where couse_id = #{courseId}
+		where course_id = #{courseId}
 	</update>
 	
 	<update id="overAllCourse">

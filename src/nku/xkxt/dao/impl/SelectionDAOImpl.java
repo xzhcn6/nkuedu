@@ -68,8 +68,8 @@ public class SelectionDAOImpl implements SelectionDAO{
 	}
 	
 	@Override
-	public int overCourse(int isOver){
-		return selectionMapper.overCourse(isOver);
+	public int overCourse(Selection selection){
+		return selectionMapper.overCourse(selection);
 	}
 	
 	@Override

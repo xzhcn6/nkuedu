@@ -27,7 +27,7 @@ public interface SelectionService {
 	
 	Integer getCountByStudentId(String studentId);
 	
-	int overCourse(int isOver);
+	int overCourse(Selection selection);
 	
 	int overAllCourse(int isOver);
 	

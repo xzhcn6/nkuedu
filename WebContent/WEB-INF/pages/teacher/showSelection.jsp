@@ -22,9 +22,6 @@ $(function(){
 		commitStatus();
     });
 	
-	$('#overCoursecommit').click(function(){
-		overCoursecommit();
-    });
 	$('#onAllCoursecommit').click(function(){
 		overAllCoursecommit(0);
     });
@@ -40,26 +37,6 @@ function commitStatus(){
         type:"POST",
         data:param,
         url:"<%=request.getContextPath()%>/admin/changeSystemStatus",
-		success : function(data) {
-			if (data.error != null){
-				alert(data.error);
-				document.location.reload();
-			}
-			if (data.msg != null){
-				alert(data.msg);
-				document.location.reload();
-			}
-		}
-	});
-}
-
-function overCoursecommit(){
-	var param = {};
-	param.status = $("input[name='state']:checked").val();
-	$.ajax({
-        type:"POST",
-        data:param,
-        url:"<%=request.getContextPath()%>/admin/overCoursecommit",
 		success : function(data) {
 			if (data.error != null){
 				alert(data.error);
@@ -157,14 +134,40 @@ function getPages(page){
 	}
 	$("#pages").html(div);
 }
+
+function overCourse(courseId,isOver){
+	var param = {};
+	param.courseId = courseId;
+	if (isOver == 1){
+		param.isOver = 0;	
+	} else if (isOver == 0){
+		param.isOver = 1;
+	}
+	$.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/admin/overCourse",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				document.location.reload();
+			}
+		}
+	});
+}
+
 </script>
 <script type="text/javascript">  
 	/** 判断是否结课 */
 	template.helper('isOver', function (isOver) {
 		if (isOver == 1){
-			return "<a href=''>当前状态：已结课；点击改为未结课</a>";
+			return "当前状态：已结课；点击改为未结课";
 		} else if (isOver == 0){
-			return "<a href=''>当前状态：未结课；点击改为已结课</a>";
+			return "当前状态：未结课；点击改为已结课";
 		} else {
 			return "数据库有误！";
 		}
@@ -176,7 +179,7 @@ function getPages(page){
 	<tr>
 		<td>{{value.selectId}}</td>
 		<td>{{value.name}}</td>
-		<td>{{isOver value.isOver}}</td>
+		<td><a href="" onclick="overCourse('{{value.courseId}}',{{value.isOver}})">{{isOver value.isOver}}</a></td>
 		<td><a href="">查看选课详情</a></td>
 		<td><a href="">导出选课名单</a></td>
 	</tr>

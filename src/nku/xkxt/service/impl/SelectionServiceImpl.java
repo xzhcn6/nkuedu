@@ -69,8 +69,8 @@ public class SelectionServiceImpl implements SelectionService{
 	}
 	
 	@Override
-	public int overCourse(int isOver){
-		return selectionDAO.overCourse(isOver);
+	public int overCourse(Selection selection){
+		return selectionDAO.overCourse(selection);
 	}
 	
 	@Override
