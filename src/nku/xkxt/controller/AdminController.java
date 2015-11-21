@@ -524,8 +524,18 @@ public class AdminController {
 	public Map<String,Object> overAllCourse(HttpServletRequest request){
 		String msg = "";
 		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
-		
-		
+		String isOver = request.getParameter("isOver");
+		if ("1".equals(isOver)||"0".equals(isOver)){
+			selectionService.overAllCourse(Integer.parseInt(isOver));
+			if("1".equals(isOver)){
+				msg = "本学期所有课程都已结课!";
+				map.put("msg", msg);
+			}
+			if("0".equals(isOver)){
+				msg = "本学期所有课程都已设为未结课!";
+				map.put("msg", msg);
+			}
+		}	
 		return map;
 	}
 	

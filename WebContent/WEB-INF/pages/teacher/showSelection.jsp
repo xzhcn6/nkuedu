@@ -22,26 +22,77 @@ $(function(){
 		commitStatus();
     });
 	
-	function commitStatus(){
-		var param = {};
-		param.status = $("input[name='state']:checked").val();
-		$.ajax({
-	        type:"POST",
-	        data:param,
-	        url:"<%=request.getContextPath()%>/admin/changeSystemStatus",
-			success : function(data) {
-				if (data.error != null){
-					alert(data.error);
-					document.location.reload();
-				}
-				if (data.msg != null){
-					alert(data.msg);
-					document.location.reload();
-				}
-			}
-		});
-	}
+	$('#overCoursecommit').click(function(){
+		overCoursecommit();
+    });
+	$('#onAllCoursecommit').click(function(){
+		overAllCoursecommit(0);
+    });
+	$('#overAllCoursecommit').click(function(){
+		overAllCoursecommit(1);
+    });
 }); 
+
+function commitStatus(){
+	var param = {};
+	param.status = $("input[name='state']:checked").val();
+	$.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/admin/changeSystemStatus",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				document.location.reload();
+			}
+		}
+	});
+}
+
+function overCoursecommit(){
+	var param = {};
+	param.status = $("input[name='state']:checked").val();
+	$.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/admin/overCoursecommit",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				document.location.reload();
+			}
+		}
+	});
+}
+
+function overAllCoursecommit(isOver){
+	var param = {};
+	param.isOver = isOver;
+	$.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/admin/overAllCourse",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				document.location.reload();
+			}
+		}
+	});
+}
+
 function getSelectionList(pageNo){
 	var param = {};
 	param.pageNo = pageNo;
@@ -128,7 +179,6 @@ function getPages(page){
 		<td>{{isOver value.isOver}}</td>
 		<td><a href="">查看选课详情</a></td>
 		<td><a href="">导出选课名单</a></td>
-		<td><a href="">导出空白成绩单</a></td>
 	</tr>
 	{{/each}}
 </script> 
@@ -146,17 +196,11 @@ function getPages(page){
 	<div style="float: left; padding-left: 80px;">
 	一键置为结课/未结课：</div>
 	<div style="float: left;">
-	<form action="AllOver">
-		<input type="hidden" name="toOver" value=1>
-		<input type="submit" value="全部置为结课">
+		<input type="submit" id="overAllCoursecommit" value="全部置为结课">
 		&nbsp;
-	</form>
 	</div>
-	<div style="float: left;">
-	<form action="AllOver">
-		<input type="hidden" name="toOver" value=0>
-		<input type="submit" value="全部置为未结课">
-	</form>
+	<div style="float: left;">	
+		<input type="submit" id="onAllCoursecommit" value="全部置为未结课">
 	</div>
 </div>
 	<table width=80% align="center">
