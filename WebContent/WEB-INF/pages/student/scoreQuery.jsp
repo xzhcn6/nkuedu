@@ -16,7 +16,7 @@
 				<td bgcolor=#cccccc>姓名</td>
 				<td colspan="2">${student.name}</td>				
 				<td bgcolor=#cccccc>学号</td>
-				<td colspan="2">${student.studentNumber}</td>	
+				<td colspan="2">${student.studentNum}</td>	
 		</tr>
 		<tr bgcolor=#cccccc>
 				<td>选课序号</td>
