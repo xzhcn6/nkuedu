@@ -350,6 +350,21 @@ public class StudentController {
 		return "student/help";
 	}
 	
+	@RequestMapping(value = "/evaluate")
+	public String evaluate(Model model) {
+		Integer systemStatus = adminService.getSystemStatus();
+		if (systemStatus == 0){
+			return "student/systemClosed";
+		} else {
+			return "student/evaluate";
+		}
+	}
+	
+	@RequestMapping(value = "/scoreQuery")
+	public String scoreQuery(Model model) {
+		return "student/scoreQuery";
+	}
+	
 	@RequestMapping(value = "/blank")
 	public String blank(Model model) {
 		return "student/blank";

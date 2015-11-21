@@ -23,9 +23,9 @@
 			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/student/selectClass"
 					target="mainFrame"
 					onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/student/topMenu'">学生选课</a></font></li>
-			<li><a href="ShowEvaluate" target="mainFrame"
+			<li><a href="<%=request.getContextPath()%>/student/evaluate" target="mainFrame"
 				onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/student/blank'">学生评教</a></li>
-			<li><a href="ScoreQuery.action" target="mainFrame"
+			<li><a href="<%=request.getContextPath()%>/student/scoreQuery" target="mainFrame"
 				onclick="parent.topMenu.location.href='<%=request.getContextPath()%>/student/blank'">成绩查询</a></li>
 			<hr style="border: 1px dashed black; height: 1px" />
 			<li><font color="#FFFFFF"><a
