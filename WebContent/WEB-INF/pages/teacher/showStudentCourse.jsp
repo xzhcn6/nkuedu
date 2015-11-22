@@ -19,7 +19,7 @@
 				if(data.courseList.length != 0){
 					$("#id_table_elist").html(template('id_table_courselist', {data:data}));
 				} else {
-					$("#id_table_elist").html('此学生未选择任何课程！');
+					$("#id_table_elist").html("<tr><td colspan='7'><tr>/td></tr><td colspan='7'><center>此学生未选择任何课程！</center></td></tr>");
 				}
 			}
 		});
@@ -49,32 +49,12 @@
 		<td>课程名称</td>
 		<td>任课老师</td>
 	  	<td>成绩</td>
-	  	<td>是否结课</td>
-	  	
+	  	<td>是否结课</td> 	
 	</tr>
 	<tbody id="id_table_elist"> </tbody>
-	<s:iterator value="selectionList">
-	
-    <tr>
-		<td><s:property value="classBelong.id"/></td>
-		<td><s:property value="classBelong.name"/></td>
-		<td><s:property value="classBelong.professor"/></td>
-	    <td>
-	    <s:if test="%{score==-1}">
-	    	未登记
-	    </s:if>
-	    <s:else>
-	    	<s:property value="score"/>
-	    </s:else>
-	    </td>
-	    <s:if test="%{isOver>=1}"><td>是</td></s:if>
-	    <s:if test="%{isOver==0}"><td>否</td></s:if>
-	    
-	    
-	</s:iterator>
 	</table><br/><br/>
 	<div style="padding-left:60%;">
-	<a href="testStu.action?id=${id}&name=&type=2">打印学生成绩证明</a>&nbsp&nbsp&nbsp&nbsp
+	<a href="">打印学生成绩证明</a>&nbsp&nbsp&nbsp&nbsp
 	<a href="showStudent.action?page=1">返回学生管理</a>
 	</div>
 </body>
