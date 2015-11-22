@@ -6,6 +6,8 @@ public class SelectedCourse {
 	
 	private String courseId;
 	
+	private Float score;
+	
 	private Integer isOver;
 	
 	private Integer selectId;
@@ -13,6 +15,8 @@ public class SelectedCourse {
 	private String courseNum;
 	
 	private String name;
+	
+	private String professor;
 
 	public String getId() {
 		return id;
@@ -60,6 +64,22 @@ public class SelectedCourse {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(String professor) {
+		this.professor = professor;
+	}
+
+	public Float getScore() {
+		return score;
+	}
+
+	public void setScore(Float score) {
+		this.score = score;
 	}
 	
 }

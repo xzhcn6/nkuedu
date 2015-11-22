@@ -107,7 +107,7 @@
 	    <td>{{value.passwd}}</td>
 	    <td><a href="<%=request.getContextPath()%>/admin/updateStudent?id={{value.id}}">修改</a>
 	    	<a href="" onclick="deleteStudent('{{value.id}}')">删除</a>
-	    	<a href="<%=request.getContextPath()%>/admin/queryCourse?id={{value.id}}">查询课程</a>
+	    	<a href="<%=request.getContextPath()%>/admin/showStudentCourse?studentId={{value.id}}">查询课程</a>
 	</td>
 	{{/each}}
 </script> 

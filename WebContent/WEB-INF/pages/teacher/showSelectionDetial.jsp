@@ -38,7 +38,7 @@ function deleteSelection(studentId){
 		});
 	}
 }
-</script>  
+</script> 
 <script id="id_table_selectionlist" type="text/html">    
 	{{each data.selectionList as value i}}
 	<tr>

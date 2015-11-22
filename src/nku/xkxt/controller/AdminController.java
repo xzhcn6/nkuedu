@@ -555,6 +555,7 @@ public class AdminController {
 		model.addAttribute("selectCount", selectCount);
 		return "teacher/showSelectionDetial";
 	}
+	
 	@RequestMapping(value = "/getSelectionDetialList")
 	@ResponseBody
 	public Map<String,Object> getSelectionDetialList(HttpServletRequest request){
@@ -584,6 +585,39 @@ public class AdminController {
 		selection.setCourseId(courseId);
 		selection.setStudentId(studentId);
 		selectionService.deleteSelectionByExample(selection);
+		return map;
+	}
+	
+	@RequestMapping(value="/showStudentCourse")
+	public String showStudenCourse(Model model,HttpServletRequest request){
+		String studentId = request.getParameter("studentId");
+		Student student = studentService.getStudentById(studentId);
+		
+		model.addAttribute("student", student);
+		return "teacher/showStudentCourse";
+	}
+	
+	@RequestMapping(value = "/getStudentCourse")
+	@ResponseBody
+	public Map<String,Object> getStudentCourse(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		String studentId = request.getParameter("studentId");
+		List<Selection> selectionList = selectionService.getAllSelectionByStuId(studentId);
+		List<SelectedCourse> courseList = new ArrayList<SelectedCourse>();
+		for (int i=0;i<selectionList.size();i++){
+			Selection selection = selectionList.get(i);
+			Course course = courseService.getCourseById(selection.getCourseId());
+			SelectedCourse selCou = new SelectedCourse();
+			selCou.setCourseId(course.getId());
+			selCou.setCourseNum(course.getCourseNum());
+			selCou.setIsOver(selection.getIsOver());
+			selCou.setName(course.getName());
+			selCou.setProfessor(course.getProfessor());
+			selCou.setSelectId(course.getSelectId());
+			selCou.setScore(selection.getScore());
+			courseList.add(selCou);
+		}
+		map.put("courseList", courseList);
 		return map;
 	}
 }
