@@ -14,8 +14,8 @@
 			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showCourse" target="mainFrame">课程管理</a></font></li>
 			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showStudent" target="mainFrame">学生管理</a></font></li>
 			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showSelection" target="mainFrame">选课管理</a></font></li>
-			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showScore" target="mainFrame">成绩管理</a></font></li>
-			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/showStudent" target="mainFrame">评教管理</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/manageScore" target="mainFrame">成绩管理</a></font></li>
+			<li><font color="#FFFFFF"><a href="<%=request.getContextPath()%>/admin/manageScore" target="mainFrame">评教管理</a></font></li>
 		</ul>
 	</div>
 </body>

@@ -620,4 +620,10 @@ public class AdminController {
 		map.put("courseList", courseList);
 		return map;
 	}
+	
+	@RequestMapping(value="/manageScore")
+	public String manageScore(Model model,HttpServletRequest request){
+		
+		return "teacher/manageScore";
+	}
 }
