@@ -180,7 +180,7 @@ function overCourse(courseId,isOver){
 		<td>{{value.selectId}}</td>
 		<td>{{value.name}}</td>
 		<td><a href="" onclick="overCourse('{{value.courseId}}',{{value.isOver}})">{{isOver value.isOver}}</a></td>
-		<td><a href="">查看选课详情</a></td>
+		<td><a href="<%=request.getContextPath()%>/admin/showSelectionDetial?courseId={{value.courseId}}">查看选课详情</a></td>
 		<td><a href="">导出选课名单</a></td>
 	</tr>
 	{{/each}}

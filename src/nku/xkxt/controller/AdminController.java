@@ -1,6 +1,7 @@
 package nku.xkxt.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -547,10 +548,42 @@ public class AdminController {
 	public String showSelectionDetial(Model model,HttpServletRequest request){
 		String courseId = request.getParameter("courseId");
 		
-		List<Selection> selectionList = selectionService.getAllSelectionByCourseId(courseId);
+		Course course = courseService.getCourseById(courseId);
+		int selectCount = selectionService.getCountByCourseId(courseId);
 		
-		
+		model.addAttribute("course", course);
+		model.addAttribute("selectCount", selectCount);
 		return "teacher/showSelectionDetial";
 	}
+	@RequestMapping(value = "/getSelectionDetialList")
+	@ResponseBody
+	public Map<String,Object> getSelectionDetialList(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String courseId = request.getParameter("courseId");
+		List<Selection> selectionList = selectionService.getAllSelectionByCourseId(courseId);
+		List<Student> studentList = new ArrayList<Student>();
+		
+		for (int i=0; i< selectionList.size(); i++){
+			Selection selection = selectionList.get(i);
+			Student student = studentService.getStudentById(selection.getStudentId());
+			studentList.add(student);
+		}
+		
+		map.put("selectionList", studentList);
+		return map;
+	}
 	
+	@RequestMapping(value = "/deleteSelectionByExample")
+	@ResponseBody
+	public Map<String,Object> deleteSelectionByExample(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		String studentId = request.getParameter("studentId");
+		String courseId = request.getParameter("courseId"); 
+		Selection selection = new Selection();
+		selection.setCourseId(courseId);
+		selection.setStudentId(studentId);
+		selectionService.deleteSelectionByExample(selection);
+		return map;
+	}
 }
