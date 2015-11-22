@@ -19,6 +19,8 @@ public interface SelectionDAO {
 	
 	List<Selection> getAllSelectionByStuId(String studentId);
 	
+	List<Selection> getAllSelectionByCourseId(String courseId);
+	
 	int deleteSelectionById(String selectionId);
 	
 	int updateSelectionByExample(Selection selection);

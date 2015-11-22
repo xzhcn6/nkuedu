@@ -123,6 +123,13 @@
 		where student_id=#{studentId}
 	</select>
 	
+	<select id="getAllSelectionByCourseId" resultMap="Selection_ResultMap" >
+		select 
+		<include refid="Selection_Column_List" />
+		from selection
+		where course_id=#{courseId}
+	</select>
+	
 	<delete id="deleteSelectionById">
 		delete from selection
 		where id = #{id}

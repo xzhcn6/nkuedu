@@ -513,8 +513,6 @@ public class AdminController {
 	@RequestMapping(value = "/overCourse")
 	@ResponseBody
 	public void overCourse(HttpServletRequest request){
-		String msg = "";
-		Map<String,Object> map = new HashMap<String,Object>();	//将返回信息存放到此map中，然后返回JSON
 		String courseId = request.getParameter("courseId");
 		String isOver = request.getParameter("isOver");
 		Selection selection = new Selection();
@@ -523,7 +521,6 @@ public class AdminController {
 		selection.setIsOver(Integer.parseInt(isOver));
 		
 		selectionService.overCourse(selection);
-		
 	}
 	
 	@RequestMapping(value = "/overAllCourse")
@@ -544,6 +541,16 @@ public class AdminController {
 			}
 		}	
 		return map;
+	}
+	
+	@RequestMapping(value="/showSelectionDetial")
+	public String showSelectionDetial(Model model,HttpServletRequest request){
+		String courseId = request.getParameter("courseId");
+		
+		List<Selection> selectionList = selectionService.getAllSelectionByCourseId(courseId);
+		
+		
+		return "teacher/showSelectionDetial";
 	}
 	
 }

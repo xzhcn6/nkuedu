@@ -49,6 +49,11 @@ public class SelectionServiceImpl implements SelectionService{
 	}
 	
 	@Override
+	public List<Selection> getAllSelectionByCourseId(String courseId){
+		return selectionDAO.getAllSelectionByCourseId(courseId);
+	}
+	
+	@Override
 	public int deleteSelectionById(String selectionId){
 		return selectionDAO.deleteSelectionById(selectionId);
 	}

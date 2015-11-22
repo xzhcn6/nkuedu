@@ -48,6 +48,11 @@ public class SelectionDAOImpl implements SelectionDAO{
 	}
 	
 	@Override
+	public List<Selection> getAllSelectionByCourseId(String courseId){
+		return selectionMapper.getAllSelectionByCourseId(courseId);
+	}
+	
+	@Override
 	public int deleteSelectionById(String selectionId){
 		return selectionMapper.deleteSelectionById(selectionId);
 	}

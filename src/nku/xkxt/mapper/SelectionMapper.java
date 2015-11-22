@@ -21,6 +21,8 @@ public interface SelectionMapper {
 	
 	List<Selection> getAllSelectionByStuId(@Param("studentId")String studentId);
 	
+	List<Selection> getAllSelectionByCourseId(@Param("courseId")String courseId);
+	
 	int deleteSelectionById(@Param("selectionId")String selectionId);
 	
 	int updateSelectionByExample(Selection selection);
