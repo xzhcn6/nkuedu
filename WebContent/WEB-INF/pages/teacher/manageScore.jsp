@@ -83,7 +83,7 @@ function getPages(page){
 		<td style="text-align:center;">{{value.selectId}}</td>
 		<td>{{value.courseNum}}</td>
 		<td>{{value.name}}</td>
-		<td><a href="">学生成绩</a></td>
+		<td><a href="<%=request.getContextPath()%>/admin/scoreStudent?courseId={{value.courseId}}">学生成绩</a></td>
 	</tr>
 	{{/each}}
 </script> 

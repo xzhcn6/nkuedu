@@ -623,7 +623,14 @@ public class AdminController {
 	
 	@RequestMapping(value="/manageScore")
 	public String manageScore(Model model,HttpServletRequest request){
-		
 		return "teacher/manageScore";
+	}
+	
+	@RequestMapping(value="/scoreStudent")
+	public String scoreStudent(Model model,HttpServletRequest request){
+		String courseId = request.getParameter("courseId");		
+		Course course = courseService.getCourseById(courseId);
+		model.addAttribute("course", course);
+		return "teacher/scoreStudent";
 	}
 }
