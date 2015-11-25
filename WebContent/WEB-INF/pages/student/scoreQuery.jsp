@@ -4,13 +4,56 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; utf-8">
-<link rel="stylesheet" style="text/html" href="${pageContext.request.contextPath}/CSS/personal_info.css">
+<link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/personal_info.css">
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/template.js"></script>
 <title>成绩查询</title>
 </head>
+<script type="text/javascript">   
+	$(function(){
+		var d = new Date();
+	    var nowYear = d.getFullYear();
+	    $("#title").html("南开大学"+nowYear+"年度夏季学期成绩"); 
+	    
+	    $.ajax({
+            type:"POST",
+            url:"<%=request.getContextPath()%>/student/getSelectionByCourse",
+			success : function(data) {
+				if(data.courseList.length != 0){
+					$("#id_table_elist").html(template('id_table_courselist', {data:data}));
+				} else {
+					$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
+				}
+			}
+		});
+     });
+</script>
+<script type="text/javascript">  
+	/** 判断是否开课 */
+	template.helper('score', function (score) {
+		if (score == null){
+			return "未登记";
+		} else if (score == -1){
+			return "未评教";
+		} else {
+			return score;
+		}
+		
+	});
+</script>
+<script id="id_table_courselist" type="text/html">    
+	{{each data.courseList as value i}}
+	<tr>
+		<td>{{value.selectId}}</td>
+		<td>{{value.name}}</td>
+		<td>{{value.professor}}</td>
+		<td>{{value.credit}}</td>
+	    <td>{{score value.score}}</td>
+	{{/each}}
+</script> 
 <body style="font-family:微软雅黑;">
 	<div class="query">		
-	<c:set var="now" value="<%=new java.util.Date()%>" />	
-	<p align="center"><strong>南开大学<fmt:formatDate value="${now}" pattern="yyyy" />年度夏季学期成绩 </strong></p>
+	<p align="center"><strong id="title"></strong></p>
 	<table border="1" cellpadding="3" cellspacing="0" style="width: 60%;margin:auto">
 		<tr>
 				<td bgcolor=#cccccc>姓名</td>
@@ -25,23 +68,7 @@
 				<td>学分</td>
 				<td>成绩</td>
 		</tr>
-			<s:iterator value='#request.selection'>
-				<tr>
-					<td><s:property value="classBelong.id"/></td>
-					<td ><s:property value="classBelong.name"/></td>
-					<td><s:property value="classBelong.professor"/></td>
-					<td><s:property value="classBelong.credit"/></td>
-					<td>
-					<s:if test="%{isOver==1}">
-						未评教
-					</s:if>
-					<s:if test="%{isOver==2}">
-						<s:if test="%{score==-1}">未出成绩</s:if>
-						<s:if test="%{score!=-1}"><s:property value="score"/></s:if>
-					</s:if>
-					</td>
-				</tr>
-			</s:iterator>
+		<tbody id="id_table_elist"> </tbody>
 	</table>
 	</div>
 	<div class="warning" style="padding-left:20%;">	

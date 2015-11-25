@@ -14,6 +14,7 @@ import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Course;
 import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.CourseWithTime;
+import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Selection;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
@@ -371,6 +372,40 @@ public class StudentController {
 		
 		model.addAttribute("student", student);
 		return "student/scoreQuery";
+	}
+	
+	@RequestMapping(value = "/getSelectionByCourse")
+	@ResponseBody
+	public Map<String,Object> getSelectionByCourse(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+		Student student = new Student();
+		if (stuNumStr != null&& !"".equals(stuNumStr)){
+			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<Selection> selectionList = selectionService.getAllSelectionByStuId(student.getId());
+		List<SelectedCourse> courseList = new ArrayList<SelectedCourse>();
+		for(int i=0;i<selectionList.size();i++){
+			Selection selection = selectionList.get(i);
+			SelectedCourse sc = new SelectedCourse();
+			Course co = courseService.getCourseById(selection.getCourseId());
+			if (co!=null){
+				sc.setCourseId(selection.getCourseId());
+				sc.setCourseNum(co.getCourseNum());
+				sc.setId(selection.getId());
+				sc.setIsOver(selection.getIsOver());
+				sc.setName(co.getName());
+				sc.setProfessor(co.getProfessor());
+				sc.setScore(selection.getScore());
+				sc.setSelectId(co.getSelectId());
+				sc.setCredit(co.getCredit());
+				courseList.add(sc);
+			}
+		}
+		
+		map.put("courseList", courseList);
+		return map;
 	}
 	
 	@RequestMapping(value = "/blank")
