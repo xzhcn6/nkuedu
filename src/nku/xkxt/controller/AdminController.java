@@ -14,6 +14,7 @@ import nku.core.utils.UUIDGenerator;
 import nku.xkxt.model.Course;
 import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.SelectedCourse;
+import nku.xkxt.model.SelectedStudent;
 import nku.xkxt.model.Selection;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
@@ -632,5 +633,62 @@ public class AdminController {
 		Course course = courseService.getCourseById(courseId);
 		model.addAttribute("course", course);
 		return "teacher/scoreStudent";
+	}
+	
+	@RequestMapping(value = "/getScoreCourseList")
+	@ResponseBody
+	public Map<String,Object> getScoreCourseList(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String courseId = request.getParameter("courseId");
+		List<Selection> selectionList = selectionService.getAllSelectionByCourseId(courseId);
+		List<SelectedStudent> studentList = new ArrayList<SelectedStudent>();
+		
+		for (int i=0; i< selectionList.size(); i++){
+			Selection selection = selectionList.get(i);
+			Student student = studentService.getStudentById(selection.getStudentId());
+			SelectedStudent sestu = new SelectedStudent();
+			sestu.setId(selection.getId());
+			sestu.setIsOver(selection.getIsOver());
+			sestu.setName(student.getName());
+			sestu.setScore(selection.getScore());
+			sestu.setStudentId(selection.getStudentId());
+			sestu.setStudentNum(student.getStudentNum());
+			studentList.add(sestu);
+		}
+		
+		map.put("selectionList", studentList);
+		return map;
+	}
+	
+	@RequestMapping(value="/addScoreByExample")
+	@ResponseBody
+	public Map<String,Object> addScoreByExample(Model model,HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();
+		String studentId = request.getParameter("studentId");	
+		String courseId = request.getParameter("courseId");
+		String score = request.getParameter("score");
+		Selection selection = new Selection();
+		Float sco = new Float(0);
+		if ("".equals(score)||score == null){
+			msg = "请填写有效成绩！";
+			map.put("error", msg);
+			return map;
+		} else {
+			sco = Float.parseFloat(score);
+		}
+		selection.setCourseId(courseId);
+		selection.setStudentId(studentId);
+		selection.setScore(sco);
+		if(selectionService.addScoreByExample(selection)>0){
+			msg = "添加成绩成功！";
+			map.put("msg", msg);
+			return map;
+		} else {
+			msg = "添加成绩失败，请检查信息！";
+			map.put("error", msg);
+			return map;
+		}
 	}
 }

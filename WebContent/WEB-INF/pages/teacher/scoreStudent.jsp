@@ -13,7 +13,7 @@ $(function(){
 	$.ajax({
         type:"POST",
         data:param,
-        url:"<%=request.getContextPath()%>/admin/getSelectionDetialList",
+        url:"<%=request.getContextPath()%>/admin/getScoreCourseList",
 		success : function(data) {
 			if(data.selectionList.length != 0){
 				$("#id_table_elist").html(template('id_table_selectionlist', {data:data}));
@@ -21,6 +21,32 @@ $(function(){
 		}
 	});
 });
+function addScore(id){
+	var param = {};
+	param.studentId = id;
+	param.courseId = '${course.id}';
+	score = $('#'+id).val();
+	if (score==null||score==''||!(/^\d{1,3}(\.\d{1,2})?$/).test(score)){	
+		alert('请填写有效成绩！');
+		return;
+	}
+	param.score = score;
+	$.ajax({
+        type:"POST",
+        data:param,
+        url:"<%=request.getContextPath()%>/admin/addScoreByExample",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				document.location.reload();
+			}
+		}
+	});
+}
 </script> 
 <script type="text/javascript">  
 	/** 判断是否开课 */
@@ -39,7 +65,7 @@ $(function(){
 		<td>{{value.name}}</td>
 		<td>{{value.studentNum}}</td>
 		<td>{{score value.score}}</td>
-		<td><input type="text" name="score" value="" style="width:50px;"><input type="submit" value="添加或修改成绩"></td>
+		<td><input type="text" id ="{{value.studentId}}" style="width:50px;"><input type="submit" value="添加或修改成绩" onclick="addScore('{{value.studentId}}')"></td>
 	</tr>
 	{{/each}}
 </script> 

@@ -17,6 +17,8 @@ public class SelectedCourse {
 	private String name;
 	
 	private String professor;
+	
+	private Float credit;
 
 	public String getId() {
 		return id;
@@ -80,6 +82,14 @@ public class SelectedCourse {
 
 	public void setScore(Float score) {
 		this.score = score;
+	}
+
+	public Float getCredit() {
+		return credit;
+	}
+
+	public void setCredit(Float credit) {
+		this.credit = credit;
 	}
 	
 }
