@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nku.xkxt.mapper.CommentMapper">
+	<resultMap id="Comment_ResultMap" type="nku.xkxt.model.Comment">
+		<id column="id" property="id" />
+		<result column="selection_id" property="selectionId" />
+		<result column="comment" property="comment" />
+		<result column="score1" property="score1" />
+		<result column="score2" property="score2" />
+		<result column="score3" property="score3" />
+		<result column="score4" property="score4" />
+		<result column="score5" property="score5" />
+		<result column="total" property="total" />
+	</resultMap>
+
+	<sql id="Comment_Column_List">
+		id,
+		selection_id,
+		comment,
+		score1,
+		score2,
+		score3,
+		score4,
+		score5,
+		total
+	</sql>
+	
+	<select id="getCommentById" resultMap="Comment_ResultMap" >
+		select 
+		<include refid="Comment_Column_List" />
+		from Comment
+		<where>
+			1=1
+			<if test="id != null" >
+		    	and  ID = #{id}
+		    </if>
+		</where>
+	</select>
+	
+</mapper>
