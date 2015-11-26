@@ -104,7 +104,6 @@
 		<td>{{value.school}}</td>
 		<td>{{value.telephone}}</td>
 		<td>{{value.email}}</td>
-	    <td>{{value.passwd}}</td>
 	    <td><a href="<%=request.getContextPath()%>/admin/updateStudent?id={{value.id}}">修改</a>
 	    	<a href="" onclick="deleteStudent('{{value.id}}')">删除</a>
 	    	<a href="<%=request.getContextPath()%>/admin/showStudentCourse?studentId={{value.id}}">查询课程</a>
@@ -125,7 +124,6 @@
 		<td>学校</td>
 		<td>电话</td>
 		<td>注册邮箱</td>
-	  	<td>登录密码</td>
 	  	<td>操作</td>
 	  	
 	</tr>

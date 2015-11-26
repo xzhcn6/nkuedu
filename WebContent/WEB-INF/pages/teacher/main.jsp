@@ -4,6 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style id="antiClickjack">body{display:none !important;}</style>
+<script>
+if (self === top) {
+	var antiClickjack = document.getElementById("antiClickjack");
+	antiClickjack.parentNode.removeChild(antiClickjack);
+} else {
+	top.location = self.location;
+}
+</script>
 <title>南开大学夏季学期高中生选课系统</title>
 </head>
 <frameset rows="*" cols="130,*" border="0" style="frameborder:NO; border:0; framespacing:0; noresize; marginheight:0; marginwidth:0">
