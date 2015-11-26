@@ -19,4 +19,8 @@ public class CommentServiceImpl implements CommentService{
 		return commentDAO.getCommentById(id);
 	}
 	
+	@Override
+	public Comment getCommentBySelectionId(String selectionId){
+		return commentDAO.getCommentBySelectionId(selectionId);
+	}
 }

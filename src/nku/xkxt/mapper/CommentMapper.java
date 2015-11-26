@@ -8,4 +8,6 @@ public interface CommentMapper {
 	
 	Comment getCommentById(@Param("id")String id);
 	
+	Comment getCommentBySelectionId(@Param("selectionId")String selectionId);
+	
 }

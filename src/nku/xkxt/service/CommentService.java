@@ -6,4 +6,6 @@ public interface CommentService {
 	
 	Comment getCommentById(String id);
 	
+	Comment getCommentBySelectionId(String selectionId);
+	
 }

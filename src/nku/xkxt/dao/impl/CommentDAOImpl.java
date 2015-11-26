@@ -18,5 +18,10 @@ public class CommentDAOImpl implements CommentDAO{
 	public Comment getCommentById(String id){
 		return commentMapper.getCommentById(id);
 	}
-
+	
+	@Override
+	public Comment getCommentBySelectionId(String selectionId){
+		return commentMapper.getCommentBySelectionId(selectionId);
+	}
+	
 }

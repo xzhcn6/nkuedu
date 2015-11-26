@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import nku.core.common.Constants;
 import nku.core.utils.UUIDGenerator;
+import nku.xkxt.model.Comment;
 import nku.xkxt.model.Course;
 import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.CourseWithTime;
@@ -18,6 +19,7 @@ import nku.xkxt.model.SelectedCourse;
 import nku.xkxt.model.Selection;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
+import nku.xkxt.service.CommentService;
 import nku.xkxt.service.CourseService;
 import nku.xkxt.service.CourseTimeService;
 import nku.xkxt.service.SelectionService;
@@ -45,6 +47,8 @@ public class StudentController {
 	private CourseTimeService courseTimeService;
 	@Resource
 	private SelectionService selectionService;
+	@Resource
+	private CommentService commentService;
 	
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
@@ -351,16 +355,6 @@ public class StudentController {
 		return "student/help";
 	}
 	
-	@RequestMapping(value = "/evaluate")
-	public String evaluate(Model model) {
-		Integer systemStatus = adminService.getSystemStatus();
-		if (systemStatus == 0){
-			return "student/systemClosed";
-		} else {
-			return "student/evaluate";
-		}
-	}
-	
 	@RequestMapping(value = "/scoreQuery")
 	public String scoreQuery(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -390,6 +384,7 @@ public class StudentController {
 			Selection selection = selectionList.get(i);
 			SelectedCourse sc = new SelectedCourse();
 			Course co = courseService.getCourseById(selection.getCourseId());
+			
 			if (co!=null){
 				sc.setCourseId(selection.getCourseId());
 				sc.setCourseNum(co.getCourseNum());
@@ -397,11 +392,51 @@ public class StudentController {
 				sc.setIsOver(selection.getIsOver());
 				sc.setName(co.getName());
 				sc.setProfessor(co.getProfessor());
-				sc.setScore(selection.getScore());
+				Comment comment = commentService.getCommentBySelectionId(selection.getId());
+				if (comment == null){
+					sc.setScore(-1f);
+				} else {
+					sc.setScore(selection.getScore());
+				}
 				sc.setSelectId(co.getSelectId());
 				sc.setCredit(co.getCredit());
 				courseList.add(sc);
 			}
+		}
+		
+		map.put("courseList", courseList);
+		return map;
+	}
+	
+	@RequestMapping(value = "/evaluate")
+	public String evaluate(Model model) {
+		Integer systemStatus = adminService.getSystemStatus();
+		if (systemStatus == 0){
+			return "student/systemClosed";
+		} else {
+			return "student/evaluate";
+		}
+	}
+	
+	@RequestMapping(value = "/getCommentList")
+	@ResponseBody
+	public Map<String,Object> getCommentList(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
+		Student student = new Student();
+		if (stuNumStr != null&& !"".equals(stuNumStr)){
+			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<Selection> selectionList = selectionService.getAllSelectionByStuId(student.getId());
+		List<SelectedCourse> courseList = new ArrayList<SelectedCourse>();
+		for(int i=0;i<selectionList.size();i++){
+			Selection selection = selectionList.get(i);
+			Comment comment = commentService.getCommentBySelectionId(selection.getId());
+			if (comment == null){
+				
+			}
+			
 		}
 		
 		map.put("courseList", courseList);
