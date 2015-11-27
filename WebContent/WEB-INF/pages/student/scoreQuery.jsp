@@ -22,7 +22,7 @@
 				if(data.courseList.length != 0){
 					$("#id_table_elist").html(template('id_table_courselist', {data:data}));
 				} else {
-					$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
+					$("#id_table_elist").html("<tr><td colspan='6'><center>您还未选择任何课程</center></td></tr>");
 				}
 			}
 		});
@@ -49,6 +49,7 @@
 		<td>{{value.professor}}</td>
 		<td>{{value.credit}}</td>
 	    <td>{{score value.score}}</td>
+	</tr>
 	{{/each}}
 </script> 
 <body style="font-family:微软雅黑;">
@@ -68,7 +69,7 @@
 				<td>学分</td>
 				<td>成绩</td>
 		</tr>
-		<tbody id="id_table_elist"> </tbody>
+		<tbody id="id_table_elist"></tbody>
 	</table>
 	</div>
 	<div class="warning" style="padding-left:20%;">	

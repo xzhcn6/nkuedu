@@ -18,21 +18,34 @@
             url:"<%=request.getContextPath()%>/student/getSelectionByCourse",
 			success : function(data) {
 				if(data.courseList.length != 0){
-					$("#id_table_elist").html(template('id_table_selectionlist', {data:data}));
+					$("#id_table_elist").html(template('id_table_courselist', {data:data}));
 				} else {
-					$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
+					$("#id_table_elist").html("<tr><td colspan='9'><center>您还未选择任何课程</center></td></tr>");
 				}
 			}
 		});
      });
 </script>
-<script id="id_table_selectionlist" type="text/html">    
-	{{each data.selectionList as value i}}
+<script type="text/javascript">  
+	/** 判断是否开课 */
+	template.helper('evaluate', function (isOver,score) {
+		if(isOver == 0 || score == null){
+			return "未结课";
+		}
+		if (score == -1){
+			return "<a href='<%=request.getContextPath()%>/student/doEvaluate'>未评教</a>";
+		} else {
+			return "已评教";
+		}
+	});
+</script>
+<script id="id_table_courselist" type="text/html">    
+	{{each data.courseList as value i}}
 	<tr>
-		<td>{{value.name}}</td>
-		<td>{{value.studentNum}}</td>
-		<td>{{score value.score}}</td>
-		<td><input type="text" id ="{{value.studentId}}" style="width:50px;"><input type="submit" value="添加或修改成绩" onclick="addScore('{{value.studentId}}')"></td>
+		<td>{{value.selectId}}</td>
+		<td colspan="3">{{value.name}}</td>
+		<td>{{value.professor}}</td>
+	    <td colspan="4">{{evaluate value.isOver value.score}}</td>
 	</tr>
 	{{/each}}
 </script> 
@@ -43,32 +56,15 @@
 <p align="center"><strong id='title'></strong></p>
 <br>
 		<table border="1" cellpadding="3" cellspacing="0" style="width: 60%;margin:auto">
-		
 			<tr bgcolor=#cccccc>
 				<td>课程序号</td>
 				<td colspan="3">课程名称</td>
 				<td>任课老师</td>
 				<td colspan="4">评教状态</td>
 			</tr>
-			<tbody id="id_table_elist"> </tbody>
-			<s:iterator id='sel' value='#request.selection'>
-				<tr>
-				<td><s:property value="classBelong.id"/></td>
-				<td colspan="3"><s:property value="classBelong.name"/></td>
-				<td><s:property value="classBelong.professor"/></td>
-				<s:if test="%{#sel.isOver==1}">
-			    	<td colspan="4"><s:a href='DoEvaluate?sel=%{#sel.id}'>未评教</s:a></td>
-			    </s:if>
-			    <s:if test="%{#sel.isOver==2}">
-			    	<td colspan="4"><a>已评教</a></td>
-			    </s:if>
-			    <s:if  test="%{#sel.isOver==0}">
-			    	<td colspan="4"><a>未结课</a></td>
-			    </s:if>
-				</tr>
-			</s:iterator>
-			
+			<tbody id="id_table_elist"></tbody>
 		</table>
+
 <div class="warning" style="padding-left:20%;">	
 	<h3>注意：</h3>
 	<ol>

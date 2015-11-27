@@ -443,6 +443,16 @@ public class StudentController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/doEvaluate")
+	public String doEvaluate(Model model) {
+		Integer systemStatus = adminService.getSystemStatus();
+		if (systemStatus == 0){
+			return "student/systemClosed";
+		} else {
+			return "student/doEvaluate";
+		}
+	}
+	
 	@RequestMapping(value = "/blank")
 	public String blank(Model model) {
 		return "student/blank";
