@@ -418,31 +418,6 @@ public class StudentController {
 		}
 	}
 	
-	@RequestMapping(value = "/getCommentList")
-	@ResponseBody
-	public Map<String,Object> getCommentList(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
-		Student student = new Student();
-		if (stuNumStr != null&& !"".equals(stuNumStr)){
-			student = studentService.getStudentByNum(Integer.parseInt(stuNumStr));
-		}
-		Map<String,Object> map = new HashMap<String,Object>();
-		List<Selection> selectionList = selectionService.getAllSelectionByStuId(student.getId());
-		List<SelectedCourse> courseList = new ArrayList<SelectedCourse>();
-		for(int i=0;i<selectionList.size();i++){
-			Selection selection = selectionList.get(i);
-			Comment comment = commentService.getCommentBySelectionId(selection.getId());
-			if (comment == null){
-				
-			}
-			
-		}
-		
-		map.put("courseList", courseList);
-		return map;
-	}
-	
 	@RequestMapping(value = "/doEvaluate")
 	public String doEvaluate(Model model) {
 		Integer systemStatus = adminService.getSystemStatus();

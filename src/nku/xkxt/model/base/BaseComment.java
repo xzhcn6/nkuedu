@@ -21,6 +21,8 @@ public abstract class BaseComment implements Serializable {
 	private Integer score4;
 	
 	private Integer score5;
+	
+	private Integer score6;
 
 	private Float total;
 	
@@ -94,6 +96,14 @@ public abstract class BaseComment implements Serializable {
 
 	public void setTotal(Float total) {
 		this.total = total;
+	}
+
+	public Integer getScore6() {
+		return score6;
+	}
+
+	public void setScore6(Integer score6) {
+		this.score6 = score6;
 	}
 	
 }

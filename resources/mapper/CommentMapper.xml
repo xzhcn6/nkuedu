@@ -10,6 +10,7 @@
 		<result column="score3" property="score3" />
 		<result column="score4" property="score4" />
 		<result column="score5" property="score5" />
+		<result column="score6" property="score6" />
 		<result column="total" property="total" />
 	</resultMap>
 
@@ -22,6 +23,7 @@
 		score3,
 		score4,
 		score5,
+		score6,
 		total
 	</sql>
 	
