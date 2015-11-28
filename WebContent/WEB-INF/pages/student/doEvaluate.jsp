@@ -13,7 +13,11 @@
 }
 </style>
 <script type="text/javascript">   
-	$(function(){
+	$(function(){	
+		$('#commit').click(function(){
+	    	commit();
+	    });
+		
 		var d = new Date();
 	    var nowYear = d.getFullYear();
 	    $("#title").html("南开大学"+nowYear+"年夏季学期选课评教"); 
@@ -30,13 +34,25 @@
 			}
 		});
      });
+function commit(){
+	if (!check()) {
+		return;
+	}
+	var c1 = $('input:radio[name=c1]:checked').val();
+	var c2 = $('input:radio[name=c2]:checked').val();
+	var c3 = $('input:radio[name=c3]:checked').val();
+	var c4 = $('input:radio[name=c4]:checked').val();
+	var c5 = $('input:radio[name=c5]:checked').val();
+	var c6 = $('input:radio[name=c6]:checked').val();
+	var content = $('#Content').val();
+	alert(content);
+}
 </script>
 </head>
 <body style="font-family:微软雅黑;">
 <center>
 	<p align="center"><strong><font size="3" id='title'></font> </strong></p>
 	<br>
-	<form name='form1' method="post" action='SubmitEvaluate' onsubmit="return check()">
 		<table class="evaluate">
 			<tr >
 				<td><font color="red">*</font><font color="blue">1.授课内容</font></td>
@@ -108,9 +124,8 @@
 			</tr>
 			
 		</table>
-		<input type = "hidden" name = "sel" value="${request.sel}"/>
-		<input type = "submit" value="提交"/>	<input type = "button" value="取消" onclick="javascript:history.back();"/>
-	</form>
+		<input type = "submit" value="提交" id="commit"/>	
+		<input type = "button" value="取消" onclick="javascript:history.back();"/>
 </center>
 </body>
 </html>
