@@ -28,12 +28,12 @@
 </script>
 <script type="text/javascript">  
 	/** 判断是否开课 */
-	template.helper('evaluate', function (isOver,score) {
-		if(isOver == 0 || score == null){
+	template.helper('evaluate', function (isOver,score,id) {
+		if(isOver == 0){
 			return "未结课";
 		}
 		if (score == -1){
-			return "<a href='<%=request.getContextPath()%>/student/doEvaluate'>未评教</a>";
+			return "<a href='<%=request.getContextPath()%>/student/doEvaluate?selectionId="+id+"'>未评教</a>";
 		} else {
 			return "已评教";
 		}
@@ -45,7 +45,7 @@
 		<td>{{value.selectId}}</td>
 		<td colspan="3">{{value.name}}</td>
 		<td>{{value.professor}}</td>
-	    <td colspan="4">{{evaluate value.isOver value.score}}</td>
+	    <td colspan="4">{{evaluate value.isOver value.score value.id}}</td>
 	</tr>
 	{{/each}}
 </script> 

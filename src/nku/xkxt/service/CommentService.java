@@ -8,4 +8,6 @@ public interface CommentService {
 	
 	Comment getCommentBySelectionId(String selectionId);
 	
+	int insertComment(Comment comment);
+	
 }

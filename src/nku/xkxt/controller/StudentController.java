@@ -419,12 +419,52 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value = "/doEvaluate")
-	public String doEvaluate(Model model) {
+	public String doEvaluate(Model model,HttpServletRequest request) {
 		Integer systemStatus = adminService.getSystemStatus();
+		String selectionId = request.getParameter("selectionId");
 		if (systemStatus == 0){
 			return "student/systemClosed";
 		} else {
+			model.addAttribute("selectionId", selectionId);
 			return "student/doEvaluate";
+		}
+	}
+	
+	@RequestMapping(value = "/addEvaluate")
+	@ResponseBody
+	public Map<String,Object> addEvaluate(HttpServletRequest request){
+		String msg = "";
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String c1 = request.getParameter("c1");
+		String c2 = request.getParameter("c2");
+		String c3 = request.getParameter("c3");
+		String c4 = request.getParameter("c4");
+		String c5 = request.getParameter("c5");
+		String c6 = request.getParameter("c6");
+		String content = request.getParameter("content");
+		String selectionId = request.getParameter("selectionId");
+		Comment comment = new Comment();
+		comment.setId(UUIDGenerator.getUUID());
+		comment.setScore1(Integer.parseInt(c1));
+		comment.setScore2(Integer.parseInt(c2));
+		comment.setScore3(Integer.parseInt(c3));
+		comment.setScore4(Integer.parseInt(c4));
+		comment.setScore5(Integer.parseInt(c5));
+		comment.setScore6(Integer.parseInt(c6));
+		comment.setComment(content);
+		comment.setSelectionId(selectionId);
+		
+		comment.setTotal(calculateTotal(comment));
+		
+		if (commentService.insertComment(comment)>0){
+			msg = "评教成功！";
+			map.put("msg", msg);
+			return map;
+		} else {
+			msg = "评教失败，请检查信息！";
+			map.put("error", msg);
+			return map;
 		}
 	}
 	
@@ -433,4 +473,16 @@ public class StudentController {
 		return "student/blank";
 	}
 	
+	private Float calculateTotal(Comment comment) {
+		//各个分数比例为：15%,15%,15%,15%,15%,25%
+		Float total = null;	
+		Float temp = (float) (comment.getScore1() * 0.15)
+				+ (float) (comment.getScore2() * 0.15)
+				+ (float) (comment.getScore3() * 0.15)
+				+ (float) (comment.getScore4() * 0.15)
+				+ (float) (comment.getScore5() * 0.15)
+				+ (float) (comment.getScore6() * 0.25);
+		total = temp*20;
+		return total;
+	}
 }

@@ -10,4 +10,6 @@ public interface CommentMapper {
 	
 	Comment getCommentBySelectionId(@Param("selectionId")String selectionId);
 	
+	int insertComment(Comment comment);
+	
 }

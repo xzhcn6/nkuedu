@@ -52,4 +52,72 @@
 		</where>
 	</select>
 	
+	<insert id="insertComment" parameterType="nku.xkxt.model.Comment" useGeneratedKeys="true" keyProperty="id">
+		insert into comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					ID,
+			</if>
+			<if test="selectionId != null">
+					selection_id,
+			</if>
+			<if test="comment != null">
+					comment,
+			</if>
+			<if test="score1 != null">
+					score1,
+			</if>
+			<if test="score2 != null">
+					score2,
+			</if>
+			<if test="score3 != null">
+					score3,
+			</if>
+			<if test="score4 != null">
+					score4,
+			</if>
+			<if test="score5 != null">
+					score5,
+			</if>
+			<if test="score6 != null">
+					score6,
+			</if>
+			<if test="total != null">
+					total
+			</if>
+		</trim>
+		values <trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+					#{id},
+			</if>
+			<if test="selectionId != null">
+					#{selectionId},
+			</if>
+			<if test="comment != null">
+					#{comment},
+			</if>
+			<if test="score1 != null">
+					#{score1},
+			</if>
+			<if test="score2 != null">
+					#{score2},
+			</if>
+			<if test="score3 != null">
+					#{score3},
+			</if>
+			<if test="score4 != null">
+					#{score4},
+			</if>
+			<if test="score5 != null">
+					#{score5},
+			</if>
+			<if test="score6 != null">
+					#{score6},
+			</if>
+			<if test="total != null">
+					#{total}
+			</if>
+		</trim>
+	</insert>
+	
 </mapper>

@@ -24,4 +24,9 @@ public class CommentDAOImpl implements CommentDAO{
 		return commentMapper.getCommentBySelectionId(selectionId);
 	}
 	
+	@Override
+	public int insertComment(Comment comment){
+		return commentMapper.insertComment(comment);
+	}
+	
 }

@@ -45,7 +45,32 @@ function commit(){
 	var c5 = $('input:radio[name=c5]:checked').val();
 	var c6 = $('input:radio[name=c6]:checked').val();
 	var content = $('#Content').val();
-	alert(content);
+	
+	var param = {};
+	param.c1 = c1;
+	param.c2 = c2;
+	param.c3 = c3;
+	param.c4 = c4;
+	param.c5 = c5;
+	param.c6 = c6;
+	param.content = content;
+	param.selectionId = '${selectionId}';
+	
+	$.ajax({
+		type:"POST",
+	    data:param,
+	    url:"<%=request.getContextPath()%>/student/addEvaluate",
+		success : function(data) {
+			if (data.error != null){
+				alert(data.error);
+				document.location.reload();
+			}
+			if (data.msg != null){
+				alert(data.msg);
+				location.href = "<%=request.getContextPath()%>/student/evaluate";
+			}
+		}
+	});
 }
 </script>
 </head>

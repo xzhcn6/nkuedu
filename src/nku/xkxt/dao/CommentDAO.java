@@ -8,4 +8,6 @@ public interface CommentDAO {
 	
 	Comment getCommentBySelectionId(String selectionId);
 	
+	int insertComment(Comment comment);
+	
 }
