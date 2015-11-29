@@ -120,4 +120,15 @@
 		</trim>
 	</insert>
 	
+	<select id="getCommentByCourseId" resultMap="Comment_ResultMap" >
+		select c.*
+		from comment c join nkuedu.selection s on s.id = c.selection_id
+		<where>
+			1=1
+			<if test="courseId != null" >
+		    	and  s.course_id = #{courseId}
+		    </if>
+		</where>
+	</select>
+	
 </mapper>

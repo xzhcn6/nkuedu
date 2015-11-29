@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import nku.core.common.VerifyCodeConstants;
 import nku.core.utils.UUIDGenerator;
+import nku.xkxt.model.Comment;
 import nku.xkxt.model.Course;
 import nku.xkxt.model.CourseTime;
 import nku.xkxt.model.SelectedCourse;
@@ -18,6 +19,7 @@ import nku.xkxt.model.SelectedStudent;
 import nku.xkxt.model.Selection;
 import nku.xkxt.model.Student;
 import nku.xkxt.service.AdminService;
+import nku.xkxt.service.CommentService;
 import nku.xkxt.service.CourseService;
 import nku.xkxt.service.CourseTimeService;
 import nku.xkxt.service.SelectionService;
@@ -45,6 +47,8 @@ public class AdminController {
 	private CourseTimeService courseTimeService;
 	@Resource
 	private SelectionService selectionService;
+	@Resource
+	private CommentService commentService;
 	
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
@@ -690,5 +694,47 @@ public class AdminController {
 			map.put("error", msg);
 			return map;
 		}
+	}
+	
+	@RequestMapping(value = "/showEvaluation")
+	public String showEvaluation(Model model,HttpServletRequest request) {
+		return "teacher/showEvaluation";
+	}
+	
+	@RequestMapping(value = "/getEvaluationByCourse")
+	@ResponseBody
+	public Map<String,Object> getEvaluationByCourse(HttpServletRequest request){
+
+		String pageNum = request.getParameter("pageNo");
+		Map<String,Object> map = new HashMap<String,Object>();
+		PageHelper.startPage(Integer.parseInt(pageNum), 10);
+		List<SelectedCourse> selectionList = selectionService.getSelectionByCourse();
+		PageInfo<SelectedCourse> page = new PageInfo<SelectedCourse>(selectionList);
+		
+		map.put("selectionList", page);
+		return map;
+	}
+	
+	@RequestMapping(value = "/showEvaluationDetial")
+	public String showEvaluationDetial(Model model,HttpServletRequest request) {
+		String courseId = request.getParameter("courseId");
+		Course course = courseService.getCourseById(courseId);
+		model.addAttribute("courseId", courseId);
+		model.addAttribute("course", course);
+		return "teacher/showEvaluationDetial";
+	}
+	
+	@RequestMapping(value = "/getEvaluationByCourseId")
+	@ResponseBody
+	public Map<String,Object> getEvaluationByCourseId(HttpServletRequest request){
+
+		String courseId = request.getParameter("courseId");
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		List<Comment> commentList = new ArrayList<Comment>();
+		commentList = commentService.getCommentByCourseId(courseId);
+		
+		map.put("commentList", commentList);
+		return map;
 	}
 }

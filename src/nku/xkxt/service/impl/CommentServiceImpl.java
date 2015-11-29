@@ -1,5 +1,7 @@
 package nku.xkxt.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +29,11 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public int insertComment(Comment comment){
 		return commentDAO.insertComment(comment);
+	}
+	
+	@Override
+	public List<Comment> getCommentByCourseId(String courseId){
+		return commentDAO.getCommentByCourseId(courseId);
 	}
 	
 }

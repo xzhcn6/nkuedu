@@ -1,5 +1,7 @@
 package nku.xkxt.dao.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import nku.xkxt.dao.CommentDAO;
@@ -27,6 +29,11 @@ public class CommentDAOImpl implements CommentDAO{
 	@Override
 	public int insertComment(Comment comment){
 		return commentMapper.insertComment(comment);
+	}
+	
+	@Override
+	public List<Comment> getCommentByCourseId(String courseId){
+		return commentMapper.getCommentByCourseId(courseId);
 	}
 	
 }
