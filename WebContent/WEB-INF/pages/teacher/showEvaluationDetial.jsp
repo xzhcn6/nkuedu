@@ -32,7 +32,7 @@
 </div>
 <div style="padding-left:70%;">
 &nbsp&nbsp&nbsp&nbsp
-<a href="getEvaluatedCourse.action?page=1">返回评教管理</a>
+<a href="<%=request.getContextPath()%>/admin/showEvaluation">返回评教管理</a>
 </div>
 </body>
 </html>
