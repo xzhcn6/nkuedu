@@ -15,6 +15,8 @@ public interface SelectionMapper {
 	
 	List<SelectedCourse> getSelectionByCourse();
 	
+	int getCourseStatus(@Param("courseId")String courseId);
+	
 	int insertSelection(Selection selection); 
 	
 	int deleteSelectionByExample(Selection selection); 

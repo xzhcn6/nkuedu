@@ -33,6 +33,11 @@ public class SelectionDAOImpl implements SelectionDAO{
 	}
 	
 	@Override
+	public int getCourseStatus(String courseId){
+		return selectionMapper.getCourseStatus(courseId);
+	}
+	
+	@Override
 	public int insertSelection(Selection selection){
 		return selectionMapper.insertSelection(selection);
 	}

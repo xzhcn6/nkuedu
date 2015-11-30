@@ -13,6 +13,8 @@ public interface SelectionDAO {
 	
 	List<SelectedCourse> getSelectionByCourse();
 	
+	int getCourseStatus(String courseId);
+	
 	int insertSelection(Selection selection); 
 	
 	int deleteSelectionByExample(Selection selection); 

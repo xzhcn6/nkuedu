@@ -34,6 +34,11 @@ public class SelectionServiceImpl implements SelectionService{
 	}
 	
 	@Override
+	public int getCourseStatus(String courseId){
+		return selectionDAO.getCourseStatus(courseId);
+	}
+	
+	@Override
 	public int insertSelection(Selection selection){
 		return selectionDAO.insertSelection(selection);
 	}

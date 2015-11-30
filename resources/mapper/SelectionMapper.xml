@@ -59,6 +59,18 @@
 		order by c.select_id
 	</select>
 	
+	<select id="getCourseStatus" resultType="int">
+		SELECT is_over 
+		FROM nkuedu.selection 
+		<where>
+			1=1
+			<if test="courseId != null" >
+		    	and course_id = #{courseId}
+		    </if>
+		</where>
+		group by course_id ;
+	</select>
+	
 	<insert id="insertSelection" parameterType="nku.xkxt.model.Selection" useGeneratedKeys="true" keyProperty="id">
 		insert into selection
 		<trim prefix="(" suffix=")" suffixOverrides=",">

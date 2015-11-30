@@ -188,6 +188,12 @@ public class StudentController {
 			return map;
 		}
 		
+		if (selectionService.getCourseStatus(course.getId()) == 1){
+			msg = "当前课程已结课，不能选择！";
+			map.put("error", msg);
+			return map;
+		}
+		
 		HttpSession session = request.getSession();
 		String stuNumStr = (String) session.getAttribute(Constants.CURRENT_USER_SESSION);
 		Student student = new Student();
