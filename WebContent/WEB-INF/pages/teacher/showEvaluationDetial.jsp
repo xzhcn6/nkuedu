@@ -24,7 +24,7 @@ $(function(){
 			if(data.commentList.length != 0){
 				$("#id_table_elist").html(template('id_table_commentlist', {data:data}));
 			} else {
-				$("#id_table_elist").html("<tr><td colspan='8'><center>暂无数据</center></td></tr>");
+				$("#id_table_elist").html("<hr><center>暂无学生评教</center><hr>");
 			}
 		}
 	});
