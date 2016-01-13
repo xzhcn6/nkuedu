@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" style="text/html" href="<%=request.getContextPath()%>/static/CSS/manage/login.css">
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
-<script type="text/javascript"  charset="utf-8" src="<%=request.getContextPath()%>/static/JS/mlogin.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/JS/mlogin.js"></script>
 <title>管理登陆</title>
 </head>
 <script type="text/javascript">     
